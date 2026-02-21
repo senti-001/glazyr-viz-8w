@@ -43,7 +43,7 @@ export function Hero() {
           <div className="relative">
             <div className="absolute inset-0 rounded-full animate-pulse-ring bg-primary/10 scale-150" />
             <Image
-              src="/images/glazyr-logo.png"
+              src="/images/glazyr-emblem.png"
               alt="Glazyr Viz"
               width={120}
               height={120}

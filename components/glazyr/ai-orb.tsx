@@ -19,7 +19,7 @@ export function AiOrb() {
           <X className="h-6 w-6 text-primary" />
         ) : (
           <Image
-            src="/images/glazyr-logo.png"
+            src="/images/glazyr-emblem.png"
             alt="Senti AI"
             width={40}
             height={40}
@@ -35,7 +35,7 @@ export function AiOrb() {
           <div className="flex items-center gap-3 border-b border-border/50 px-5 py-4">
             <div className="relative">
               <Image
-                src="/images/glazyr-logo.png"
+                src="/images/glazyr-emblem.png"
                 alt="Senti AI"
                 width={32}
                 height={32}

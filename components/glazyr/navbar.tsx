@@ -20,7 +20,7 @@ export function Navbar() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 group">
           <Image
-            src="/images/glazyr-logo.png"
+            src="/images/glazyr-emblem.png"
             alt="Glazyr Viz Logo"
             width={40}
             height={40}
