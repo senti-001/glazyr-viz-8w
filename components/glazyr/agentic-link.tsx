@@ -67,7 +67,7 @@ export function AgenticLink() {
                     <Zap className="h-4 w-4 text-emerald-400" />
                     <span className="text-sm font-semibold text-foreground">Open Source Agent UCP</span>
                   </div>
-                  <span className="text-xs text-muted-foreground ml-6">Track contributions and deploy reference implementations.</span>
+                  <span className="text-xs text-muted-foreground ml-6">Deploy reference implementations.</span>
                 </div>
               </div>
 

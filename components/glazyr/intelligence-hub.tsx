@@ -19,7 +19,7 @@ const capabilities = [
     icon: Layers,
     title: "Intelligence Consolidation",
     description:
-      "Merging telemetry, bounties, and intelligence into a single unified command interface.",
+      "Merging telemetry and intelligence into a single unified command interface.",
   },
   {
     icon: Sparkles,
