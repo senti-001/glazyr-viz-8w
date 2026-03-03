@@ -1,0 +1,41 @@
+[
+    {
+        "id": "NC-BTY-001",
+        "title": "NC-BTY-001: IPI Shield",
+        "description": "Implement Indirect Prompt Injection protection for the Agentic Fork. Build detection and scrubbing for hidden text attacks, plus Semantic Provenance tracking to verify content authenticity.",
+        "difficulty": "Expert",
+        "scope": "~2,500 LOC, C++ & Python",
+        "reward": "2,500,000 $NEURAL",
+        "tags": [
+            "C++",
+            "Security",
+            "NLP"
+        ]
+    },
+    {
+        "id": "NC-BTY-002",
+        "title": "NC-BTY-002: Semantic DOM Pointer",
+        "description": "Build intent-based DOM mapping system for low-latency agentic interaction. Enable agents to reference elements by semantic intent (e.g., @buy_button) rather than fragile CSS selectors.",
+        "difficulty": "Advanced",
+        "scope": "~1,800 LOC, C++ & JavaScript",
+        "reward": "1,500,000 $NEURAL",
+        "tags": [
+            "DOM API",
+            "JavaScript",
+            "Chromium"
+        ]
+    },
+    {
+        "id": "NC-BTY-003",
+        "title": "NC-BTY-003: Identity Vaporization",
+        "description": "Implement automated session shredding logic for clean-state agentic sessions. Ensure complete identity reset between agent tasks with zero residual fingerprinting data.",
+        "difficulty": "Advanced",
+        "scope": "~1,200 LOC, C++",
+        "reward": "1,000,000 $NEURAL",
+        "tags": [
+            "Privacy",
+            "C++",
+            "Session Management"
+        ]
+    }
+]
