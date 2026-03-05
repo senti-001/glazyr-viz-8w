@@ -6,23 +6,23 @@ export function PricingSection() {
     const features = [
         {
             icon: <Cpu className="h-5 w-5 text-primary" />,
-            title: "$0.01 — Pulse",
-            description: "110ms Sensory Audits. Perfect for monitoring price drops, 'Buy' buttons, and system heartbeats."
+            title: "Free — Community",
+            description: "10,000 Frames / 200ms Latency. Perfect for local dev, testing vision-agents, and community builders."
         },
         {
             icon: <Link className="h-5 w-5 text-primary" />,
-            title: "$0.10 — Optic",
-            description: "Usage-Based Unit Economics. Full visual perception and action at machine speed. Pay as you perceive."
+            title: "$8/mo — Nexus",
+            description: "400,000 Frames / 7.35ms Latency. High-performance vision hosted on our Big Iron GCP cluster."
+        },
+        {
+            icon: <Zap className="h-5 w-5 text-primary" />,
+            title: "57 FPS — Optic Surge",
+            description: "Verified stability for 30,000+ active entities. Zero jitter, hardware-level frame synchronization."
         },
         {
             icon: <ShieldCheck className="h-5 w-5 text-primary" />,
-            title: "$0.50 — Hyperion",
-            description: "Tier-4 Hardened CI/CD. 99.9% uptime for massive parallel browser clusters. Managed infrastructure."
-        },
-        {
-            icon: <CreditCard className="h-5 w-5 text-primary" />,
             title: "Custom — Enterprise",
-            description: "On-premise deployment with full Anti-Bot Stealth Core and hardware-level isolation."
+            description: "Multi-Region clusters with 1.5ms DMA latency. Dedicated Big Iron instances with full isolation."
         }
     ]
 

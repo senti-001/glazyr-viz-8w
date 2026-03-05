@@ -56,7 +56,7 @@ export function Hero() {
 
                 {/* Subline */}
                 <p className="mx-auto max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    Autonomous systems require <strong>110ms Sensory Audits</strong>. See what the agent sees, instantly. Unlimited parallelism and built-in Anti-Bot Stealth.
+                    Autonomous systems require <strong>7.35ms Zero-Copy latency</strong>. See what the agent sees, instantly. Unlimited parallelism and built-in Anti-Bot Stealth.
                 </p>
 
                 {/* CTAs */}
@@ -86,8 +86,8 @@ export function Hero() {
                 {/* Metric Strip */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                     {[
-                        { value: "110ms", label: "Sensory Audit" },
-                        { value: "Usage-Based", label: "Unit Economics" },
+                        { value: "7.3ms", label: "Zero-Copy" },
+                        { value: "$8/mo", label: "Nexus Tier" },
                         { value: "Hardened", label: "CI/CD Pipeline" },
                         { value: "Stealth", label: "Anti-Bot Core" },
                     ].map((stat) => (
