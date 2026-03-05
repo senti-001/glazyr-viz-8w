@@ -1,28 +1,28 @@
 "use client"
 
-import { ShieldCheck, CreditCard, Cpu, Link } from "lucide-react"
+import { ShieldCheck, CreditCard, Cpu, Link, Zap } from "lucide-react"
 
 export function PricingSection() {
     const features = [
         {
             icon: <Cpu className="h-5 w-5 text-primary" />,
-            title: "Free — Community",
-            description: "10,000 Frames / 200ms Latency. Perfect for local dev, testing vision-agents, and community builders."
+            title: "Beta Validator",
+            description: "Free. Unlimited for proof-of-tech. Help us verify 57 FPS / 7.3ms benchmarks on our Big Iron cluster."
         },
         {
             icon: <Link className="h-5 w-5 text-primary" />,
-            title: "$8/mo — Nexus",
-            description: "400,000 Frames / 7.35ms Latency. High-performance vision hosted on our Big Iron GCP cluster."
+            title: "Nexus Credits",
+            description: "Prepaid Vision. No subscriptions. Pay-as-you-perceive once we move out of Beta."
         },
         {
             icon: <Zap className="h-5 w-5 text-primary" />,
-            title: "57 FPS — Optic Surge",
-            description: "Verified stability for 30,000+ active entities. Zero jitter, hardware-level frame synchronization."
+            title: "Hyperscaler Tier",
+            description: "Optimized for massive token savings. We only charge when we measurably reduce your API costs."
         },
         {
             icon: <ShieldCheck className="h-5 w-5 text-primary" />,
             title: "Custom — Enterprise",
-            description: "Multi-Region clusters with 1.5ms DMA latency. Dedicated Big Iron instances with full isolation."
+            description: "Dedicated Big Iron clusters for 24/7 vision-agents. 1.5ms DMA latency and full isolation."
         }
     ]
 

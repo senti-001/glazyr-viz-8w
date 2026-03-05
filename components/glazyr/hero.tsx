@@ -87,7 +87,7 @@ export function Hero() {
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                     {[
                         { value: "7.3ms", label: "Zero-Copy" },
-                        { value: "$8/mo", label: "Nexus Tier" },
+                        { value: "Free", label: "Beta Validator" },
                         { value: "Hardened", label: "CI/CD Pipeline" },
                         { value: "Stealth", label: "Anti-Bot Core" },
                     ].map((stat) => (
