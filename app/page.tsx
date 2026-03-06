@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/glazyr/navbar"
 import { Hero } from "@/components/glazyr/hero"
-import { TelemetryDashboard } from "@/components/glazyr/telemetry-dashboard"
-import { IntelligenceHub } from "@/components/glazyr/intelligence-hub"
+import { TokenSavings } from "@/components/glazyr/token-savings"
 import { AgenticLink } from "@/components/glazyr/agentic-link"
 import { PricingSection } from "@/components/glazyr/pricing-section"
 import { Footer } from "@/components/glazyr/footer"
@@ -12,9 +11,8 @@ export default function GlazyrHome() {
       <Navbar />
       <main>
         <Hero />
-        <TelemetryDashboard />
+        <TokenSavings />
         <PricingSection />
-        <IntelligenceHub />
         <AgenticLink />
       </main>
       <Footer />

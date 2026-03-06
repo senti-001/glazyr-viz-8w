@@ -4,11 +4,6 @@ import Image from "next/image"
 import { ArrowRight, Zap } from "lucide-react"
 import dynamic from "next/dynamic"
 
-const TerminalNode = dynamic(
-    () => import("@/components/glazyr/terminal-node").then((mod) => mod.TerminalNode),
-    { ssr: false }
-)
-
 const BigIronTicker = dynamic(
     () => import("@/components/glazyr/big-iron-ticker").then((mod) => mod.BigIronTicker),
     { ssr: false }
@@ -60,20 +55,13 @@ export function Hero() {
                 </p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
                     <a
                         href="#agentic-link"
                         className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-all glow-cyan-subtle"
                     >
                         <Zap className="h-4 w-4" />
                         Fetch Viz Schema
-                    </a>
-                    <a
-                        href="#terminal"
-                        className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-8 py-3.5 text-base font-semibold text-secondary-foreground hover:bg-secondary/80 hover:border-primary/30 transition-all"
-                    >
-                        Launch Headless Node
-                        <ArrowRight className="h-4 w-4" />
                     </a>
                 </div>
 
@@ -86,10 +74,9 @@ export function Hero() {
                     <span>VIZ_SUBSYSTEM: ZERO_COPY_DMA</span>
                 </div>
 
-                {/* Interactive Terminal */}
-                <div className="mt-16 mx-auto max-w-2xl space-y-8">
+                {/* System Ticker */}
+                <div className="mt-10 md:mt-16 mx-auto max-w-2xl space-y-8">
                     <BigIronTicker />
-                    <TerminalNode />
                 </div>
 
                 {/* Metric Strip */}

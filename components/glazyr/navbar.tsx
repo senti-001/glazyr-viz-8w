@@ -5,8 +5,6 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Pulse", href: "#pulse" },
-  { label: "Intelligence", href: "#intelligence" },
   { label: "Agentic Link", href: "#agentic-link" },
 ]
 
