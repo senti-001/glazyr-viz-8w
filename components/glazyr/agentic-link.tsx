@@ -76,7 +76,7 @@ export function AgenticLink() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
                     <span className="text-muted-foreground select-none">$</span>
-                    <span className="text-emerald-400 font-semibold select-all">npx glazyrviz start</span>
+                    <span className="text-emerald-400 font-semibold select-all">npx -y @modelcontextprotocol/inspector sse "https://mcp.glazyr.com/mcp/sse"</span>
                   </div>
                   <div className="flex shrink-0 items-center justify-center h-8 w-8 rounded-lg bg-emerald-500/10 text-emerald-500/70 hover:text-emerald-400 hover:bg-emerald-500/20 cursor-pointer transition-colors" title="Copy to clipboard (Coming soon)">
                     <Code className="h-4 w-4" />
