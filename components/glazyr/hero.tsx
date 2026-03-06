@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowRight, Zap } from "lucide-react"
+import { Zap, Copy, Check } from "lucide-react"
+import { useState } from "react"
 import dynamic from "next/dynamic"
 
 const BigIronTicker = dynamic(
@@ -10,6 +11,20 @@ const BigIronTicker = dynamic(
 )
 
 export function Hero() {
+    const [activeTab, setActiveTab] = useState<'python' | 'typescript'>('python');
+    const [copied, setCopied] = useState(false);
+
+    const snippets = {
+        python: 'from mcp.client.sse import SSEClientTransport\n\ntransport = SSEClientTransport(url="https://mcp.glazyr.com/mcp/sse")',
+        typescript: 'import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";\n\nconst transport = new SSEClientTransport(new URL("https://mcp.glazyr.com/mcp/sse"));'
+    };
+
+    const copyCommand = () => {
+        navigator.clipboard.writeText(snippets[activeTab]);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
             {/* Background radial glow */}
@@ -54,14 +69,50 @@ export function Hero() {
                     Autonomous systems require <strong>7.35ms Zero-Copy latency</strong>. See what the agent sees, instantly. Unlimited parallelism and built-in Anti-Bot Stealth.
                 </p>
 
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                {/* Interactive MCP CTA */}
+                <div className="flex flex-col items-center justify-center gap-6 mb-10 w-full max-w-2xl mx-auto">
+                    <div className="relative w-full group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-primary rounded-xl blur opacity-20 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                        <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-white/10 rounded-xl shadow-2xl overflow-hidden text-left">
+                            <div className="flex items-center border-b border-white/5 bg-white/5 px-4 py-2 gap-4">
+                                <button
+                                    onClick={() => setActiveTab('python')}
+                                    className={`text-xs font-semibold tracking-wide transition-colors ${activeTab === 'python' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                >
+                                    Python
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('typescript')}
+                                    className={`text-xs font-semibold tracking-wide transition-colors ${activeTab === 'typescript' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                >
+                                    TypeScript
+                                </button>
+                            </div>
+                            <div className="flex items-start justify-between p-4 md:p-5">
+                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed">
+                                    <code>{snippets[activeTab]}</code>
+                                </pre>
+                                <button
+                                    onClick={copyCommand}
+                                    className="ml-3 sm:ml-4 p-2 sm:p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-zinc-400 hover:text-white transition-all focus:outline-none flex-shrink-0 group/btn"
+                                    aria-label="Copy snippet"
+                                >
+                                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />}
+                                </button>
+                            </div>
+                        </div>
+                        {/* Floating Tooltip instruction */}
+                        <div className="absolute -top-3 right-4 sm:-right-4 px-3 py-1 bg-primary text-primary-foreground text-[10px] font-bold tracking-widest uppercase rounded-full shadow-lg transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                            Integrate Now
+                        </div>
+                    </div>
+
                     <a
                         href="#agentic-link"
-                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-all glow-cyan-subtle"
+                        className="inline-flex items-center gap-2 rounded-lg bg-primary/10 border border-primary/20 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all glow-cyan-subtle"
                     >
                         <Zap className="h-4 w-4" />
-                        Fetch Viz Schema
+                        Explore Infrastructure
                     </a>
                 </div>
 

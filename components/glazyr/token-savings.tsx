@@ -19,7 +19,7 @@ export function TokenSavings() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {/* Traditional CDP Card */}
-                    <div className="p-8 rounded-3xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors">
+                    <div className="p-8 rounded-3xl bg-zinc-950 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 hover:shadow-[0_0_30px_rgba(255,255,255,0.03)] transition-all duration-500">
                         <div>
                             <div className="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6">
                                 <Target className="w-6 h-6 text-zinc-500" />
@@ -47,8 +47,8 @@ export function TokenSavings() {
                     </div>
 
                     {/* Glazyr Viz Card */}
-                    <div className="p-8 rounded-3xl bg-zinc-950 border border-blue-500/30 flex flex-col justify-between relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="p-8 rounded-3xl bg-zinc-950/80 border border-blue-500/30 flex flex-col justify-between relative overflow-hidden group hover:border-blue-400/50 hover:shadow-[0_0_40px_rgba(0,229,255,0.15)] transition-all duration-500">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                         <div className="relative z-10">
                             <div className="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6">

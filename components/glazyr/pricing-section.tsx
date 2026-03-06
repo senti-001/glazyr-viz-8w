@@ -43,7 +43,7 @@ export function PricingSection() {
                 </div>
 
                 {/* Unit Economics Comparison */}
-                <div className="max-w-4xl mx-auto mb-20 p-8 rounded-2xl border border-primary/20 bg-background/50 backdrop-blur-sm relative overflow-hidden">
+                <div className="max-w-4xl mx-auto mb-20 p-8 rounded-2xl border border-primary/20 bg-background/50 backdrop-blur-md relative overflow-hidden shadow-[0_0_50px_rgba(0,229,255,0.05)] hover:border-primary/40 hover:shadow-[0_0_80px_rgba(0,229,255,0.1)] transition-all duration-500">
                     <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
                         <Zap className="w-48 h-48 text-primary" />
                     </div>
