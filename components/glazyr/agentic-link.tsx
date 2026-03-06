@@ -1,4 +1,4 @@
-import { Link2, ArrowRight, Shield, Zap, Globe, Code, Wallet, ArrowUpRight, Cpu } from "lucide-react"
+import { Link2, ArrowRight, Shield, Zap, Globe, Code, Wallet, ArrowUpRight, Cpu, Activity } from "lucide-react"
 
 export function AgenticLink() {
   return (
@@ -86,54 +86,52 @@ export function AgenticLink() {
             </div>
           </div>
 
-          {/* Path B: Strategic Hub */}
-          <div className="group relative rounded-2xl border border-primary/20 bg-background/50 backdrop-blur-sm p-8 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_40px_-10px_rgba(66,133,244,0.15)] overflow-hidden">
+          {/* Path B: Sovereign Telemetry & Vision Schema */}
+          <div className="group relative rounded-2xl border border-primary/20 bg-background/50 backdrop-blur-sm p-6 sm:p-8 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_40px_-10px_rgba(66,133,244,0.15)] overflow-hidden flex flex-col h-full">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <Shield className="w-32 h-32 text-primary" />
+              <Code className="w-32 h-32 text-primary" />
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex-grow">
               <div className="flex items-center justify-between mb-8">
-                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                  <Wallet className="h-6 w-6 text-primary" />
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex shrink-0 items-center justify-center border border-primary/20">
+                  <Activity className="h-6 w-6 text-primary" />
                 </div>
-                <span className="text-xs font-mono font-bold text-primary uppercase tracking-widest px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-                  Path B
-                </span>
+                <div className="flex items-center gap-2 ml-2">
+                  <span className="hidden sm:inline-block text-[10px] sm:text-xs font-mono font-bold text-red-400 border border-red-500/20 bg-red-500/10 px-2 py-1 rounded">
+                    VS OCR: -92% TOKENS
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-mono font-bold text-primary uppercase tracking-widest px-2 sm:px-3 py-1 rounded-full bg-primary/10 border border-primary/20 whitespace-nowrap">
+                    Structured Yield
+                  </span>
+                </div>
               </div>
 
-              <h3 className="text-2xl font-bold text-foreground mb-4">Strategic Hub</h3>
-              <p className="text-muted-foreground mb-8 min-h-[80px]">
-                Direct access for enterprise partners and $USDC investors requiring concierge services or white-labeled integrations.
+              <h3 className="text-2xl font-bold text-foreground mb-4">Vision Schema Output</h3>
+              <p className="text-muted-foreground mb-6 min-h-[48px]">
+                Zero-copy extraction guarantees clean structural representation.
+                INPUT: 1 Frame | YIELD: 177 Structured Tokens.
               </p>
 
-              {/* Mini Features */}
-              <div className="space-y-4 mb-10">
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Shield className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-semibold text-foreground">Concierge Support</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground ml-6">Priority routing for enterprise deployment architectures.</span>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Wallet className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-semibold text-foreground">$NEURAL Economy Integration</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground ml-6">Direct onboarding into the x402 Commerce Loop.</span>
-                </div>
+              {/* Code Snippet block */}
+              <div className="relative rounded-xl bg-black/80 border border-primary/20 p-4 sm:p-5 font-mono text-[10px] sm:text-xs md:text-sm shadow-inner overflow-hidden mb-2">
+                <div className="absolute top-0 left-0 w-1 h-full bg-primary/50" />
+                <pre className="text-emerald-400/90 overflow-x-auto scrollbar-hide">
+                  <code>
+                    {`{
+  "node_id": "div#submit-btn",
+  "bounds": [1024, 768, 120, 40],
+  "attributes": {
+    "role": "button",
+    "aria-label": "Execute Pipeline",
+    "disabled": false
+  },
+  "interactive": true,
+  "confidence": 0.99
+}`}
+                  </code>
+                </pre>
               </div>
-
-              <a
-                href="https://form.typeform.com/to/xumIGJOz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-between rounded-xl bg-primary px-6 py-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-all glow-cyan"
-              >
-                Submit Partner Inquiry
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </a>
             </div>
           </div>
 

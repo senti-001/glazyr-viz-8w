@@ -49,9 +49,9 @@ export function Hero() {
 
                 {/* Headline */}
                 <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight text-balance mb-6">
-                    The High-Performance
+                    The Zero-Copy
                     <br />
-                    <span className="text-primary">Browser for Agents</span>
+                    <span className="text-primary">Optic Nerve for AI</span>
                 </h1>
 
                 {/* Subline */}
@@ -60,21 +60,30 @@ export function Hero() {
                 </p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
                     <a
-                        href="#pricing"
+                        href="#agentic-link"
                         className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-all glow-cyan-subtle"
                     >
                         <Zap className="h-4 w-4" />
-                        Start Now
+                        Fetch Viz Schema
                     </a>
                     <a
-                        href="#agentic-link"
+                        href="#terminal"
                         className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-8 py-3.5 text-base font-semibold text-secondary-foreground hover:bg-secondary/80 hover:border-primary/30 transition-all"
                     >
-                        Watch Proof
+                        Launch Headless Node
                         <ArrowRight className="h-4 w-4" />
                     </a>
+                </div>
+
+                {/* Technical Specs Footer */}
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs font-mono text-muted-foreground/60 tracking-widest uppercase">
+                    <span>TARGET_ENV: GCE_N2_STANDARD_8</span>
+                    <span className="hidden sm:block w-1 h-1 rounded-full bg-primary/30" />
+                    <span>ARCH: CASCADE_LAKE</span>
+                    <span className="hidden sm:block w-1 h-1 rounded-full bg-primary/30" />
+                    <span>VIZ_SUBSYSTEM: ZERO_COPY_DMA</span>
                 </div>
 
                 {/* Interactive Terminal */}

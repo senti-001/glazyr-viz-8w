@@ -30,10 +30,53 @@ export function PricingSection() {
         <section id="pricing" className="py-24 relative overflow-hidden text-white bg-background">
             <div className="container mx-auto px-6">
                 <div className="max-w-3xl mx-auto text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">Built for the Speed of AI</h2>
-                    <p className="text-xl text-muted-foreground">
-                        Stop waiting for screenshots. Give your agents direct-to-GPU frame access with usage-based unit economics.
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary mb-6">
+                        <Cpu className="h-4 w-4" />
+                        <span className="text-xs font-mono font-medium uppercase tracking-widest">
+                            Compute Unit Economics
+                        </span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">The 10x Compute Advantage</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-balance">
+                        Stop burning budget on raw pixel arrays. Sovereign agents require structural data semantics delivered at a fraction of the cost.
                     </p>
+                </div>
+
+                {/* Unit Economics Comparison */}
+                <div className="max-w-4xl mx-auto mb-20 p-8 rounded-2xl border border-primary/20 bg-background/50 backdrop-blur-sm relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                        <Zap className="w-48 h-48 text-primary" />
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-8 relative z-10 text-center sm:text-left">Vision Processing Cost (per 1M frames)</h3>
+
+                    <div className="space-y-6 relative z-10 font-mono">
+                        {/* Standard OCR Bar */}
+                        <div>
+                            <div className="flex justify-between text-sm mb-2">
+                                <span className="text-muted-foreground">Standard VLM / OCR</span>
+                                <span className="text-red-400 font-bold">~$15,000</span>
+                            </div>
+                            <div className="w-full h-8 bg-secondary/50 rounded-r-lg overflow-hidden border border-red-500/20">
+                                <div className="h-full bg-red-500/20 w-full animate-pulse"></div>
+                            </div>
+                            <div className="text-xs text-muted-foreground/60 mt-1">Cost metric: ~$0.015 per frame payload</div>
+                        </div>
+
+                        {/* Glazyr SHM Bar */}
+                        <div>
+                            <div className="flex justify-between text-sm mb-2">
+                                <span className="text-foreground font-semibold">Glazyr Zero-Copy SHM</span>
+                                <span className="text-primary font-bold">~$1,000</span>
+                            </div>
+                            <div className="w-full h-8 bg-secondary/50 rounded-r-lg overflow-hidden border border-primary/20">
+                                <div className="h-full bg-primary/80 w-[6.6%] relative">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                                </div>
+                            </div>
+                            <div className="text-xs text-primary/60 mt-1">Cost metric: ~$0.001 per structured yield</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
