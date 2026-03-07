@@ -11,10 +11,11 @@ const BigIronTicker = dynamic(
 )
 
 export function Hero() {
-    const [activeTab, setActiveTab] = useState<'python' | 'typescript'>('python');
+    const [activeTab, setActiveTab] = useState<'npx' | 'python' | 'typescript'>('npx');
     const [copied, setCopied] = useState(false);
 
     const snippets = {
+        npx: 'npx -y @modelcontextprotocol/inspector sse "https://mcp.glazyr.com/mcp/sse"',
         python: 'from mcp.client.sse import SSEClientTransport\n\ntransport = SSEClientTransport(url="https://mcp.glazyr.com/mcp/sse")',
         typescript: 'import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";\n\nconst transport = new SSEClientTransport(new URL("https://mcp.glazyr.com/mcp/sse"));'
     };
@@ -74,10 +75,16 @@ export function Hero() {
                     <div className="relative w-full group">
                         <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-primary rounded-xl blur opacity-20 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
                         <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-white/10 rounded-xl shadow-2xl overflow-hidden text-left">
-                            <div className="flex items-center border-b border-white/5 bg-white/5 px-4 py-2 gap-4">
+                            <div className="flex items-center border-b border-white/5 bg-white/5 px-4 py-2 gap-4 overflow-x-auto">
+                                <button
+                                    onClick={() => setActiveTab('npx')}
+                                    className={`whitespace-nowrap text-xs font-semibold tracking-wide transition-colors ${activeTab === 'npx' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                >
+                                    NPX CLI
+                                </button>
                                 <button
                                     onClick={() => setActiveTab('python')}
-                                    className={`text-xs font-semibold tracking-wide transition-colors ${activeTab === 'python' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                    className={`whitespace-nowrap text-xs font-semibold tracking-wide transition-colors ${activeTab === 'python' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
                                 >
                                     Python
                                 </button>
@@ -88,13 +95,9 @@ export function Hero() {
                                     TypeScript
                                 </button>
                             </div>
-                            <div className="flex items-start justify-between p-4 md:p-5" aria-label={`Glazyr Viz Integration Command: ${snippets[activeTab]}`}>
-                                <div className="sr-only">
-                                    To connect to the Glazyr VisionEngine MCP, run this command:
-                                    npx -y @modelcontextprotocol/inspector sse "https://mcp.glazyr.com/mcp/sse"
-                                </div>
-                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed" title="NPM MCP Transport Command">
-                                    <code className="language-typescript">{snippets[activeTab]}</code>
+                            <div className="flex items-start justify-between p-4 md:p-5">
+                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed" title="MCP Transport Command">
+                                    <code className={activeTab === 'npx' ? 'language-bash' : 'language-typescript'}>{snippets[activeTab]}</code>
                                 </pre>
                                 <button
                                     onClick={copyCommand}
