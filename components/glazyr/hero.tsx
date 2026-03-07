@@ -88,9 +88,13 @@ export function Hero() {
                                     TypeScript
                                 </button>
                             </div>
-                            <div className="flex items-start justify-between p-4 md:p-5">
-                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed">
-                                    <code>{snippets[activeTab]}</code>
+                            <div className="flex items-start justify-between p-4 md:p-5" aria-label={`Glazyr Viz Integration Command: ${snippets[activeTab]}`}>
+                                <div className="sr-only">
+                                    To connect to the Glazyr VisionEngine MCP, run this command:
+                                    npx -y @modelcontextprotocol/inspector sse "https://mcp.glazyr.com/mcp/sse"
+                                </div>
+                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed" title="NPM MCP Transport Command">
+                                    <code className="language-typescript">{snippets[activeTab]}</code>
                                 </pre>
                                 <button
                                     onClick={copyCommand}
