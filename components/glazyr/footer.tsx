@@ -4,15 +4,13 @@ const footerLinks = [
   {
     heading: "Platform",
     links: [
-      { label: "Pulse", href: "#pulse" },
-      { label: "Intelligence", href: "#intelligence" },
-      { label: "Agentic Link", href: "#agentic-link" },
+      { label: "Our Technology", href: "/technology" },
     ],
   },
   {
-    heading: "Ecosystem",
+    heading: "Legal",
     links: [
-      { label: "Architecture Overview", href: "https://www.reddit.com/r/AI_Agents/comments/1rb4jya/comment/o6u7tty/" },
+      { label: "Privacy Policy", href: "/privacy" },
     ],
   },
 ]
@@ -37,8 +35,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The Zero-Copy Agentic Platform. Where high-frequency DOM extraction
-              meets autonomous action.
+              The Agentic Platform. Where high-speed DOM extraction meets autonomous action.
             </p>
           </div>
 

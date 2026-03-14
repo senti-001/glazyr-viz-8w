@@ -21,26 +21,10 @@ export function BuildLedger() {
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        async function fetchCommits() {
+        const fetchCommits = async () => {
             try {
-                // Fetch commits that modified README.md
-                const headers: HeadersInit = {}
-
-                // Add GitHub token if available (from environment variable)
-                const githubToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN
-                if (githubToken) {
-                    headers['Authorization'] = `Bearer ${githubToken}`
-                }
-
-                const response = await fetch(
-                    "https://api.github.com/repos/senti-001/neural-chromium/commits?path=README.md&per_page=5",
-                    { headers }
-                )
-
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.statusText}`)
-                }
-
+                const response = await fetch("/api/github/ledger")
+                if (!response.ok) throw new Error(`Status: ${response.status}`)
                 const data = await response.json()
                 setCommits(data)
             } catch (err) {
@@ -49,7 +33,6 @@ export function BuildLedger() {
                 setLoading(false)
             }
         }
-
         fetchCommits()
     }, [])
 

@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Zap, Copy, Check } from "lucide-react"
 import { useState } from "react"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 
 const BigIronTicker = dynamic(
     () => import("@/components/glazyr/big-iron-ticker").then((mod) => mod.BigIronTicker),
@@ -66,83 +67,39 @@ export function Hero() {
                 </h1>
 
                 {/* Subline */}
-                <p className="mx-auto max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    Autonomous systems require <strong>7.35ms Zero-Copy latency</strong>. See what the agent sees, instantly. Unlimited parallelism and built-in Anti-Bot Stealth.
+                <p className="mx-auto max-w-3xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
+                    Cut out the slow, expensive screenshot loop. Glazyr Viz gives your AI agents <strong>direct access to the browser's shared memory (SHM) buffer</strong>. See the DOM render instantly at 57 FPS with zero network overhead.
                 </p>
 
-                {/* Interactive MCP CTA */}
+                {/* High-Conversion CTA Funnel */}
                 <div className="flex flex-col items-center justify-center gap-6 mb-10 w-full max-w-2xl mx-auto">
-                    <div className="relative w-full group">
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-primary rounded-xl blur opacity-20 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                        <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-white/10 rounded-xl shadow-2xl overflow-hidden text-left">
-                            <div className="flex items-center border-b border-white/5 bg-white/5 px-4 py-2 gap-4 overflow-x-auto">
-                                <button
-                                    onClick={() => setActiveTab('npx')}
-                                    className={`whitespace-nowrap text-xs font-semibold tracking-wide transition-colors ${activeTab === 'npx' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                >
-                                    NPX CLI
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('python')}
-                                    className={`whitespace-nowrap text-xs font-semibold tracking-wide transition-colors ${activeTab === 'python' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                >
-                                    Python
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('typescript')}
-                                    className={`text-xs font-semibold tracking-wide transition-colors ${activeTab === 'typescript' ? 'text-primary' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                >
-                                    TypeScript
-                                </button>
-                            </div>
-                            <div className="flex items-start justify-between p-4 md:p-5">
-                                <pre className="text-[10px] sm:text-xs md:text-sm font-mono text-zinc-300 overflow-x-auto w-full leading-relaxed" title="MCP Transport Command">
-                                    <code className={activeTab === 'npx' ? 'language-bash' : 'language-typescript'}>{snippets[activeTab]}</code>
-                                </pre>
-                                <button
-                                    onClick={copyCommand}
-                                    className="ml-3 sm:ml-4 p-2 sm:p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-zinc-400 hover:text-white transition-all focus:outline-none flex-shrink-0 group/btn"
-                                    aria-label="Copy snippet"
-                                >
-                                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />}
-                                </button>
-                            </div>
-                        </div>
-                        {/* Floating Tooltip instruction */}
-                        <div className="absolute -top-3 right-4 sm:-right-4 px-3 py-1 bg-primary text-primary-foreground text-[10px] font-bold tracking-widest uppercase rounded-full shadow-lg transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                            Integrate Now
-                        </div>
-                    </div>
-
-                    <a
-                        href="#agentic-link"
-                        className="inline-flex items-center gap-2 rounded-lg bg-primary/10 border border-primary/20 px-8 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all glow-cyan-subtle"
+                    <Link
+                        href="/auth/signin"
+                        className="group relative inline-flex items-center gap-3 rounded-2xl bg-primary px-10 py-5 text-lg font-bold text-primary-foreground transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_-10px_var(--primary-glow)] hover:shadow-[0_0_60px_-5px_var(--primary-glow)]"
                     >
-                        <Zap className="h-4 w-4" />
-                        Explore Infrastructure
-                    </a>
+                        <Zap className="h-6 w-6 fill-current" />
+                        Get Your API Key
+                        <div className="absolute -inset-1 rounded-2xl bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                    <p className="text-sm text-muted-foreground font-mono uppercase tracking-[0.2em]">
+                        1,000,000 FREE CREDITS on register
+                    </p>
                 </div>
 
-                {/* Technical Specs Footer */}
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs font-mono text-muted-foreground/60 tracking-widest uppercase">
-                    <span>TARGET_ENV: GCE_N2_STANDARD_8</span>
-                    <span className="hidden sm:block w-1 h-1 rounded-full bg-primary/30" />
-                    <span>ARCH: CASCADE_LAKE</span>
-                    <span className="hidden sm:block w-1 h-1 rounded-full bg-primary/30" />
-                    <span>VIZ_SUBSYSTEM: ZERO_COPY_DMA</span>
-                </div>
-
-                {/* System Ticker */}
-                <div className="mt-10 md:mt-16 mx-auto max-w-2xl space-y-8">
-                    <BigIronTicker />
+                {/* Clean Value Proposition */}
+                <div className="mt-12 md:mt-16 mx-auto max-w-2xl text-center">
+                    <p className="text-base md:text-lg text-muted-foreground font-medium">
+                        A browser built strictly for AI agents.<br className="hidden sm:block" />
+                        <span className="text-primary glow-cyan-subtle">Maximum speed. Maximum token efficiency.</span>
+                    </p>
                 </div>
 
                 {/* Metric Strip */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
                     {[
-                        { value: "7.3ms", label: "Zero-Copy" },
-                        { value: "Free", label: "Beta Validator" },
-                        { value: "Hardened", label: "CI/CD Pipeline" },
+                        { value: "7.3ms", label: "Shared Memory Fetch" },
+                        { value: "0x", label: "Base64 Encoding" },
+                        { value: "Hardened", label: "NATS Bridge" },
                         { value: "Stealth", label: "Anti-Bot Core" },
                     ].map((stat) => (
                         <div

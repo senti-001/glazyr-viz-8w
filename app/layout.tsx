@@ -6,6 +6,8 @@ import './globals.css'
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+import { AuthProvider } from '@/components/auth-provider'
+
 export const metadata: Metadata = {
     title: 'Glazyr Viz - The Zero-Copy Agentic Platform',
     description: 'The primary interface for the Glazyr Viz ecosystem. High-frequency autonomy and zero-copy perception.',
@@ -43,7 +45,9 @@ export default function RootLayout({
                         `,
                     }}
                 />
-                {children}
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
                 {/* <Analytics /> */}
                 {/* <ElevenLabsWidget /> */}
             </body>
