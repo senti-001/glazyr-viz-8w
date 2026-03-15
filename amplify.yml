@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm install --legacy-peer-deps
+        - env | grep -e "GITHUB_" -e "GOOGLE_" -e "REDIS_" -e "NEXTAUTH_" -e "STRIPE_" -e "NEXT_PUBLIC_" >> .env.production
     build:
       commands:
         - npm run build
