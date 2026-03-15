@@ -44,29 +44,38 @@ export function PricingSection() {
             icon: <Cpu className="h-5 w-5 text-primary" />,
             title: "Beta Validator",
             price: "$0",
-            credits: "1M Free Frames",
-            description: "Proof-of-tech. Helped us verify 57 FPS / 7.3ms benchmarks on our infrastructure.",
+            credits: "10k Free Frames",
+            description: "Proof-of-tech. Access industrial-grade browser-vision with zero latency overhead.",
             buttonText: "Active Now",
             isFree: true
         },
         {
             id: "nexus-entry",
             icon: <Link className="h-5 w-5 text-primary" />,
-            title: "Developer Entry",
-            price: "$8.00",
-            credits: "400k Frames",
-            description: "Friction-free conversion for individual agent testing and early adoption.",
+            title: "Nexus Entry",
+            price: "$3.00",
+            credits: "100k Frames",
+            description: "Scale individual agent testing with high-frequency telemetry & optic-nerve parity.",
             buttonText: "Buy Credits"
         },
         {
             id: "developer-pack",
             icon: <Zap className="h-5 w-5 text-primary" />,
             title: "Developer Pack",
-            price: "$25.00",
-            credits: "1.5M Frames",
-            description: "Standard tier for scaled autonomous loops and development clusters.",
+            price: "$15.00",
+            credits: "500k Frames",
+            description: "Production-grade standard for autonomous loops and scaled agentic clusters.",
             buttonText: "Buy Credits",
             popular: true
+        },
+        {
+            id: "production-surge",
+            icon: <Sparkles className="h-5 w-5 text-primary" />,
+            title: "Production Surge",
+            price: "$100.00",
+            credits: "5M Frames",
+            description: "Institutional scale for massive parallel vision workloads & industrial automation.",
+            buttonText: "Buy Credits"
         }
     ]
 
@@ -86,11 +95,11 @@ export function PricingSection() {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {tiers.map((t, i) => (
-                        <div key={i} className={`glass-panel rounded-2xl p-8 transition-all hover:border-primary/30 bg-secondary/50 border border-border group relative ${t.popular ? "ring-2 ring-primary/40 scale-105 z-10" : ""}`}>
+                        <div key={i} className={`glass-panel rounded-2xl p-6 transition-all hover:border-primary/30 bg-secondary/50 border border-border group relative ${t.popular ? "ring-2 ring-primary/40 scale-105 z-10" : ""}`}>
                             {t.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
                                     Most Popular
                                 </div>
                             )}

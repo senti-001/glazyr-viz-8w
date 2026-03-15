@@ -2,17 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { UpstashRedisAdapter } from "@auth/upstash-redis-adapter"
-import { Redis } from "@upstash/redis"
-
-/**
- * NextAuth Configuration - Optimized for Magnetar Sentient L.L.C.
- * Uses Redis for session persistence and cryptographically verified user records.
- */
-
-const redis = new Redis({
-    url: process.env.REDIS_URL || "https://localhost:6379",
-    token: process.env.REDIS_TOKEN || "test",
-})
+import redis from "@/lib/redis"
 
 export const authOptions: NextAuthOptions = {
     theme: { colorScheme: "light" },

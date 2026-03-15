@@ -12,12 +12,24 @@ const getStripe = () => {
     })
 }
 
+const PRICING_TIERS: Record<string, { amount: number; credits: number; name: string }> = {
+    "nexus-entry": { amount: 300, credits: 100000, name: "Nexus Entry" },
+    "developer-pack": { amount: 1500, credits: 500000, name: "Developer Pack" },
+    "production-surge": { amount: 10000, credits: 5000000, name: "Production Surge" },
+}
+
 export async function POST(req: Request) {
     try {
         const session = await getServerSession(authOptions);
+        const { tierId } = await req.json();
 
         if (!session || !session.user?.id) {
             return NextResponse.json({ error: 'UNAUTHORIZED: Active session required.' }, { status: 401 });
+        }
+
+        const tier = PRICING_TIERS[tierId];
+        if (!tier) {
+            return NextResponse.json({ error: 'INVALID_TIER' }, { status: 400 });
         }
 
         const stripe = getStripe()
@@ -29,12 +41,23 @@ export async function POST(req: Request) {
             client_reference_id: session.user.id,
             line_items: [
                 {
-                    price: process.env.STRIPE_CREDIT_PRICE_ID!,
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: `Glazyr Viz: ${tier.name}`,
+                            description: `${tier.credits.toLocaleString()} Zero-Copy Frames`,
+                        },
+                        unit_amount: tier.amount,
+                    },
                     quantity: 1,
                 },
             ],
+            metadata: {
+                userId: session.user.id,
+                credits: tier.credits.toString(),
+            },
             success_url: `${process.env.NEXTAUTH_URL}/dashboard?checkout=success`,
-            cancel_url: `${process.env.NEXTAUTH_URL}/dashboard?checkout=canceled`,
+            cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL}/dashboard?checkout=canceled`,
         });
 
         return NextResponse.json({ url: checkoutSession.url });
