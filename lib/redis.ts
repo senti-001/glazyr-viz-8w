@@ -29,8 +29,16 @@ declare global {
     var upstashRedis: undefined | ReturnType<typeof redisClientSingleton>;
 }
 
-const redis = globalThis.upstashRedis ?? redisClientSingleton();
+// Transparent Lazy Singleton Proxy
+const redis = new Proxy({} as Redis, {
+    get(_, prop) {
+        if (!globalThis.upstashRedis) {
+            globalThis.upstashRedis = redisClientSingleton();
+        }
+        const target = globalThis.upstashRedis as any;
+        const value = target[prop];
+        return typeof value === 'function' ? value.bind(target) : value;
+    }
+});
 
 export default redis;
-
-if (process.env.NODE_ENV !== "production") globalThis.upstashRedis = redis;
