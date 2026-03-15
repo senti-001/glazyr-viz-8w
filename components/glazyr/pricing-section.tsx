@@ -67,15 +67,6 @@ export function PricingSection() {
             description: "Production-grade standard for autonomous loops and scaled agentic clusters.",
             buttonText: "Buy Credits",
             popular: true
-        },
-        {
-            id: "production-surge",
-            icon: <Sparkles className="h-5 w-5 text-primary" />,
-            title: "Production Surge",
-            price: "$100.00",
-            credits: "5M Frames",
-            description: "Institutional scale for massive parallel vision workloads & industrial automation.",
-            buttonText: "Buy Credits"
         }
     ]
 
@@ -95,11 +86,11 @@ export function PricingSection() {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {tiers.map((t, i) => (
-                        <div key={i} className={`glass-panel rounded-2xl p-6 transition-all hover:border-primary/30 bg-secondary/50 border border-border group relative ${t.popular ? "ring-2 ring-primary/40 scale-105 z-10" : ""}`}>
+                        <div key={i} className={`glass-panel rounded-2xl p-8 transition-all hover:border-primary/30 bg-secondary/50 border border-border group relative ${t.popular ? "ring-2 ring-primary/40 scale-105 z-10" : ""}`}>
                             {t.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
                                     Most Popular
                                 </div>
                             )}

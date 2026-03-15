@@ -15,7 +15,6 @@ const getStripe = () => {
 const PRICING_TIERS: Record<string, { amount: number; credits: number; name: string }> = {
     "nexus-entry": { amount: 300, credits: 100000, name: "Nexus Entry" },
     "developer-pack": { amount: 1500, credits: 500000, name: "Developer Pack" },
-    "production-surge": { amount: 10000, credits: 5000000, name: "Production Surge" },
 }
 
 export async function POST(req: Request) {
