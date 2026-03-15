@@ -1,4 +1,8 @@
+"use client"
+
 import Image from "next/image"
+import Link from "next/link"
+import { useSession, signIn } from "next-auth/react"
 
 const footerLinks = [
   {
@@ -18,6 +22,8 @@ const footerLinks = [
 ]
 
 export function Footer() {
+  const { data: session } = useSession()
+
   return (
     <footer className="border-t border-border/50 py-16 px-6">
       <div className="mx-auto max-w-7xl">
@@ -50,14 +56,21 @@ export function Footer() {
               <ul className="flex flex-col gap-2.5">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {link.label}
-                    </a>
+                    {link.label === "Dashboard" ? (
+                      <button
+                        onClick={() => session ? window.location.href = '/dashboard' : signIn()}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

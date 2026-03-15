@@ -43,7 +43,12 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Home</Link>
           <Link href="/technology" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Technology</Link>
-          <Link href="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Dashboard</Link>
+          <button
+            onClick={() => session ? window.location.href = '/dashboard' : signIn()}
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            Dashboard
+          </button>
           <Link href="/privacy" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
         </div>
 
@@ -124,13 +129,12 @@ export function Navbar() {
           >
             Technology
           </Link>
-          <Link
-            href="/dashboard"
-            onClick={() => setMobileOpen(false)}
-            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2"
+          <button
+            onClick={() => { setMobileOpen(false); session ? window.location.href = '/dashboard' : signIn(); }}
+            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 text-left"
           >
             Dashboard
-          </Link>
+          </button>
           <Link
             href="/privacy"
             onClick={() => setMobileOpen(false)}

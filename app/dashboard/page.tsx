@@ -14,7 +14,7 @@ export default async function DashboardPage() {
 
     // Secure Zero-Trust Route Lockdown
     if (!session || !session.user) {
-        redirect("/")
+        redirect("/auth/signin")
     }
 
     // Extract raw session token directly from secure cookies for the Keyring
