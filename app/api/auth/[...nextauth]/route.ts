@@ -4,6 +4,14 @@ import GoogleProvider from "next-auth/providers/google"
 import { UpstashRedisAdapter } from "@auth/upstash-redis-adapter"
 import redis from "@/lib/redis"
 
+console.log("[NextAuth] Environment Check:", {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    AUTH_TRUST_HOST: process.env.AUTH_TRUST_HOST,
+    VERCEL_URL: process.env.VERCEL_URL,
+    AMPLIFY_BUILD_ID: process.env.AMPLIFY_BUILD_ID
+});
+
 export const authOptions: NextAuthOptions = {
     theme: { colorScheme: "light" },
     pages: {
