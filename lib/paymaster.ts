@@ -107,11 +107,19 @@ export class CreditManager {
     }
 
     async getFiatBalance(userId: string): Promise<number> {
-        const balance = await redis.get(`user:credits:${userId}`);
-        return balance ? parseInt(balance) : 0;
+        const balance = await redis.get<string | number>(`user:credits:${userId}`);
+
+        if (balance === null) {
+            // Beta Phase: Auto-grant 1M credits on first dashboard view
+            const grant = 1_000_000;
+            await redis.set(`user:credits:${userId}`, grant);
+            return grant;
+        }
+
+        return typeof balance === 'string' ? parseInt(balance) : (balance as number);
     }
 
     async setPendingFlag(userId: string): Promise<void> {
-        await redis.set(`pending:credits:${userId}`, "true", "EX", 300);
+        await redis.set(`pending:credits:${userId}`, "true", { ex: 300 });
     }
 }

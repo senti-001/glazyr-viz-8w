@@ -41,9 +41,10 @@ export function Navbar() {
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
-          {status === "authenticated" && (
-            <Link href="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Dashboard</Link>
-          )}
+          <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Home</Link>
+          <Link href="/technology" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Technology</Link>
+          <Link href="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Dashboard</Link>
+          <Link href="/privacy" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
         </div>
 
         {/* CTA */}
@@ -77,13 +78,6 @@ export function Navbar() {
                     <p className="text-xs font-semibold text-foreground truncate">{session.user?.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{session.user?.email}</p>
                   </div>
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setDropdownOpen(false)}
-                    className="block px-3 py-2 text-sm text-foreground hover:text-primary hover:bg-white/5 transition-colors"
-                  >
-                    Dashboard
-                  </Link>
                   <button
                     onClick={() => { setDropdownOpen(false); signOut({ callbackUrl: '/' }) }}
                     className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-red-400 hover:bg-white/5 transition-colors"
@@ -116,22 +110,41 @@ export function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden glass-panel border-t border-border/50 px-6 py-4 flex flex-col gap-4">
+          <Link
+            href="/"
+            onClick={() => setMobileOpen(false)}
+            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2"
+          >
+            Home
+          </Link>
+          <Link
+            href="/technology"
+            onClick={() => setMobileOpen(false)}
+            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2"
+          >
+            Technology
+          </Link>
+          <Link
+            href="/dashboard"
+            onClick={() => setMobileOpen(false)}
+            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2"
+          >
+            Dashboard
+          </Link>
+          <Link
+            href="/privacy"
+            onClick={() => setMobileOpen(false)}
+            className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2"
+          >
+            Privacy
+          </Link>
           {session ? (
-            <>
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileOpen(false)}
-                className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors py-2"
-              >
-                Dashboard
-              </Link>
-              <button
-                onClick={() => { setMobileOpen(false); signOut({ callbackUrl: '/' }); }}
-                className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors mt-2"
-              >
-                Sign Out
-              </button>
-            </>
+            <button
+              onClick={() => { setMobileOpen(false); signOut({ callbackUrl: '/' }); }}
+              className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors mt-2"
+            >
+              Sign Out
+            </button>
           ) : (
             <button
               onClick={() => { setMobileOpen(false); signIn(); }}

@@ -12,21 +12,6 @@ const BigIronTicker = dynamic(
 )
 
 export function Hero() {
-    const [activeTab, setActiveTab] = useState<'npx' | 'python' | 'typescript'>('npx');
-    const [copied, setCopied] = useState(false);
-
-    const snippets = {
-        npx: 'npx -y @modelcontextprotocol/inspector sse "https://mcp.glazyr.com/mcp/sse"',
-        python: 'from mcp.client.sse import SSEClientTransport\n\ntransport = SSEClientTransport(url="https://mcp.glazyr.com/mcp/sse")',
-        typescript: 'import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";\n\nconst transport = new SSEClientTransport(new URL("https://mcp.glazyr.com/mcp/sse"));'
-    };
-
-    const copyCommand = () => {
-        navigator.clipboard.writeText(snippets[activeTab]);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
             {/* Background radial glow */}
@@ -82,15 +67,7 @@ export function Hero() {
                         <div className="absolute -inset-1 rounded-2xl bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                     <p className="text-sm text-muted-foreground font-mono uppercase tracking-[0.2em]">
-                        1,000,000 FREE CREDITS on register
-                    </p>
-                </div>
-
-                {/* Clean Value Proposition */}
-                <div className="mt-12 md:mt-16 mx-auto max-w-2xl text-center">
-                    <p className="text-base md:text-lg text-muted-foreground font-medium">
-                        A browser built strictly for AI agents.<br className="hidden sm:block" />
-                        <span className="text-primary glow-cyan-subtle">Maximum speed. Maximum token efficiency.</span>
+                        10,000 FREE FRAMES on register
                     </p>
                 </div>
 

@@ -4,7 +4,9 @@ const footerLinks = [
   {
     heading: "Platform",
     links: [
-      { label: "Our Technology", href: "/technology" },
+      { label: "Home", href: "/" },
+      { label: "Technology", href: "/technology" },
+      { label: "Dashboard", href: "/dashboard" },
     ],
   },
   {
