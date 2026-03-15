@@ -97,7 +97,7 @@ export function Navbar() {
               onClick={() => signIn()}
               className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors glow-cyan-subtle"
             >
-              Authenticate Identity
+              Sign In
             </button>
           )}
         </div>
@@ -154,7 +154,7 @@ export function Navbar() {
               onClick={() => { setMobileOpen(false); signIn(); }}
               className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors mt-2"
             >
-              Authenticate Identity
+              Sign In
             </button>
           )}
         </div>
