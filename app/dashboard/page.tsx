@@ -6,6 +6,8 @@ import { CreditManager } from "@/lib/paymaster"
 import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
 import { DashboardKeyring } from "@/components/glazyr/dashboard-keyring"
+import { DashboardQuickStart } from "@/components/glazyr/dashboard-quickstart"
+import { DashboardPurchase } from "@/components/glazyr/dashboard-purchase"
 import { Database, Zap, Activity, Code } from "lucide-react"
 import { Terminal } from "@/components/glazyr/terminal"
 
@@ -70,6 +72,18 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
+                    {/* OpenClaw Quick Start Section */}
+                    <div className="mb-12">
+                        <div className="glass-panel p-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] shadow-[0_0_30px_-5px_rgba(52,211,153,0.1)]">
+                            <DashboardQuickStart sessionToken={sessionToken} />
+                        </div>
+                    </div>
+
+                    {/* Purchase Frames / Settlement Section */}
+                    <div className="mb-12">
+                        <DashboardPurchase />
+                    </div>
+
                     {/* Live Terminal / Benchmark Section */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
@@ -79,7 +93,7 @@ export default async function DashboardPage() {
                             <h2 className="text-xl font-semibold">Live Benchmark & SDKs</h2>
                         </div>
                         <p className="text-muted-foreground mb-8">
-                            Your session key is pre-populated. Run the benchmark below to verify your agent's zero-copy performance live on the Big Iron network.
+                            Your session key is pre-populated. Run the benchmark below to verify your agent&apos;s zero-copy performance live on the Big Iron network.
                         </p>
                         <Terminal sessionToken={sessionToken} />
                     </div>

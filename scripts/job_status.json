@@ -1,0 +1,14 @@
+﻿{
+    "jobSummaries": [
+        {
+            "jobArn": "arn:aws:amplify:us-east-1:396608803476:apps/d1lrpaw08cl9k5/branches/main/jobs/0000000050",
+            "jobId": "50",
+            "commitId": "5a73d5e6c3bceea9d71624dfbb3bbc97be2b9621",
+            "commitMessage": "econ: realign free tier grant to 10k frames for production sustainability",
+            "commitTime": "2026-03-15T15:34:33-05:00",
+            "startTime": "2026-03-15T15:39:04.629000-05:00",
+            "status": "RUNNING"
+        }
+    ],
+    "NextToken": "eyJuZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxfQ=="
+}
