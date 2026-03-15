@@ -48,6 +48,14 @@ export const authOptions: NextAuthOptions = {
         },
     },
     secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_dev",
+};
+
+// V1.0.0 Production Fix: Explicitly override the detected base URL if in Amplify/Production context
+if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
+    if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.includes("localhost")) {
+        process.env.NEXTAUTH_URL = "https://glazyr.com";
+        console.log("[NextAuth] Production Override: NEXTAUTH_URL forced to https://glazyr.com");
+    }
 }
 
 const handler = NextAuth(authOptions)
