@@ -6,11 +6,13 @@ import { Redis } from "@upstash/redis";
  */
 
 const getRedisConfig = () => {
+    const isBuild = process.env.CI === "true" || process.env.AMPLIFY_BUILD_ID;
+
     if (!process.env.REDIS_URL || !process.env.REDIS_TOKEN) {
-        if (process.env.NODE_ENV === "production") {
-            throw new Error("REDIS_URL and REDIS_TOKEN are required in production");
+        if (process.env.NODE_ENV === "production" && !isBuild) {
+            throw new Error("REDIS_URL and REDIS_TOKEN are required in production runtime");
         }
-        console.warn("⚠️ Upstash credentials missing, falling back to empty config for local build");
+        console.warn("⚠️ Upstash credentials missing. Using fallback for build/local environment.");
         return { url: "https://localhost", token: "test" };
     }
     return {
