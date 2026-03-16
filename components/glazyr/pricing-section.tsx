@@ -74,43 +74,43 @@ export function PricingSection() {
         <section id="pricing" className="py-24 relative overflow-hidden text-white bg-background">
             <div className="container mx-auto px-6">
                 <div className="max-w-3xl mx-auto text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 slb-panel border-primary/20 text-primary mb-6">
                         <Cpu className="h-4 w-4" />
                         <span className="text-xs font-mono font-medium uppercase tracking-widest">
                             Compute Unit Economics
                         </span>
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">The 10x Compute Advantage</h2>
-                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-balance">
+                    <h2 className="slb-header text-3xl md:text-5xl tracking-tight mb-6">The 10x Compute Advantage</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                         Stop paying for slow, base64-encoded screenshots. Scale your vision-agents with industrial-grade economics mapped directly to bare-metal compute.
                     </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {tiers.map((t, i) => (
-                        <div key={i} className={`glass-panel rounded-2xl p-8 transition-all hover:border-primary/30 bg-secondary/50 border border-border group relative ${t.popular ? "ring-2 ring-primary/40 scale-105 z-10" : ""}`}>
+                        <div key={i} className={`slb-panel p-8 relative flex flex-col justify-between ${t.popular ? "slb-panel-highlight z-10 scale-105" : ""}`}>
                             {t.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                                <div className="absolute top-0 right-0 bg-primary/20 border-l border-b border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1">
                                     Most Popular
                                 </div>
                             )}
-                            <div className="mb-4 inline-flex p-3 rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-colors">
-                                {t.icon}
+                            <div>
+                                <div className="mb-6 inline-flex p-3 slb-panel border-primary/20">
+                                    {t.icon}
+                                </div>
+                                <h3 className="slb-header text-xl mb-1">{t.title}</h3>
+                                <div className="flex items-baseline gap-2 mb-3">
+                                    <span className="text-3xl font-bold text-foreground">{t.price}</span>
+                                    <span className="text-xs text-primary uppercase tracking-widest font-mono">/ {t.credits}</span>
+                                </div>
+                                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                                    {t.description}
+                                </p>
                             </div>
-                            <h3 className="text-xl font-bold mb-1">{t.title}</h3>
-                            <div className="flex items-baseline gap-2 mb-3">
-                                <span className="text-2xl font-bold text-primary">{t.price}</span>
-                                <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">/ {t.credits}</span>
-                            </div>
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                                {t.description}
-                            </p>
                             <button
                                 onClick={() => !t.isFree && handleBuyCredits(t.id)}
                                 disabled={loading !== null}
-                                className={`w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all flex items-center justify-center gap-2 ${t.isFree
-                                    ? "bg-transparent border-muted-foreground/30 text-muted-foreground hover:border-primary/50 hover:text-primary"
-                                    : "bg-primary/10 border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground"
+                                className={`w-full py-3 text-xs font-bold uppercase tracking-widest transition-all mb-4 ${t.isFree ? "slb-btn" : "slb-btn slb-btn-primary"
                                     } ${loading === t.id ? "opacity-70 cursor-wait" : ""}`}
                             >
                                 {loading === t.id ? (
@@ -123,10 +123,10 @@ export function PricingSection() {
                 </div>
 
                 <div className="mt-16 text-center">
-                    <div className="inline-flex items-center gap-4 glass-panel px-6 py-4 rounded-full border-primary/20 border bg-secondary/30">
+                    <div className="inline-flex items-center gap-4 slb-panel px-6 py-4 border-primary/20">
                         <span className="text-primary font-mono font-bold uppercase tracking-tight text-sm">Strategic Tier Settlement</span>
                         <span className="text-muted-foreground">|</span>
-                        <span className="text-foreground font-medium uppercase tracking-tighter text-xs">USDC Compatible</span>
+                        <span className="slb-label text-xs">USDC Compatible</span>
                     </div>
                 </div>
             </div>

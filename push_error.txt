@@ -1,0 +1,96 @@
+﻿git : remote: error: GH013: Repository 
+rule violations found for refs/heads/main. 
+       
+At line:1 char:60
++ ... ive\Desktop\websites\glazyr-viz-8w; 
+git push origin main 2>&1 | Out-F ...
++                                         
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified 
+   : (remote: error: ...s/main.        :S  
+  tring) [], RemoteException
+    + FullyQualifiedErrorId : NativeComman 
+   dError
+ 
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   
+—————————————————————————————————————————  
+      
+remote:     Resolve the following 
+violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets  
+      
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a 
+blocked push        
+remote:      https://docs.github.com/code-s
+ecurity/secret-scanning/working-with-secret
+-scanning-and-push-protection/working-with-
+push-protection-from-the-command-line#resol
+ving-a-blocked-push        
+remote:             
+remote:      (?) This repository does not 
+have Secret Scanning enabled, but is 
+eligible. Enable Secret Scanning to view 
+and manage detected secrets.        
+remote:      Visit the repository settings 
+page, https://github.com/senti-001/glazyr-v
+iz-8w/settings/security_analysis        
+remote:             
+remote:             
+remote:       —— Google OAuth Client ID 
+————————————————————————————        
+remote:        locations:        
+remote:          - commit: 
+7bd8422b543a5dccaf5b81e21a0ecfdef3192512   
+     
+remote:            path: 
+amplify-env.json:7        
+remote:          - commit: 
+7bd8422b543a5dccaf5b81e21a0ecfdef3192512   
+     
+remote:            path: 
+scripts/sync-amplify.ps1:11        
+remote:             
+remote:        (?) To push, remove secret 
+from commit(s) or follow this URL to allow 
+the secret.        
+remote:        https://github.com/senti-001
+/glazyr-viz-8w/security/secret-scanning/unb
+lock-secret/3Ay6CQP8rNPdcVLPsnPotbXQAvF    
+    
+remote:             
+remote:             
+remote:       —— Google OAuth Client 
+Secret ————————————————————————        
+remote:        locations:        
+remote:          - commit: 
+7bd8422b543a5dccaf5b81e21a0ecfdef3192512   
+     
+remote:            path: 
+amplify-env.json:8        
+remote:          - commit: 
+7bd8422b543a5dccaf5b81e21a0ecfdef3192512   
+     
+remote:            path: 
+scripts/sync-amplify.ps1:12        
+remote:             
+remote:        (?) To push, remove secret 
+from commit(s) or follow this URL to allow 
+the secret.        
+remote:        https://github.com/senti-001
+/glazyr-viz-8w/security/secret-scanning/unb
+lock-secret/3Ay6CRZzkGAI5uGTwXeJ3eWy9gf    
+    
+remote:             
+remote: 
+remote: 
+To https://github.com/senti-001/glazyr-viz-
+8w.git
+ ! [remote rejected] main -> main (push 
+declined due to repository rule violations)
+error: failed to push some refs to 'https:/
+/github.com/senti-001/glazyr-viz-8w.git'

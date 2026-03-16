@@ -8,7 +8,7 @@ import { Footer } from "@/components/glazyr/footer"
 import { DashboardKeyring } from "@/components/glazyr/dashboard-keyring"
 import { DashboardQuickStart } from "@/components/glazyr/dashboard-quickstart"
 import { DashboardPurchase } from "@/components/glazyr/dashboard-purchase"
-import { Database, Zap, Activity, Code } from "lucide-react"
+import { Database, Code } from "lucide-react"
 import { Terminal } from "@/components/glazyr/terminal"
 
 export default async function DashboardPage() {
@@ -30,12 +30,13 @@ export default async function DashboardPage() {
     const balance = await creditManager.getFiatBalance(session.user.id as string)
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans">
+        <div className="min-h-screen holographic-bg text-foreground font-sans">
             <Navbar />
             <main className="pt-32 pb-24 px-6">
                 <div className="mx-auto max-w-4xl">
+                    {/* Dashboard Header */}
                     <div className="mb-12">
-                        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+                        <h1 className="slb-header text-3xl md:text-5xl tracking-tight mb-4">
                             <span className="text-primary">Dashboard</span>
                         </h1>
                         <p className="text-lg text-muted-foreground">
@@ -43,23 +44,23 @@ export default async function DashboardPage() {
                         </p>
                     </div>
 
+                    {/* Live Redis Ledger Box */}
                     <div className="mb-12">
-                        {/* Live Redis Ledger Box */}
-                        <div className="glass-panel p-8 rounded-2xl border border-white/5 flex flex-col gap-4">
+                        <div className="slb-panel p-8 flex flex-col gap-4">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-semibold flex items-center gap-2">
+                                <h2 className="slb-header text-xl flex items-center gap-2">
                                     <Database className="h-5 w-5 text-primary" />
                                     Glazyr Balance
                                 </h2>
-                                <span className="text-xs font-mono text-muted-foreground bg-white/5 px-3 py-1.5 rounded uppercase tracking-wider">
+                                <span className="slb-label bg-primary/10 px-3 py-1.5">
                                     Live Redis Ledger
                                 </span>
                             </div>
                             <div className="flex items-baseline gap-3 mt-2">
-                                <span className="text-6xl font-bold tracking-tight">{balance}</span>
-                                <span className="text-muted-foreground uppercase text-base tracking-widest font-medium">Frames</span>
+                                <span className="text-6xl font-bold tracking-tight font-mono">{balance}</span>
+                                <span className="slb-label text-base tracking-widest">Frames</span>
                             </div>
-                            <p className="text-sm text-muted-foreground border-t border-white/5 pt-5 mt-4">
+                            <p className="text-sm text-muted-foreground border-t border-border/50 pt-5 mt-4">
                                 Each frame entitles your agent to exactly 1 high-speed perception frame via our secure infrastructure.
                             </p>
                         </div>
@@ -67,14 +68,14 @@ export default async function DashboardPage() {
 
                     {/* Keyring Section */}
                     <div className="mb-12">
-                        <div className="glass-panel p-8 rounded-2xl border border-primary/20 bg-primary/5 shadow-[0_0_30px_-5px_var(--primary-glow)]">
+                        <div className="slb-panel slb-panel-highlight p-8">
                             <DashboardKeyring sessionToken={sessionToken} />
                         </div>
                     </div>
 
                     {/* OpenClaw Quick Start Section */}
                     <div className="mb-12">
-                        <div className="glass-panel p-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.03] shadow-[0_0_30px_-5px_rgba(52,211,153,0.1)]">
+                        <div className="slb-panel p-8 border-l-4 border-l-emerald-500">
                             <DashboardQuickStart sessionToken={sessionToken} />
                         </div>
                     </div>
@@ -87,10 +88,10 @@ export default async function DashboardPage() {
                     {/* Live Terminal / Benchmark Section */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                            <div className="slb-panel p-2">
                                 <Code className="h-5 w-5 text-primary" />
                             </div>
-                            <h2 className="text-xl font-semibold">Live Benchmark & SDKs</h2>
+                            <h2 className="slb-header text-xl">Live Benchmark &amp; SDKs</h2>
                         </div>
                         <p className="text-muted-foreground mb-8">
                             Your session key is pre-populated. Run the benchmark below to verify your agent&apos;s zero-copy performance live on the Big Iron network.

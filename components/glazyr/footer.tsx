@@ -25,7 +25,7 @@ export function Footer() {
   const { data: session } = useSession()
 
   return (
-    <footer className="border-t border-border/50 py-16 px-6">
+    <footer className="border-t border-border/50 py-16 px-6 bg-background">
       <div className="mx-auto max-w-7xl">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -38,7 +38,7 @@ export function Footer() {
                 height={32}
                 className="rounded-full"
               />
-              <span className="text-base font-semibold text-foreground">
+              <span className="slb-header text-base text-foreground">
                 Glazyr Viz
               </span>
             </div>
@@ -50,7 +50,7 @@ export function Footer() {
           {/* Link Groups */}
           {footerLinks.map((group) => (
             <div key={group.heading}>
-              <h4 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">
+              <h4 className="slb-label mb-4 text-foreground">
                 {group.heading}
               </h4>
               <ul className="flex flex-col gap-2.5">
@@ -79,16 +79,16 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-border/30">
+        <div className="slb-panel p-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Glazyr Viz. All rights reserved.
+            &copy; {new Date().getFullYear()} Glazyr Viz. All rights reserved. MAGNETAR SENTIENT L.L.C.
           </p>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping bg-emerald-500 opacity-75" style={{ borderRadius: '50%' }} />
+              <span className="relative inline-flex h-1.5 w-1.5 bg-emerald-500" style={{ borderRadius: '50%' }} />
             </span>
-            All systems operational
+            <span className="slb-label text-emerald-600 dark:text-emerald-400">All systems operational</span>
           </div>
         </div>
       </div>

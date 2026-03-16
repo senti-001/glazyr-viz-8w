@@ -1,6 +1,8 @@
 "use client"
 
-import { CreditCard, Coins, ExternalLink, Zap, Shield, Check } from "lucide-react"
+import { useState } from "react"
+import { CreditCard, Coins, ExternalLink, Zap, Shield, Check, Loader2 } from "lucide-react"
+import { ethers } from "ethers"
 
 const TIERS = [
     { name: "Starter", frames: "10,000", price: "Free", highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
@@ -9,58 +11,124 @@ const TIERS = [
 ]
 
 export function DashboardPurchase() {
+    const [isPaying, setIsPaying] = useState(false)
+    const [txStatus, setTxStatus] = useState<{ message: string; type: 'info' | 'success' | 'error' } | null>(null)
+
+    const handleOnChainPayment = async () => {
+        try {
+            setIsPaying(true)
+            setTxStatus({ message: "Connecting to wallet...", type: 'info' })
+
+            // @ts-ignore
+            if (typeof window === 'undefined' || !window.ethereum) {
+                setTxStatus({ message: "No Web3 wallet detected. Please install MetaMask.", type: 'error' })
+                return
+            }
+
+            // @ts-ignore
+            const provider = new ethers.BrowserProvider(window.ethereum)
+            const signer = await provider.getSigner()
+            const address = await signer.getAddress()
+
+            setTxStatus({ message: "Confirm transaction in your wallet...", type: 'info' })
+
+            // Base USDC Contract ABI (ERC20 Transfer)
+            const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+            const USDC_ABI = ["function transfer(address to, uint256 amount) returns (bool)"]
+            const usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer)
+
+            // The user requested: "get a payment sent sown for lets say 3 from and to our same acct"
+            // Sending 3 USDC (USDC has 6 decimals, so 3 * 10^6 base units) back to the same address
+            const amount = ethers.parseUnits("3", 6)
+
+            setTxStatus({ message: "Requesting USDC transfer signature...", type: 'info' })
+            const tx = await usdcContract.transfer(address, amount)
+
+            setTxStatus({ message: `Transaction sent! Waiting for confirmation...`, type: 'info' })
+
+            const receipt = await tx.wait()
+
+            setTxStatus({ message: "Payment confirmed on-chain. Reconciling with backend...", type: 'info' })
+
+            // Reconcile transaction with the backend (Approach 2: Cryptographic Proof)
+            const response = await fetch("/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ txHash: receipt.hash, address: address })
+            })
+
+            const verifyData = await response.json()
+            if (verifyData.success) {
+                setTxStatus({ message: "Reconciliation successful. Frames credited!", type: 'success' })
+            } else {
+                setTxStatus({ message: "Payment confirmed, but backend reconciliation failed.", type: 'error' })
+            }
+
+            // Clear success message after 5 seconds
+            setTimeout(() => setTxStatus(null), 5000)
+
+        } catch (err: any) {
+            console.error(err)
+            // Handle user rejection gracefully
+            if (err.code === "ACTION_REJECTED") {
+                setTxStatus({ message: "Transaction was rejected in wallet.", type: 'error' })
+            } else {
+                setTxStatus({ message: err.message || "Transaction failed", type: 'error' })
+            }
+        } finally {
+            setIsPaying(false)
+        }
+    }
+
     return (
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h2 className="text-xl font-semibold text-foreground mb-2">Purchase Frames</h2>
+                <h2 className="slb-header text-xl text-foreground mb-2">Purchase Frames</h2>
                 <p className="text-sm text-muted-foreground">
                     Each frame = 1 perception cycle (navigate, click, extract, etc). Choose your settlement method below.
                 </p>
             </div>
 
-            {/* Tier Cards */}
+            {/* Tier Cards — SLB Panels */}
             <div className="grid md:grid-cols-3 gap-4">
                 {TIERS.map(tier => (
                     <div
                         key={tier.name}
-                        className={`relative rounded-2xl p-6 border transition-all ${tier.highlight
-                            ? "bg-primary/5 border-primary/30 shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)]"
-                            : "bg-white/[0.02] border-white/5 hover:border-white/10"
-                            }`}
+                        className={`relative slb-panel p-6 transition-all ${tier.highlight ? 'slb-panel-highlight' : ''}`}
                     >
                         {tier.highlight && (
-                            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
+                            <span className="absolute -top-3 left-4 slb-label text-primary bg-background border border-primary/50 px-3 py-1 z-10 shadow-sm">
                                 {tier.badge}
                             </span>
                         )}
-                        <div className="mb-4">
-                            <h3 className="text-lg font-semibold text-foreground">{tier.name}</h3>
+                        <div className="mb-4 pt-1">
+                            <h3 className="slb-header text-lg text-foreground">{tier.name}</h3>
                             <p className="text-xs text-muted-foreground mt-1">{tier.desc}</p>
                         </div>
                         <div className="flex items-baseline gap-1 mb-1">
-                            <span className="text-3xl font-bold tracking-tight text-foreground">{tier.price}</span>
+                            <span className="text-3xl font-bold tracking-tight text-foreground font-mono">{tier.price}</span>
                             {tier.price !== "Free" && <span className="text-sm text-muted-foreground">USD</span>}
                         </div>
-                        <p className="text-sm text-primary font-medium mb-4">{tier.frames} frames</p>
+                        <p className="text-sm text-primary font-mono font-medium mb-4">{tier.frames} frames</p>
                         <ul className="space-y-2 mb-6">
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                                 Zero-copy vision pipeline
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                                 GCP Big Iron compute
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                                 Cloud-isolated security
                             </li>
                         </ul>
                         <button
-                            className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-all ${tier.highlight
-                                ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_-5px_rgba(0,229,255,0.3)]"
-                                : "bg-white/5 text-foreground border border-white/10 hover:bg-white/10"
+                            className={`w-full py-2.5 text-sm font-semibold transition-all ${tier.highlight
+                                ? 'slb-btn slb-btn-primary'
+                                : 'slb-btn'
                                 }`}
                         >
                             {tier.price === "Free" ? "Current Tier" : "Purchase"}
@@ -69,18 +137,18 @@ export function DashboardPurchase() {
                 ))}
             </div>
 
-            {/* Settlement Methods */}
-            <div className="glass-panel rounded-2xl p-8 border border-white/5">
-                <h3 className="text-foreground font-semibold mb-2">Settlement Options</h3>
+            {/* Settlement Methods — SLB Panel */}
+            <div className="slb-panel p-8">
+                <h3 className="slb-header text-foreground mb-2">Settlement Options</h3>
                 <p className="text-sm text-muted-foreground mb-6">
                     Choose how you&apos;d like to pay. Both methods credit your account instantly.
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
                     {/* Stripe */}
-                    <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 hover:border-primary/20 transition-all group">
+                    <div className="slb-inset p-6 hover:border-primary transition-all">
                         <div className="flex items-center gap-3 mb-3">
-                            <div className="p-2 rounded-lg bg-violet-500/10 border border-violet-500/20">
-                                <CreditCard className="h-5 w-5 text-violet-400" />
+                            <div className="slb-panel p-2" style={{ boxShadow: 'none' }}>
+                                <CreditCard className="h-5 w-5 text-violet-600 dark:text-violet-400" />
                             </div>
                             <div>
                                 <h4 className="font-semibold text-foreground text-sm">Stripe (Card / ACH)</h4>
@@ -89,53 +157,69 @@ export function DashboardPurchase() {
                         </div>
                         <ul className="space-y-1.5 mb-5">
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Shield className="h-3 w-3 text-violet-400 shrink-0" />
+                                <Shield className="h-3 w-3 text-violet-600 dark:text-violet-400 shrink-0" />
                                 PCI-compliant checkout
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Zap className="h-3 w-3 text-violet-400 shrink-0" />
+                                <Zap className="h-3 w-3 text-violet-600 dark:text-violet-400 shrink-0" />
                                 Frames credited in &lt;5 seconds
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <CreditCard className="h-3 w-3 text-violet-400 shrink-0" />
+                                <CreditCard className="h-3 w-3 text-violet-600 dark:text-violet-400 shrink-0" />
                                 Visa, Mastercard, Amex, ACH
                             </li>
                         </ul>
-                        <button className="w-full rounded-xl py-2.5 text-sm font-semibold bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 transition-all flex items-center justify-center gap-2">
+                        <button className="w-full slb-btn slb-btn-stripe py-2.5 text-sm font-semibold flex items-center justify-center gap-2">
                             Pay with Stripe
                             <ExternalLink className="h-3.5 w-3.5" />
                         </button>
                     </div>
 
                     {/* On-Chain */}
-                    <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 hover:border-amber-500/20 transition-all group">
+                    <div className="slb-inset p-6 hover:border-primary transition-all">
                         <div className="flex items-center gap-3 mb-3">
-                            <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                                <Coins className="h-5 w-5 text-amber-400" />
+                            <div className="slb-panel p-2" style={{ boxShadow: 'none' }}>
+                                <Coins className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                             </div>
                             <div>
                                 <h4 className="font-semibold text-foreground text-sm">On-Chain (USDC / SOL)</h4>
-                                <p className="text-xs text-muted-foreground">Settle directly on Solana mainnet</p>
+                                <p className="text-xs text-muted-foreground">Settle directly on Solana or Base mainnet</p>
                             </div>
                         </div>
                         <ul className="space-y-1.5 mb-5">
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Shield className="h-3 w-3 text-amber-400 shrink-0" />
+                                <Shield className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
                                 Non-custodial — you sign the tx
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Zap className="h-3 w-3 text-amber-400 shrink-0" />
-                                Confirmed in ~400ms (Solana finality)
+                                <Zap className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
+                                Confirmed in ~400ms
                             </li>
                             <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Coins className="h-3 w-3 text-amber-400 shrink-0" />
-                                USDC or SOL accepted
+                                <Coins className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
+                                USDC or ETH accepted
                             </li>
                         </ul>
-                        <button className="w-full rounded-xl py-2.5 text-sm font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all flex items-center justify-center gap-2">
-                            Pay On-Chain
-                            <ExternalLink className="h-3.5 w-3.5" />
+                        <button
+                            onClick={handleOnChainPayment}
+                            disabled={isPaying}
+                            className={`w-full slb-btn slb-btn-chain py-2.5 text-sm font-semibold flex items-center justify-center gap-2 ${isPaying ? 'opacity-80 cursor-wait' : ''}`}
+                        >
+                            {isPaying ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : null}
+                            {isPaying ? 'Processing...' : 'Pay On-Chain'}
+                            {!isPaying && <ExternalLink className="h-3.5 w-3.5" />}
                         </button>
+
+                        {txStatus && (
+                            <div className={`mt-4 p-3 slb-inset border text-xs font-mono break-words ${txStatus.type === 'error' ? 'text-red-500 border-red-500/20 bg-red-500/5' :
+                                txStatus.type === 'success' ? 'text-emerald-500 border-emerald-500/20 bg-emerald-500/5' :
+                                    'text-primary border-primary/20 bg-primary/5'
+                                }`}>
+                                {txStatus.message}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

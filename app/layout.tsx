@@ -24,16 +24,29 @@ export const viewport: Viewport = {
     initialScale: 1,
 }
 
-// import { ElevenLabsWidget } from '@/components/elevenlabs-widget'
-
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" className="dark">
-            <body className="font-sans antialiased min-h-screen bg-background text-foreground">
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                {/* Inline script to prevent flash of wrong theme */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function() {
+                                var theme = localStorage.getItem('glazyr-theme');
+                                if (theme === 'light') {
+                                    document.documentElement.classList.remove('dark');
+                                } else {
+                                    document.documentElement.classList.add('dark');
+                                }
+                            })();
+                        `,
+                    }}
+                />
                 <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
                 <script
                     dangerouslySetInnerHTML={{
@@ -45,11 +58,11 @@ export default function RootLayout({
                         `,
                     }}
                 />
+            </head>
+            <body className="font-sans antialiased min-h-screen bg-background text-foreground">
                 <AuthProvider>
                     {children}
                 </AuthProvider>
-                {/* <Analytics /> */}
-                {/* <ElevenLabsWidget /> */}
             </body>
         </html>
     )

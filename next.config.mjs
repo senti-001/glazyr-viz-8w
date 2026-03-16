@@ -21,6 +21,7 @@ async redirects() {
 },
 */
   devIndicators: {
+    appIsrStatus: false,
     buildActivity: false,
   },
 }

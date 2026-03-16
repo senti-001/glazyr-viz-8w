@@ -2,53 +2,74 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================
+   GLAZYR VIZ — SKEUOMORPHIC LIQUID BRUTALISM DESIGN SYSTEM
+   Win98 Structure × Light-Mode Glassmorphism × iTunes Tactility
+   ============================================================ */
+
+/* --------------- LIGHT MODE (Default) --------------- */
 :root {
-  /* Glazyr Viz - Industrial Glass Dark Theme */
-  --background: oklch(0.09 0.005 250);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.13 0.005 250);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.13 0.005 250);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.78 0.15 195);
-  --primary-foreground: oklch(0.09 0.005 250);
-  --secondary: oklch(0.18 0.005 250);
-  --secondary-foreground: oklch(0.85 0 0);
-  --muted: oklch(0.18 0.005 250);
-  --muted-foreground: oklch(0.60 0.01 250);
-  --accent: oklch(0.78 0.15 195);
-  --accent-foreground: oklch(0.09 0.005 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.22 0.01 250);
-  --input: oklch(0.22 0.01 250);
-  --ring: oklch(0.78 0.15 195);
-  --chart-1: oklch(0.78 0.15 195);
-  --chart-2: oklch(0.65 0.12 195);
-  --chart-3: oklch(0.50 0.08 250);
-  --chart-4: oklch(0.85 0.10 195);
-  --chart-5: oklch(0.70 0.06 250);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.11 0.005 250);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.78 0.15 195);
-  --sidebar-primary-foreground: oklch(0.09 0.005 250);
-  --sidebar-accent: oklch(0.18 0.005 250);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.22 0.01 250);
-  --sidebar-ring: oklch(0.78 0.15 195);
+  /* Core palette — warm light glassmorphism */
+  --background: oklch(0.96 0.005 250);
+  --foreground: oklch(0.15 0.01 250);
+  --card: oklch(0.98 0.003 250);
+  --card-foreground: oklch(0.15 0.01 250);
+  --popover: oklch(0.98 0.003 250);
+  --popover-foreground: oklch(0.15 0.01 250);
+  --primary: oklch(0.55 0.18 195);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.92 0.005 250);
+  --secondary-foreground: oklch(0.30 0.01 250);
+  --muted: oklch(0.93 0.005 250);
+  --muted-foreground: oklch(0.45 0.01 250);
+  --accent: oklch(0.55 0.18 195);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.85 0.01 250);
+  --input: oklch(0.88 0.01 250);
+  --ring: oklch(0.55 0.18 195);
+  --chart-1: oklch(0.55 0.18 195);
+  --chart-2: oklch(0.50 0.14 195);
+  --chart-3: oklch(0.45 0.08 250);
+  --chart-4: oklch(0.60 0.10 195);
+  --chart-5: oklch(0.50 0.06 250);
+  --radius: 0rem;
+  --sidebar: oklch(0.95 0.005 250);
+  --sidebar-foreground: oklch(0.15 0.01 250);
+  --sidebar-primary: oklch(0.55 0.18 195);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.92 0.005 250);
+  --sidebar-accent-foreground: oklch(0.15 0.01 250);
+  --sidebar-border: oklch(0.85 0.01 250);
+  --sidebar-ring: oklch(0.55 0.18 195);
 
-  /* Glazyr custom tokens */
-  --glazyr-glow: oklch(0.85 0.18 195);
-  --glazyr-surface: oklch(0.12 0.01 250);
-  --glazyr-surface-hover: oklch(0.16 0.015 250);
-  --glazyr-chrome: oklch(0.70 0.01 250);
+  /* Glazyr SLB tokens */
+  --glazyr-glow: oklch(0.60 0.20 195);
+  --glazyr-surface: oklch(0.97 0.003 250);
+  --glazyr-surface-hover: oklch(0.94 0.005 250);
+  --glazyr-chrome: oklch(0.75 0.01 250);
+  --primary-glow: oklch(0.55 0.18 195 / 0.3);
+
+  /* Win98 rim lighting — light mode */
+  --slb-rim-light: rgba(255, 255, 255, 0.9);
+  --slb-rim-dark: rgba(0, 0, 0, 0.25);
+  --slb-rim-medium: rgba(0, 0, 0, 0.12);
+  --slb-glass-bg: rgba(255, 255, 255, 0.55);
+  --slb-glass-border: rgba(0, 0, 0, 0.08);
+  --slb-inset-bg: rgba(0, 0, 0, 0.04);
+  --slb-inset-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.12), inset -1px -1px 2px rgba(255, 255, 255, 0.8);
+
+  /* Skeuomorphic button tokens */
+  --slb-btn-face: linear-gradient(180deg, #f0f0f0 0%, #d8d8d8 45%, #c8c8c8 55%, #d0d0d0 100%);
+  --slb-btn-face-hover: linear-gradient(180deg, #f8f8f8 0%, #e0e0e0 45%, #d0d0d0 55%, #d8d8d8 100%);
+  --slb-btn-face-active: linear-gradient(180deg, #c0c0c0 0%, #d0d0d0 100%);
+  --slb-btn-primary-face: linear-gradient(180deg, #3dd8e8 0%, #1cb5c5 45%, #0ea0b0 55%, #18aab8 100%);
+  --slb-btn-primary-hover: linear-gradient(180deg, #50e5f5 0%, #28c0d0 45%, #18aab8 55%, #20b5c5 100%);
+  --slb-btn-highlight: rgba(255, 255, 255, 0.4);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* --------------- DARK MODE --------------- */
 .dark {
   --background: oklch(0.09 0.005 250);
   --foreground: oklch(0.95 0 0);
@@ -82,6 +103,32 @@ html {
   --sidebar-accent-foreground: oklch(0.95 0 0);
   --sidebar-border: oklch(0.22 0.01 250);
   --sidebar-ring: oklch(0.78 0.15 195);
+
+  /* SLB tokens — dark mode */
+  --glazyr-glow: oklch(0.85 0.18 195);
+  --glazyr-surface: oklch(0.12 0.01 250);
+  --glazyr-surface-hover: oklch(0.16 0.015 250);
+  --glazyr-chrome: oklch(0.70 0.01 250);
+  --primary-glow: oklch(0.78 0.15 195 / 0.3);
+
+  --slb-rim-light: rgba(255, 255, 255, 0.12);
+  --slb-rim-dark: rgba(0, 0, 0, 0.6);
+  --slb-rim-medium: rgba(0, 0, 0, 0.3);
+  --slb-glass-bg: rgba(18, 22, 30, 0.6);
+  --slb-glass-border: rgba(255, 255, 255, 0.06);
+  --slb-inset-bg: rgba(0, 0, 0, 0.35);
+  --slb-inset-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.4), inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+
+  --slb-btn-face: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 45%, #222222 55%, #282828 100%);
+  --slb-btn-face-hover: linear-gradient(180deg, #444444 0%, #333333 45%, #2a2a2a 55%, #303030 100%);
+  --slb-btn-face-active: linear-gradient(180deg, #1a1a1a 0%, #252525 100%);
+  --slb-btn-primary-face: linear-gradient(180deg, #22d3ee 0%, #0ea5b8 45%, #0891a2 55%, #0ca0b0 100%);
+  --slb-btn-primary-hover: linear-gradient(180deg, #38ddf0 0%, #18b0c2 45%, #0ca0b0 55%, #12a8ba 100%);
+  --slb-btn-highlight: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @theme inline {
@@ -133,31 +180,323 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* Glassmorphism utility */
+/* ============================================================
+   SLB PANEL SYSTEM — Win98 Structural Neo-Brutalism
+   Sharp 0px borders + frosted glass + 3D rim lighting
+   ============================================================ */
+
+.slb-panel {
+  background: var(--slb-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--slb-glass-border);
+  border-radius: 0px;
+  /* Win98 3D rim lighting */
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    inset -1px -1px 0 var(--slb-rim-medium),
+    3px 3px 8px var(--slb-rim-dark),
+    -1px -1px 0 var(--slb-rim-light);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.slb-panel:hover {
+  border-color: var(--primary);
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    inset -1px -1px 0 var(--slb-rim-medium),
+    3px 3px 12px var(--slb-rim-dark),
+    0 0 20px var(--primary-glow);
+}
+
+/* Highlight variant for featured panels */
+.slb-panel-highlight {
+  border-color: var(--primary);
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    inset -1px -1px 0 var(--slb-rim-medium),
+    3px 3px 8px var(--slb-rim-dark),
+    0 0 25px var(--primary-glow);
+}
+
+/* ============================================================
+   SLB INSET — Win98 Recessed Field
+   For code blocks, terminals, recessed data displays
+   ============================================================ */
+
+.slb-inset {
+  background: var(--slb-inset-bg);
+  border-radius: 0px;
+  box-shadow: var(--slb-inset-shadow);
+  border: 1px solid var(--slb-glass-border);
+}
+
+/* ============================================================
+   SLB BUTTON SYSTEM — iTunes/iPhone Skeuomorphic Tactility
+   Metallic gradients, mechanical depression, glossy bevels
+   ============================================================ */
+
+.slb-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0px;
+  border: 1px solid var(--slb-rim-medium);
+  background: var(--slb-btn-face);
+  color: var(--foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow:
+    inset 0 1px 0 var(--slb-btn-highlight),
+    0 1px 3px var(--slb-rim-dark),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 0 12px rgba(120, 120, 140, 0.15);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.dark .slb-btn {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.slb-btn:hover {
+  background: var(--slb-btn-face-hover);
+  box-shadow:
+    inset 0 1px 0 var(--slb-btn-highlight),
+    0 2px 6px var(--slb-rim-dark),
+    0 3px 10px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(120, 120, 140, 0.25);
+}
+
+.slb-btn:active {
+  background: var(--slb-btn-face-active);
+  box-shadow: var(--slb-inset-shadow);
+  transform: translateY(1px);
+}
+
+/* Primary CTA — Cyan metallic with glossy overlay */
+.slb-btn-primary {
+  background: var(--slb-btn-primary-face);
+  color: white;
+  border-color: oklch(0.40 0.12 195);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 8px oklch(0.55 0.18 195 / 0.3),
+    0 4px 16px oklch(0.55 0.18 195 / 0.15),
+    0 0 20px oklch(0.55 0.18 195 / 0.25);
+}
+
+.slb-btn-primary:hover {
+  background: var(--slb-btn-primary-hover);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 12px oklch(0.55 0.18 195 / 0.4),
+    0 6px 24px oklch(0.55 0.18 195 / 0.2),
+    0 0 30px oklch(0.55 0.18 195 / 0.35);
+}
+
+.slb-btn-primary:active {
+  background: linear-gradient(180deg, #0891a2 0%, #0ea5b8 100%);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -1px -1px 2px rgba(255, 255, 255, 0.1);
+  transform: translateY(1px);
+}
+
+/* Stripe settlement button */
+.slb-btn-stripe {
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 45%, #6d28d9 55%, #7c3aed 100%);
+  color: white;
+  border-color: #5b21b6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 8px rgba(139, 92, 246, 0.3),
+    0 0 18px rgba(139, 92, 246, 0.2);
+}
+
+.slb-btn-stripe:hover {
+  background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 45%, #7c3aed 55%, #8b5cf6 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 12px rgba(139, 92, 246, 0.4),
+    0 0 28px rgba(139, 92, 246, 0.3);
+}
+
+.slb-btn-stripe:active {
+  background: linear-gradient(180deg, #6d28d9 0%, #7c3aed 100%);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+}
+
+/* On-chain settlement button */
+.slb-btn-chain {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 45%, #b45309 55%, #d97706 100%);
+  color: white;
+  border-color: #92400e;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 8px rgba(245, 158, 11, 0.3),
+    0 0 18px rgba(245, 158, 11, 0.2);
+}
+
+.slb-btn-chain:hover {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 45%, #d97706 55%, #f59e0b 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 12px rgba(245, 158, 11, 0.4),
+    0 0 28px rgba(245, 158, 11, 0.3);
+}
+
+.slb-btn-chain:active {
+  background: linear-gradient(180deg, #b45309 0%, #d97706 100%);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+}
+
+/* Small button variant */
+.slb-btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+/* ============================================================
+   SLB TAB SYSTEM — Win98 Tab Chrome
+   ============================================================ */
+
+.slb-tab {
+  border-radius: 0px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.slb-tab:hover {
+  background: var(--slb-glass-bg);
+  color: var(--foreground);
+}
+
+.slb-tab-active {
+  background: var(--slb-glass-bg);
+  color: var(--primary);
+  border-color: var(--slb-glass-border);
+  border-bottom: 2px solid var(--primary);
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    0 -1px 3px var(--primary-glow);
+}
+
+/* ============================================================
+   SLB HEADER TYPOGRAPHY — Y2K Monospace Headers
+   ============================================================ */
+
+.slb-header {
+  font-family: 'Geist Mono', 'Courier New', monospace;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+}
+
+.slb-label {
+  font-family: 'Geist Mono', 'Courier New', monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted-foreground);
+}
+
+/* ============================================================
+   HOLOGRAPHIC BACKGROUND — Slowly Animating Mesh
+   ============================================================ */
+
+@keyframes holographic-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.holographic-bg {
+  background: linear-gradient(135deg,
+      oklch(0.96 0.01 200) 0%,
+      oklch(0.95 0.02 220) 20%,
+      oklch(0.97 0.01 180) 40%,
+      oklch(0.94 0.02 240) 60%,
+      oklch(0.96 0.01 195) 80%,
+      oklch(0.95 0.02 210) 100%);
+  background-size: 400% 400%;
+  animation: holographic-shift 20s ease-in-out infinite;
+}
+
+.dark .holographic-bg {
+  background: linear-gradient(135deg,
+      oklch(0.09 0.01 200) 0%,
+      oklch(0.10 0.02 230) 20%,
+      oklch(0.08 0.01 195) 40%,
+      oklch(0.11 0.02 250) 60%,
+      oklch(0.09 0.01 210) 80%,
+      oklch(0.10 0.02 220) 100%);
+  background-size: 400% 400%;
+  animation: holographic-shift 20s ease-in-out infinite;
+}
+
+/* ============================================================
+   LEGACY COMPAT — Maintain backwards compatibility
+   ============================================================ */
+
 .glass-panel {
-  background: rgba(18, 22, 30, 0.6);
+  background: var(--slb-glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--slb-glass-border);
+  border-radius: 0px;
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    inset -1px -1px 0 var(--slb-rim-medium),
+    3px 3px 8px var(--slb-rim-dark);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(24, 28, 38, 0.75);
-  border-color: rgba(0, 229, 255, 0.15);
+  border-color: var(--primary);
+  box-shadow:
+    inset 1px 1px 0 var(--slb-rim-light),
+    inset -1px -1px 0 var(--slb-rim-medium),
+    3px 3px 12px var(--slb-rim-dark),
+    0 0 20px var(--primary-glow);
 }
 
-/* Glow effect for accent elements */
+/* Glow effects — theme-aware */
 .glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), 0 0 60px rgba(0, 229, 255, 0.05);
+  box-shadow: 0 0 20px var(--primary-glow), 0 0 60px oklch(0.55 0.18 195 / 0.05);
 }
 
 .glow-cyan-subtle {
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.08);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* Animated pulse ring */
@@ -166,10 +505,12 @@ html {
     transform: scale(0.95);
     opacity: 0.7;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.3;
   }
+
   100% {
     transform: scale(0.95);
     opacity: 0.7;
@@ -182,11 +523,14 @@ html {
 
 /* Orb glow */
 @keyframes orb-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), 0 0 40px rgba(0, 229, 255, 0.2), 0 0 80px rgba(0, 229, 255, 0.1);
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--primary-glow), 0 0 40px oklch(0.55 0.18 195 / 0.2), 0 0 80px oklch(0.55 0.18 195 / 0.1);
   }
+
   50% {
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.6), 0 0 60px rgba(0, 229, 255, 0.3), 0 0 100px rgba(0, 229, 255, 0.15);
+    box-shadow: 0 0 30px var(--primary-glow), 0 0 60px oklch(0.55 0.18 195 / 0.3), 0 0 100px oklch(0.55 0.18 195 / 0.15);
   }
 }
 
@@ -196,8 +540,13 @@ html {
 
 /* Ticker Animation */
 @keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-ticker {
@@ -208,17 +557,20 @@ html {
   animation-play-state: paused;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling — theme-aware */
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: rgba(18, 22, 30, 0.5);
+  background: var(--slb-inset-bg);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 229, 255, 0.2);
-  border-radius: 3px;
+  background: oklch(0.55 0.18 195 / 0.3);
+  border-radius: 0px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 229, 255, 0.35);
+  background: oklch(0.55 0.18 195 / 0.5);
 }

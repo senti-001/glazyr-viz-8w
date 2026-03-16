@@ -1,0 +1,74 @@
+# Glazyr Viz — Cursor Rules
+# Place this file at: .cursor/rules/glazyr.mdc
+# These rules instruct the Cursor AI agent on how to interact with the Glazyr Zero-Copy Vision API.
+
+## Core Architecture
+
+You are working with the Glazyr Viz platform — a Zero-Copy Vision system for AI agents.
+The platform provides direct access to Chromium's shared memory buffer via POSIX mmap,
+entirely bypassing traditional DOM scraping and screenshot-based approaches.
+
+## Critical Rules
+
+1. **Memory Access First**: Always target `/dev/shm/glazyr_vision` for visual state analysis.
+   NEVER generate Playwright, Puppeteer, or Selenium DOM-scraping scripts when Glazyr is available.
+
+2. **Protocol**: The Glazyr MCP server communicates via Server-Sent Events (SSE).
+   - Endpoint: `https://mcp.glazyr.com/mcp/sse`
+   - Auth: `Authorization: Bearer <token>` header
+   - The SSE stream delivers memory pointers and sequence IDs, not raw pixel data.
+
+3. **x402 Settlement**: When the agent's free frame quota (10,000/day) is exhausted,
+   the server responds with HTTP 402 "Payment Required".
+   - Parse the 402 JSON payload for pricing and wallet address.
+   - Sign a USDC payment on the Base network.
+   - Retry the original request with the signed payment header.
+   - Cost: $0.00002 per frame (50,000 frames = $1.00 USDC).
+
+4. **Security Boundaries**:
+   - NEVER modify `openclaw.json` or `~/.openclaw/` config without explicit human approval.
+   - NEVER expose Bearer tokens in logs, commit messages, or public outputs.
+   - The `/dev/shm/glazyr_vision` path is a trust boundary — verify access before use.
+
+5. **Fallback**: If POSIX shared memory is unavailable (remote deployments, Docker, Windows),
+   automatically fall back to the zstd-compressed Binary WebSocket channel.
+
+## Available MCP Tools
+
+- `browser_navigate(url)` — Navigate to a URL
+- `browser_click(x, y)` — Click at pixel coordinates
+- `browser_type(text)` — Type text into focused element
+- `browser_key(key)` — Press a keyboard key
+- `browser_evaluate_js(script)` — Execute JavaScript in the page
+- `peek_vision_buffer(include_base64?)` — Read the current frame from SHM
+- `shm_vision_validate(url)` — Validate vision pipeline integrity
+
+## Planning Mode
+
+Before implementing any vision-dependent task:
+1. Verify the Glazyr token is available (`GLAZYR_TOKEN` env or user-provided).
+2. Confirm the target page is navigable via `browser_navigate`.
+3. Wait 3 seconds after navigation for render completion.
+4. Use `peek_vision_buffer` for spatial reasoning, `browser_evaluate_js` for data extraction.
+
+## Code Patterns
+
+When writing code that integrates with Glazyr, use these patterns:
+
+```typescript
+// SSE Connection
+import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
+const transport = new SSEClientTransport(
+  new URL("https://mcp.glazyr.com/mcp/sse"),
+  { requestInit: { headers: { "Authorization": `Bearer ${token}` } } }
+);
+```
+
+```python
+# Python SDK
+from mcp.client.sse import SSEClientTransport
+transport = SSEClientTransport(
+    url="https://mcp.glazyr.com/mcp/sse",
+    headers={"Authorization": f"Bearer {token}"}
+)
+```

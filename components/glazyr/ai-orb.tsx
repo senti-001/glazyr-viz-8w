@@ -30,7 +30,7 @@ export function AiOrb() {
 
       {/* Chat Panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 glass-panel rounded-2xl border border-primary/20 overflow-hidden glow-cyan-subtle">
+        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 slb-panel border border-primary/20 overflow-hidden shadow-[0_0_20px_var(--primary-glow)]">
           {/* Header */}
           <div className="flex items-center gap-3 border-b border-border/50 px-5 py-4">
             <div className="relative">
