@@ -81,7 +81,7 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Purchase Frames / Settlement Section */}
-                    <div className="mb-12">
+                    <div id="purchase" className="mb-12">
                         <DashboardPurchase />
                     </div>
 

@@ -1,72 +1,51 @@
 "use client"
 
-import { useState } from "react"
-import { ShieldCheck, CreditCard, Cpu, Link, Zap, Loader2, Sparkles } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { Cpu, Link, Zap, Sparkles } from "lucide-react"
 
 export function PricingSection() {
-    const { data: session } = useSession()
-    const [loading, setLoading] = useState<string | null>(null)
-
-    const handleBuyCredits = async (tierId: string) => {
-        if (!session) {
-            alert("Security Protocol: You must be authenticated to purchase compute credits.")
-            return
-        }
-
-        setLoading(tierId)
-        try {
-            const userId = session.user?.id
-
-            const response = await fetch("/api/checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId, tierId }),
-            })
-
-            const data = await response.json()
-            if (data.url) {
-                window.location.href = data.url
-            } else {
-                throw new Error(data.error || "Failed to create checkout session")
-            }
-        } catch (err) {
-            console.error("Checkout Error:", err)
-            alert("Payment system temporarily unavailable. Please try again.")
-        } finally {
-            setLoading(null)
-        }
+    const handleBuyCredits = () => {
+        // Redirect to dashboard with anchor to the purchase section
+        window.location.href = "/dashboard#purchase"
     }
 
     const tiers = [
         {
-            id: "beta",
+            id: "starter",
             icon: <Cpu className="h-5 w-5 text-primary" />,
-            title: "Beta Validator",
+            title: "Starter",
             price: "$0",
-            credits: "10k Free Frames",
-            description: "Proof-of-tech. Access industrial-grade browser-vision with zero latency overhead.",
+            credits: "5k Frames",
+            description: "Perfect for testing and prototyping with zero latency overhead.",
             buttonText: "Active Now",
             isFree: true
         },
         {
-            id: "nexus-entry",
+            id: "developer",
             icon: <Link className="h-5 w-5 text-primary" />,
-            title: "Nexus Entry",
-            price: "$3.00",
+            title: "Developer",
+            price: "$3",
             credits: "100k Frames",
-            description: "Scale individual agent testing with high-frequency telemetry & optic-nerve parity.",
-            buttonText: "Buy Credits"
+            description: "The Alpha Standard. Scale your agent testing with high-frequency telemetry.",
+            buttonText: "Get Started",
+            popular: true
         },
         {
-            id: "developer-pack",
+            id: "pro",
+            icon: <Sparkles className="h-5 w-5 text-primary" />,
+            title: "Pro",
+            price: "$9",
+            credits: "300k Frames",
+            description: "For high-frequency vision benchmarks and intensive agent loops.",
+            buttonText: "Upgrade Now"
+        },
+        {
+            id: "scale",
             icon: <Zap className="h-5 w-5 text-primary" />,
-            title: "Developer Pack",
-            price: "$15.00",
-            credits: "500k Frames",
-            description: "Production-grade standard for autonomous loops and scaled agentic clusters.",
-            buttonText: "Buy Credits",
-            popular: true
+            title: "Scale",
+            price: "$15",
+            credits: "1M Frames",
+            description: "Enterprise-grade standard for autonomous clusters and production vision.",
+            buttonText: "Buy Credits"
         }
     ]
 
@@ -86,36 +65,33 @@ export function PricingSection() {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {tiers.map((t, i) => (
-                        <div key={i} className={`slb-panel p-8 relative flex flex-col justify-between ${t.popular ? "slb-panel-highlight z-10 scale-105" : ""}`}>
+                        <div key={i} className={`slb-panel p-6 relative flex flex-col justify-between transition-all hover:border-primary/50 group ${t.popular ? "slb-panel-highlight z-10 scale-105" : ""}`}>
                             {t.popular && (
                                 <div className="absolute top-0 right-0 bg-primary/20 border-l border-b border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1">
-                                    Most Popular
+                                    Recommended
                                 </div>
                             )}
                             <div>
-                                <div className="mb-6 inline-flex p-3 slb-panel border-primary/20">
+                                <div className="mb-6 inline-flex p-3 slb-panel border-primary/20 group-hover:bg-primary/5 transition-colors">
                                     {t.icon}
                                 </div>
                                 <h3 className="slb-header text-xl mb-1">{t.title}</h3>
                                 <div className="flex items-baseline gap-2 mb-3">
-                                    <span className="text-3xl font-bold text-foreground">{t.price}</span>
-                                    <span className="text-xs text-primary uppercase tracking-widest font-mono">/ {t.credits}</span>
+                                    <span className="text-3xl font-bold text-foreground font-mono">{t.price}</span>
+                                    {t.price !== "Free" && <span className="text-[10px] text-primary uppercase tracking-widest font-mono">USD</span>}
                                 </div>
-                                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                                <p className="text-primary text-xs font-mono mb-4">{t.credits}</p>
+                                <p className="text-muted-foreground text-[11px] leading-relaxed mb-6 h-12">
                                     {t.description}
                                 </p>
                             </div>
                             <button
-                                onClick={() => !t.isFree && handleBuyCredits(t.id)}
-                                disabled={loading !== null}
-                                className={`w-full py-3 text-xs font-bold uppercase tracking-widest transition-all mb-4 ${t.isFree ? "slb-btn" : "slb-btn slb-btn-primary"
-                                    } ${loading === t.id ? "opacity-70 cursor-wait" : ""}`}
+                                onClick={() => handleBuyCredits()}
+                                className={`w-full py-3 text-[10px] font-bold uppercase tracking-widest transition-all ${t.isFree ? "slb-btn opacity-60" : "slb-btn slb-btn-primary"
+                                    }`}
                             >
-                                {loading === t.id ? (
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : null}
                                 {t.buttonText}
                             </button>
                         </div>
