@@ -50,6 +50,14 @@ class FileSystemRedisMock {
         }
         return null;
     }
+
+    async incrby(key: string, amount: number) {
+        const current = parseInt(this.data[key] || "0");
+        const next = current + amount;
+        this.data[key] = next;
+        this.save();
+        return next;
+    }
 }
 
 const redisClientSingleton = () => {

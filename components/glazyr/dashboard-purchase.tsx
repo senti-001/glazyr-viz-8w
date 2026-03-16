@@ -137,7 +137,8 @@ export function DashboardPurchase() {
             if (data.url) {
                 window.location.href = data.url
             } else {
-                throw new Error(data.error || "Failed to create checkout session")
+                const msg = data.details ? `${data.error}: ${data.details}` : (data.error || "Failed to create checkout session")
+                throw new Error(msg)
             }
         } catch (err: any) {
             console.error("Stripe Error:", err)

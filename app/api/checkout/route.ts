@@ -56,14 +56,19 @@ export async function POST(req: Request) {
                 userId: session.user.id,
                 credits: tier.credits.toString(),
             },
-            success_url: `${process.env.NEXTAUTH_URL}/dashboard?checkout=success`,
-            cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL}/dashboard?checkout=canceled`,
+            success_url: `${process.env.NEXTAUTH_URL || 'https://glazyr.com'}/dashboard?checkout=success`,
+            cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://glazyr.com'}/dashboard?checkout=canceled`,
         });
 
         return NextResponse.json({ url: checkoutSession.url });
 
     } catch (error: any) {
         console.error(`[CHECKOUT ERROR] Failed to initialize gateway: ${error.message}`);
-        return NextResponse.json({ error: 'Internal Gateway Error' }, { status: 500 });
+        // Return actual error message for terminal debugging
+        return NextResponse.json({ 
+            error: 'Internal Gateway Error', 
+            details: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        }, { status: 500 });
     }
 }
