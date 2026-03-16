@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { CreditCard, Coins, ExternalLink, Zap, Shield, Check, Loader2 } from "lucide-react"
 import { ethers } from "ethers"
+import { useRouter } from "next/navigation"
 
 const TIERS = [
     { name: "Starter", frames: "10,000", price: "Free", highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
@@ -11,6 +12,7 @@ const TIERS = [
 ]
 
 export function DashboardPurchase() {
+    const router = useRouter()
     const [isPaying, setIsPaying] = useState(false)
     const [txStatus, setTxStatus] = useState<{ message: string; type: 'info' | 'success' | 'error' } | null>(null)
 
@@ -23,6 +25,23 @@ export function DashboardPurchase() {
             if (typeof window === 'undefined' || !window.ethereum) {
                 setTxStatus({ message: "No Web3 wallet detected. Please install MetaMask.", type: 'error' })
                 return
+            }
+
+            // Enforce Base Network (Chain ID 8453 = 0x2105)
+            try {
+                // @ts-ignore
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x2105' }],
+                });
+            } catch (switchError: any) {
+                // This error code indicates that the chain has not been added to MetaMask.
+                if (switchError.code === 4902) {
+                    setTxStatus({ message: "Please manually add the Base network to your wallet to continue.", type: 'error' })
+                    setIsPaying(false)
+                    return
+                }
+                throw switchError
             }
 
             // @ts-ignore
@@ -60,6 +79,7 @@ export function DashboardPurchase() {
             const verifyData = await response.json()
             if (verifyData.success) {
                 setTxStatus({ message: "Reconciliation successful. Frames credited!", type: 'success' })
+                router.refresh()
             } else {
                 setTxStatus({ message: "Payment confirmed, but backend reconciliation failed.", type: 'error' })
             }

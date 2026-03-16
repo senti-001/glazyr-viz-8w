@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createPublicClient, http, type Hex } from "viem"
 import { base } from "viem/chains"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import redis from "@/lib/redis"
 
 const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_URL || "https://api.developer.coinbase.com/rpc/v1/base/"
 
 export async function POST(req: NextRequest) {
     try {
+        const session = await getServerSession(authOptions)
+        if (!session || !session.user || !session.user.id) {
+            return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 })
+        }
+        const userId = session.user.id as string
+
         const body = await req.json()
         const { txHash, address } = body
 
@@ -36,16 +45,19 @@ export async function POST(req: NextRequest) {
 
         // ====================================================================
         // RECONCILIATION LOGIC:
-        // Here, we would update the user's total active frames in Redis.
-        // const currentFrames = await redis.get(`user:${address}:frames`) || 0
-        // await redis.set(`user:${address}:frames`, currentFrames + 100000)
+        // Update the user's total active frames in Redis.
+        const balanceKey = `user:credits:${userId}`
+        const currentFramesStr = await redis.get<string | number>(balanceKey)
+        const currentFrames = typeof currentFramesStr === 'string' ? parseInt(currentFramesStr) : (currentFramesStr as number) || 0
+        const framesAdded = 100000
+        await redis.set(balanceKey, currentFrames + framesAdded)
         // ====================================================================
 
         return NextResponse.json({
             success: true,
             message: "Transaction verified and frames credited.",
             receiptStatus: receipt.status,
-            framesAdded: 100000
+            framesAdded: framesAdded
         })
 
     } catch (error: any) {
