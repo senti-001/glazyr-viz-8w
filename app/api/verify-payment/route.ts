@@ -28,10 +28,10 @@ export async function POST(req: NextRequest) {
 
         // ====================================================================
         // TRUSTLESS RECONCILIATION LOGIC (V1 HARDENED):
-        // We bypass strict receipt fetching here because public RPCs lag. X402 will safely scan events.
+        // We use the fast-path receipt fetching for the provided txHash, which bypasses public RPC lag/503 limits.
         const creditManager = new CreditManager()
         const tierFrames = 100000 // Default to Developer tier for pilot settlement
-        const reconciliation = await creditManager.reconcileOnChain(userId, address, tierFrames)
+        const reconciliation = await creditManager.reconcileOnChain(userId, address, tierFrames, txHash)
 
         if (reconciliation.success) {
             return NextResponse.json({

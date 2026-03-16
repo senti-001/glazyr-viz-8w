@@ -62,6 +62,47 @@ export class BaseSettlementProvider implements ISettlementProvider {
     }
 
     /**
+     * Fast-Path Verification: Verifies a specific transaction hash directly without relying on getLogs.
+     * Essential for bypassing public RPC 503 limits on wide block scans while maintaining trustless security.
+     */
+    async verifySpecificTransfer(txHash: Hex, userAddress: string, amountUsdc: number): Promise<Hex | null> {
+        console.log(`[BaseProvider] Fast-Path verifying tx: ${txHash}`);
+        try {
+            const receipt = await this.client.getTransactionReceipt({ hash: txHash });
+            if (receipt.status !== "success") return null;
+
+            const expectedValue = BigInt(Math.round(amountUsdc * 1e6));
+            
+            for (const log of receipt.logs) {
+                if (log.address.toLowerCase() === USDC_ADDRESS.toLowerCase()) {
+                    try {
+                        const decodedValue = BigInt(log.data as string || "0");
+                        
+                        // Extract "from" and "to" topics
+                        const topics = log.topics;
+                        if (topics && topics.length >= 3) {
+                            const from = ('0x' + topics[1]?.slice(26)) as string;
+                            const to = ('0x' + topics[2]?.slice(26)) as string;
+                            
+                            if (from.toLowerCase() === userAddress.toLowerCase() &&
+                                to.toLowerCase() === TREASURY_ADDRESS.toLowerCase() &&
+                                decodedValue === expectedValue) {
+                                console.log(`[BaseProvider] ✅ Fast-Path Match Confirmed!`);
+                                return txHash;
+                            }
+                        }
+                    } catch (e) {
+                         // Ignore decode errors on non-transfer events
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("[BaseProvider] Fast-path verification failed:", err);
+        }
+        return null;
+    }
+
+    /**
      * Trustless Event Indexing (X402)
      * Scans logs for a specific user to verify transfer to treasury.
      * Uses case-insensitive matching for maximum robustness.
@@ -160,9 +201,10 @@ export class CreditManager {
 
     /**
      * Reconcile on-chain payment trustlessly.
-     * Uses X402 background matching against Ethereum logs.
+     * Prioritizes fast-path receipt fetching for the provided txHash.
+     * Falls back to X402 background matching against Ethereum logs.
      */
-    async reconcileOnChain(userId: string, userAddress: string, tierFrames: number): Promise<{ success: boolean; txHash?: string; framesAdded?: number }> {
+    async reconcileOnChain(userId: string, userAddress: string, tierFrames: number, providedTxHash?: string): Promise<{ success: boolean; txHash?: string; framesAdded?: number }> {
         const provider = new BaseSettlementProvider();
         
         // Map Tier Frames to USDC amount (e.g. 100k frames = $3)
@@ -174,20 +216,29 @@ export class CreditManager {
         
         if (expectedUsdc === 0) return { success: false };
 
-        const txHash = await provider.findRecentTransfer(userAddress, expectedUsdc);
+        let resolvedTxHash = null;
+
+        if (providedTxHash) {
+            resolvedTxHash = await provider.verifySpecificTransfer(providedTxHash as Hex, userAddress, expectedUsdc);
+        }
+
+        // Trustless Fallback if Client dropping session / missing hash
+        if (!resolvedTxHash) {
+            resolvedTxHash = await provider.findRecentTransfer(userAddress, expectedUsdc);
+        }
         
-        if (txHash) {
+        if (resolvedTxHash) {
             // Check if this tx has already been processed to prevent double-spend
-            const alreadyProcessed = await redis.get(`tx:processed:${txHash}`);
+            const alreadyProcessed = await redis.get(`tx:processed:${resolvedTxHash}`);
             if (alreadyProcessed) return { success: false };
 
             // Atomic Credit Update
             const balanceKey = `user:credits:${userId}`;
             const current = await this.getFiatBalance(userId);
             await redis.set(balanceKey, current + tierFrames);
-            await redis.set(`tx:processed:${txHash}`, "true", { ex: 604800 }); // Mark as processed for 1 week
+            await redis.set(`tx:processed:${resolvedTxHash}`, "true", { ex: 604800 }); // Mark as processed for 1 week
 
-            return { success: true, txHash, framesAdded: tierFrames };
+            return { success: true, txHash: resolvedTxHash, framesAdded: tierFrames };
         }
 
         return { success: false };
