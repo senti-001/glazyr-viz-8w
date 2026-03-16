@@ -64,31 +64,40 @@ export class BaseSettlementProvider implements ISettlementProvider {
     /**
      * Trustless Event Indexing (X402)
      * Scans logs for a specific user to verify transfer to treasury.
+     * Uses case-insensitive matching for maximum robustness.
      */
     async findRecentTransfer(userAddress: string, amountUsdc: number): Promise<Hex | null> {
+        console.log(`[BaseProvider] Resolving trustless transfer for ${userAddress} ($${amountUsdc})`);
         try {
             const block = await this.client.getBlockNumber();
             const logs = await this.client.getLogs({
                 address: USDC_ADDRESS,
                 event: parseAbi(["event Transfer(address indexed from, address indexed to, uint256 value)"])[0],
-                args: {
-                    from: userAddress as Hex,
-                    to: TREASURY_ADDRESS as Hex
-                },
-                fromBlock: block - BigInt(1000) // Scan last ~1000 blocks (~30 mins on Base)
+                fromBlock: block - BigInt(3000) // Increase scan to last ~3000 blocks (~1.5 hrs)
             });
 
-            // Expected amount in 6 decimals
-            const expectedValue = BigInt(amountUsdc * 1e6);
+            const expectedValue = BigInt(Math.round(amountUsdc * 1e6));
+            console.log(`[BaseProvider] Scanning ${logs.length} USDC events. Expected: ${expectedValue} units`);
 
             for (const log of logs) {
                 // @ts-ignore
-                if (log.args.value === expectedValue) {
-                    return log.transactionHash;
+                const from = log.args.from as string;
+                // @ts-ignore
+                const to = log.args.to as string;
+                // @ts-ignore
+                const val = log.args.value as bigint;
+
+                if (
+                    from.toLowerCase() === userAddress.toLowerCase() &&
+                    to.toLowerCase() === TREASURY_ADDRESS.toLowerCase() &&
+                    val === expectedValue
+                ) {
+                    console.log(`[BaseProvider] ✅ Found match! Tx: ${log.transactionHash}`);
+                    return log.transactionHash as Hex;
                 }
             }
         } catch (err) {
-            console.error("[BaseProvider] Scaning logs failed:", err);
+            console.error("[BaseProvider] Scanning logs failed:", err);
         }
         return null;
     }
