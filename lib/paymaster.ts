@@ -200,6 +200,17 @@ export class CreditManager {
     }
 
     /**
+     * Atomically adds credits to a user's balance.
+     * Uses Redis INCRBY to ensure thread-safety and prevent race conditions.
+     */
+    async addCredits(userId: string, amount: number): Promise<number> {
+        const balanceKey = `user:credits:${userId}`;
+        const newBalance = await redis.incrby(balanceKey, amount);
+        console.log(`[Ledger] Credited ${amount} frames to User ${userId}. New Balance: ${newBalance}`);
+        return newBalance;
+    }
+
+    /**
      * Reconcile on-chain payment trustlessly.
      * Prioritizes fast-path receipt fetching for the provided txHash.
      * Falls back to X402 background matching against Ethereum logs.
@@ -233,11 +244,11 @@ export class CreditManager {
             const alreadyProcessed = await redis.get(`tx:processed:${resolvedTxHash}`);
             if (alreadyProcessed) return { success: false, txHash: resolvedTxHash, details: "Transaction already processed" };
 
-            // Atomic Credit Update
-            const balanceKey = `user:credits:${userId}`;
-            const current = await this.getFiatBalance(userId);
-            await redis.set(balanceKey, current + tierFrames);
+            // Mark as processed immediately to prevent racing
             await redis.set(`tx:processed:${resolvedTxHash}`, "true", { ex: 604800 }); // Mark as processed for 1 week
+
+            // Atomic Credit Update
+            await this.addCredits(userId, tierFrames);
 
             return { success: true, txHash: resolvedTxHash, framesAdded: tierFrames };
         }

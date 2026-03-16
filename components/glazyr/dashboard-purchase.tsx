@@ -115,6 +115,38 @@ export function DashboardPurchase() {
         }
     }
 
+    const handleStripePayment = async () => {
+        if (!selectedTier || selectedTier.priceNum === 0) {
+            setTxStatus({ message: "Please select a paid tier first.", type: 'error' });
+            return;
+        }
+
+        try {
+            setIsPaying(true)
+            setTxStatus({ message: "Initializing secure Stripe session...", type: 'info' })
+
+            const tierId = selectedTier.name.toLowerCase().split(' ')[0] // developer, pro, scale
+            
+            const response = await fetch("/api/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tierId }),
+            })
+
+            const data = await response.json()
+            if (data.url) {
+                window.location.href = data.url
+            } else {
+                throw new Error(data.error || "Failed to create checkout session")
+            }
+        } catch (err: any) {
+            console.error("Stripe Error:", err)
+            setTxStatus({ message: err.message || "Payment system unavailable. Please try again.", type: 'error' })
+        } finally {
+            setIsPaying(false)
+        }
+    }
+
     const selectTier = (tier: typeof TIERS[0]) => {
         if (tier.priceNum === 0) return;
         setSelectedTier(tier);
@@ -210,9 +242,14 @@ export function DashboardPurchase() {
                                 Frames credited in &lt;5 seconds
                             </li>
                         </ul>
-                        <button className="w-full slb-btn slb-btn-stripe py-2.5 text-sm font-semibold flex items-center justify-center gap-2">
-                            Pay with Stripe
-                            <ExternalLink className="h-3.5 w-3.5" />
+                        <button 
+                            onClick={handleStripePayment}
+                            disabled={isPaying}
+                            className={`w-full slb-btn slb-btn-stripe py-2.5 text-sm font-semibold flex items-center justify-center gap-2 ${isPaying ? 'opacity-80 cursor-wait' : ''}`}
+                        >
+                            {isPaying ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                            {isPaying ? 'Processing...' : 'Pay with Stripe'}
+                            {!isPaying && <ExternalLink className="h-3.5 w-3.5" />}
                         </button>
                     </div>
 

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic"
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { CreditManager } from '@/lib/paymaster';
 import redis from '@/lib/redis';
 
 const getStripe = () => {
@@ -53,8 +54,8 @@ export async function POST(req: Request) {
             : Math.floor((amountPaid || 0) / 100) * 100;
 
         try {
-            const balanceKey = `user:credits:${userId}`;
-            const newBalance = await redis.incrby(balanceKey, creditsToMint);
+            const creditManager = new CreditManager();
+            const newBalance = await creditManager.addCredits(userId, creditsToMint);
             console.log(`[REVENUE SECURED] Minted ${creditsToMint} credits for User ${userId}. New Balance: ${newBalance}`);
         } catch (dbError) {
             console.error(`[LEDGER ERROR] Failed to allocate credits for ${userId}:`, dbError);
