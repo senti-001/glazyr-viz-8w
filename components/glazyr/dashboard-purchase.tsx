@@ -71,7 +71,8 @@ export function DashboardPurchase() {
                 params: [{
                     from: address,
                     to: USDC_ADDRESS,
-                    data: data
+                    data: data,
+                    value: '0x0'
                 }]
             })
 
