@@ -210,7 +210,8 @@ export class CreditManager {
         // Map Tier Frames to USDC amount (e.g. 100k frames = $3)
         const frameToUsdcMap: Record<number, number> = {
             100000: 3,
-            500000: 15
+            300000: 9,
+            1000000: 15
         };
         const expectedUsdc = frameToUsdcMap[tierFrames] || 0;
         

@@ -6,17 +6,24 @@ import { ethers } from "ethers"
 import { useRouter } from "next/navigation"
 
 const TIERS = [
-    { name: "Starter", frames: "10,000", price: "Free", highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
-    { name: "Developer", frames: "100,000", price: "$3", highlight: true, badge: "Most Popular", desc: "Ship production agents at scale." },
-    { name: "Professional", frames: "500,000", price: "$15", highlight: false, badge: "Best Value", desc: "Enterprise-grade throughput." },
+    { name: "Starter", frames: "5,000", price: "Free", priceNum: 0, highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
+    { name: "Developer", frames: "100,000", price: "$3", priceNum: 3, highlight: true, badge: "Most Popular", desc: "The Alpha Standard for active agents." },
+    { name: "Pro", frames: "300,000", price: "$9", priceNum: 9, highlight: false, badge: "Heavy Usage", desc: "For high-frequency vision benchmarks." },
+    { name: "Scale", frames: "1,000,000", price: "$15", priceNum: 15, highlight: false, badge: "Enterprise", desc: "Production-grade autonomous agents." },
 ]
 
 export function DashboardPurchase() {
     const router = useRouter()
     const [isPaying, setIsPaying] = useState(false)
+    const [selectedTier, setSelectedTier] = useState<typeof TIERS[0] | null>(null)
     const [txStatus, setTxStatus] = useState<{ message: string; type: 'info' | 'success' | 'error' } | null>(null)
 
     const handleOnChainPayment = async () => {
+        if (!selectedTier || selectedTier.priceNum === 0) {
+            setTxStatus({ message: "Please select a paid tier first.", type: 'error' });
+            return;
+        }
+
         try {
             setIsPaying(true)
             setTxStatus({ message: "Connecting to wallet...", type: 'info' })
@@ -35,7 +42,6 @@ export function DashboardPurchase() {
                     params: [{ chainId: '0x2105' }],
                 });
             } catch (switchError: any) {
-                // This error code indicates that the chain has not been added to MetaMask.
                 if (switchError.code === 4902) {
                     setTxStatus({ message: "Please manually add the Base network to your wallet to continue.", type: 'error' })
                     setIsPaying(false)
@@ -49,20 +55,17 @@ export function DashboardPurchase() {
             const signer = await provider.getSigner()
             const address = await signer.getAddress()
 
-            setTxStatus({ message: "Confirm transaction in your wallet...", type: 'info' })
+            setTxStatus({ message: `Initiating ${selectedTier.price} USDC Payment...`, type: 'info' })
 
-            // Base USDC Contract ABI (ERC20 Transfer)
             const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
             const TREASURY_ADDRESS = "0x104A40D202d40458d8c67758ac54E93024A41B01"
             const USDC_ABI = ["function transfer(address to, uint256 amount) returns (bool)"]
             const usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer)
 
-            // The user requested: "get a payment sent sown for lets say 3 from and to our same acct"
-            // Sending 3 USDC (USDC has 6 decimals, so 3 * 10^6 base units) back to the same address
-            const amount = ethers.parseUnits("3", 6)
+            // Dynamic Amount Calculation
+            const amount = ethers.parseUnits(selectedTier.priceNum.toString(), 6)
 
             setTxStatus({ message: "Requesting USDC transfer signature...", type: 'info' })
-            // Bypass Ethers.js transaction parsing bugs (nonce undefined) by sending raw RPC payload
             const data = usdcContract.interface.encodeFunctionData("transfer", [TREASURY_ADDRESS, amount])
 
             // @ts-ignore
@@ -76,29 +79,32 @@ export function DashboardPurchase() {
                 }]
             })
 
-            setTxStatus({ message: `Transaction accepted by wallet! Reconciling with backend...`, type: 'info' })
+            setTxStatus({ message: `Transaction accepted! Reconciling with backend...`, type: 'info' })
 
-            // Reconcile transaction with the backend (Approach 2: Cryptographic Proof)
+            // Reconcile transaction with the backend
             const response = await fetch("/api/verify-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ txHash: txHash, address: address })
+                body: JSON.stringify({ 
+                    txHash: txHash, 
+                    address: address,
+                    tierFrames: parseInt(selectedTier.frames.replace(/,/g, ''))
+                })
             })
 
             const verifyData = await response.json()
             if (verifyData.success) {
-                setTxStatus({ message: "Reconciliation successful. Frames credited!", type: 'success' })
+                setTxStatus({ message: `${selectedTier.frames} frames credited trustlessly!`, type: 'success' })
                 router.refresh()
             } else {
+                console.error("Reconciliation failed:", verifyData.debug);
                 setTxStatus({ message: "Payment confirmed, but backend reconciliation failed.", type: 'error' })
             }
 
-            // Clear success message after 5 seconds
             setTimeout(() => setTxStatus(null), 5000)
 
         } catch (err: any) {
             console.error(err)
-            // Handle user rejection gracefully
             if (err.code === "ACTION_REJECTED") {
                 setTxStatus({ message: "Transaction was rejected in wallet.", type: 'error' })
             } else {
@@ -107,6 +113,14 @@ export function DashboardPurchase() {
         } finally {
             setIsPaying(false)
         }
+    }
+
+    const selectTier = (tier: typeof TIERS[0]) => {
+        if (tier.priceNum === 0) return;
+        setSelectedTier(tier);
+        // Smooth scroll to settlement section
+        const el = document.getElementById('settlement-options');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     return (
@@ -119,64 +133,66 @@ export function DashboardPurchase() {
                 </p>
             </div>
 
-            {/* Tier Cards — SLB Panels */}
-            <div className="grid md:grid-cols-3 gap-4">
+            {/* Tier Cards — Step 1 */}
+            <div className="grid md:grid-cols-4 gap-4">
                 {TIERS.map(tier => (
                     <div
                         key={tier.name}
-                        className={`relative slb-panel p-6 transition-all ${tier.highlight ? 'slb-panel-highlight' : ''}`}
+                        onClick={() => selectTier(tier)}
+                        className={`relative slb-panel p-5 transition-all cursor-pointer group ${
+                            selectedTier?.name === tier.name ? 'border-primary ring-1 ring-primary/50 bg-primary/5' : 
+                            tier.highlight ? 'slb-panel-highlight' : 'hover:border-primary/50'
+                        }`}
                     >
-                        {tier.highlight && (
+                        {(tier.highlight || selectedTier?.name === tier.name) && (
                             <span className="absolute -top-3 left-4 slb-label text-primary bg-background border border-primary/50 px-3 py-1 z-10 shadow-sm">
-                                {tier.badge}
+                                {selectedTier?.name === tier.name ? 'Selected' : tier.badge}
                             </span>
                         )}
                         <div className="mb-4 pt-1">
                             <h3 className="slb-header text-lg text-foreground">{tier.name}</h3>
-                            <p className="text-xs text-muted-foreground mt-1">{tier.desc}</p>
+                            <p className="text-[10px] leading-tight text-muted-foreground mt-1 h-8">{tier.desc}</p>
                         </div>
                         <div className="flex items-baseline gap-1 mb-1">
-                            <span className="text-3xl font-bold tracking-tight text-foreground font-mono">{tier.price}</span>
-                            {tier.price !== "Free" && <span className="text-sm text-muted-foreground">USD</span>}
+                            <span className="text-2xl font-bold tracking-tight text-foreground font-mono">{tier.price}</span>
+                            {tier.price !== "Free" && <span className="text-sm text-muted-foreground uppercase">USD</span>}
                         </div>
                         <p className="text-sm text-primary font-mono font-medium mb-4">{tier.frames} frames</p>
-                        <ul className="space-y-2 mb-6">
-                            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                Zero-copy vision pipeline
-                            </li>
-                            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                GCP Big Iron compute
-                            </li>
-                            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                Cloud-isolated security
-                            </li>
-                        </ul>
                         <button
-                            className={`w-full py-2.5 text-sm font-semibold transition-all ${tier.highlight
+                            className={`w-full py-2 text-xs font-semibold transition-all ${
+                                selectedTier?.name === tier.name || tier.highlight
                                 ? 'slb-btn slb-btn-primary'
                                 : 'slb-btn'
-                                }`}
+                            }`}
                         >
-                            {tier.price === "Free" ? "Current Tier" : "Purchase"}
+                            {tier.price === "Free" ? "Active Tier" : selectedTier?.name === tier.name ? "Proceed ↓" : "Select"}
                         </button>
                     </div>
                 ))}
             </div>
 
-            {/* Settlement Methods — SLB Panel */}
-            <div className="slb-panel p-8">
-                <h3 className="slb-header text-foreground mb-2">Settlement Options</h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                    Choose how you&apos;d like to pay. Both methods credit your account instantly.
-                </p>
+            {/* Settlement Methods — Step 2 */}
+            <div id="settlement-options" className={`slb-panel p-8 transition-all duration-500 ${!selectedTier ? 'opacity-50 grayscale pointer-events-none scale-[0.98]' : 'opacity-100'}`}>
+                <div className="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 className="slb-header text-foreground mb-1">Settlement Options</h3>
+                        <p className="text-sm text-muted-foreground">
+                            {selectedTier ? `Confirm check-out for ${selectedTier.name} (${selectedTier.frames} Frames)` : "Select a tier above to unlock payment methods."}
+                        </p>
+                    </div>
+                    {selectedTier && (
+                        <div className="text-right">
+                            <p className="text-xs text-muted-foreground uppercase font-semibold">Total Amount</p>
+                            <p className="text-2xl font-bold font-mono text-primary text-glow">{selectedTier.price} USDC</p>
+                        </div>
+                    )}
+                </div>
+                
                 <div className="grid md:grid-cols-2 gap-4">
                     {/* Stripe */}
-                    <div className="slb-inset p-6 hover:border-primary transition-all">
+                    <div className="slb-inset p-6 hover:border-primary transition-all group">
                         <div className="flex items-center gap-3 mb-3">
-                            <div className="slb-panel p-2" style={{ boxShadow: 'none' }}>
+                            <div className="slb-panel p-2 group-hover:bg-primary/10 transition-colors" style={{ boxShadow: 'none' }}>
                                 <CreditCard className="h-5 w-5 text-violet-600 dark:text-violet-400" />
                             </div>
                             <div>
@@ -193,10 +209,6 @@ export function DashboardPurchase() {
                                 <Zap className="h-3 w-3 text-violet-600 dark:text-violet-400 shrink-0" />
                                 Frames credited in &lt;5 seconds
                             </li>
-                            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <CreditCard className="h-3 w-3 text-violet-600 dark:text-violet-400 shrink-0" />
-                                Visa, Mastercard, Amex, ACH
-                            </li>
                         </ul>
                         <button className="w-full slb-btn slb-btn-stripe py-2.5 text-sm font-semibold flex items-center justify-center gap-2">
                             Pay with Stripe
@@ -205,14 +217,14 @@ export function DashboardPurchase() {
                     </div>
 
                     {/* On-Chain */}
-                    <div className="slb-inset p-6 hover:border-primary transition-all">
+                    <div className="slb-inset p-6 hover:border-primary transition-all group">
                         <div className="flex items-center gap-3 mb-3">
-                            <div className="slb-panel p-2" style={{ boxShadow: 'none' }}>
+                            <div className="slb-panel p-2 group-hover:bg-primary/10 transition-colors" style={{ boxShadow: 'none' }}>
                                 <Coins className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                             </div>
                             <div>
                                 <h4 className="font-semibold text-foreground text-sm">On-Chain (USDC / SOL)</h4>
-                                <p className="text-xs text-muted-foreground">Settle directly on Solana or Base mainnet</p>
+                                <p className="text-xs text-muted-foreground">Settle directly on Base mainnet</p>
                             </div>
                         </div>
                         <ul className="space-y-1.5 mb-5">
@@ -224,10 +236,6 @@ export function DashboardPurchase() {
                                 <Zap className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
                                 Confirmed in ~400ms
                             </li>
-                            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <Coins className="h-3 w-3 text-amber-600 dark:text-amber-400 shrink-0" />
-                                USDC or ETH accepted
-                            </li>
                         </ul>
                         <button
                             onClick={handleOnChainPayment}
@@ -237,7 +245,7 @@ export function DashboardPurchase() {
                             {isPaying ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
                             ) : null}
-                            {isPaying ? 'Processing...' : 'Pay On-Chain'}
+                            {isPaying ? 'Processing...' : `Pay On-Chain`}
                             {!isPaying && <ExternalLink className="h-3.5 w-3.5" />}
                         </button>
 
