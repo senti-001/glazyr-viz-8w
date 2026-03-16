@@ -61,13 +61,22 @@ export function DashboardPurchase() {
             const amount = ethers.parseUnits("3", 6)
 
             setTxStatus({ message: "Requesting USDC transfer signature...", type: 'info' })
-            // In Ethers v6, explicitly call getFunction for overloaded methods or strict ABI parsing
-            const transferFn = usdcContract.getFunction("transfer")
-            const tx = await transferFn.send(address, amount)
+            // Bypass Ethers.js transaction parsing bugs (nonce undefined) by sending raw RPC payload
+            const data = usdcContract.interface.encodeFunctionData("transfer", [address, amount])
+
+            // @ts-ignore
+            const txHash = await window.ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [{
+                    from: address,
+                    to: USDC_ADDRESS,
+                    data: data
+                }]
+            })
 
             setTxStatus({ message: `Transaction sent! Waiting for confirmation...`, type: 'info' })
 
-            const receipt = await tx.wait()
+            const receipt = await provider.waitForTransaction(txHash)
             if (!receipt) throw new Error("Transaction receipt is null")
 
             setTxStatus({ message: "Payment confirmed on-chain. Reconciling with backend...", type: 'info' })
@@ -76,7 +85,7 @@ export function DashboardPurchase() {
             const response = await fetch("/api/verify-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ txHash: receipt.hash, address: address })
+                body: JSON.stringify({ txHash: txHash, address: address })
             })
 
             const verifyData = await response.json()
