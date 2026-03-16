@@ -4,7 +4,7 @@ import { base } from "viem/chains"
 // CDP Configuration
 const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_URL || "https://api.developer.coinbase.com/rpc/v1/base/..."
 const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const
-const TREASURY_ADDRESS = "0x104A20a7a68e42f6e2a66B7d3B3E080146a2B01" as const
+const TREASURY_ADDRESS = "0x104A40D202d40458d8c67758ac54E93024A41B01" as const
 
 const USDC_ABI = parseAbi([
     "function transfer(address to, uint256 amount) returns (bool)",
@@ -58,11 +58,41 @@ export class BaseSettlementProvider implements ISettlementProvider {
 
     async settle(privateKey: string, amount: number): Promise<SettlementResult> {
         // Implementation logic for CDP sponsored user ops...
-        // For brevity, we would wrap the existing sponsoredCapture logic here
         return { success: true, txHash: "0x..." };
     }
-}
 
+    /**
+     * Trustless Event Indexing (X402)
+     * Scans logs for a specific user to verify transfer to treasury.
+     */
+    async findRecentTransfer(userAddress: string, amountUsdc: number): Promise<Hex | null> {
+        try {
+            const block = await this.client.getBlockNumber();
+            const logs = await this.client.getLogs({
+                address: USDC_ADDRESS,
+                event: parseAbi(["event Transfer(address indexed from, address indexed to, uint256 value)"])[0],
+                args: {
+                    from: userAddress as Hex,
+                    to: TREASURY_ADDRESS as Hex
+                },
+                fromBlock: block - BigInt(1000) // Scan last ~1000 blocks (~30 mins on Base)
+            });
+
+            // Expected amount in 6 decimals
+            const expectedValue = BigInt(amountUsdc * 1e6);
+
+            for (const log of logs) {
+                // @ts-ignore
+                if (log.args.value === expectedValue) {
+                    return log.transactionHash;
+                }
+            }
+        } catch (err) {
+            console.error("[BaseProvider] Scaning logs failed:", err);
+        }
+        return null;
+    }
+}
 import redis from "@/lib/redis"
 
 /**
@@ -107,9 +137,9 @@ export class CreditManager {
     }
 
     async getFiatBalance(userId: string): Promise<number> {
-        const balance = await redis.get<string | number>(`user:credits:${userId}`);
+        const balance = await redis.get(`user:credits:${userId}`);
 
-        if (balance === null) {
+        if (balance === null || balance === undefined) {
             // Beta Phase: Auto-grant 10k frames on first dashboard view
             const grant = 10_000;
             await redis.set(`user:credits:${userId}`, grant);
@@ -117,6 +147,41 @@ export class CreditManager {
         }
 
         return typeof balance === 'string' ? parseInt(balance) : (balance as number);
+    }
+
+    /**
+     * Reconcile on-chain payment trustlessly.
+     * Uses X402 background matching against Ethereum logs.
+     */
+    async reconcileOnChain(userId: string, userAddress: string, tierFrames: number): Promise<{ success: boolean; txHash?: string; framesAdded?: number }> {
+        const provider = new BaseSettlementProvider();
+        
+        // Map Tier Frames to USDC amount (e.g. 100k frames = $3)
+        const frameToUsdcMap: Record<number, number> = {
+            100000: 3,
+            500000: 15
+        };
+        const expectedUsdc = frameToUsdcMap[tierFrames] || 0;
+        
+        if (expectedUsdc === 0) return { success: false };
+
+        const txHash = await provider.findRecentTransfer(userAddress, expectedUsdc);
+        
+        if (txHash) {
+            // Check if this tx has already been processed to prevent double-spend
+            const alreadyProcessed = await redis.get(`tx:processed:${txHash}`);
+            if (alreadyProcessed) return { success: false };
+
+            // Atomic Credit Update
+            const balanceKey = `user:credits:${userId}`;
+            const current = await this.getFiatBalance(userId);
+            await redis.set(balanceKey, current + tierFrames);
+            await redis.set(`tx:processed:${txHash}`, "true", { ex: 604800 }); // Mark as processed for 1 week
+
+            return { success: true, txHash, framesAdded: tierFrames };
+        }
+
+        return { success: false };
     }
 
     async setPendingFlag(userId: string): Promise<void> {

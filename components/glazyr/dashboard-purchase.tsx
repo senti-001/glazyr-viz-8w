@@ -53,6 +53,7 @@ export function DashboardPurchase() {
 
             // Base USDC Contract ABI (ERC20 Transfer)
             const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+            const TREASURY_ADDRESS = "0x104A40D202d40458d8c67758ac54E93024A41B01"
             const USDC_ABI = ["function transfer(address to, uint256 amount) returns (bool)"]
             const usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer)
 
@@ -62,7 +63,7 @@ export function DashboardPurchase() {
 
             setTxStatus({ message: "Requesting USDC transfer signature...", type: 'info' })
             // Bypass Ethers.js transaction parsing bugs (nonce undefined) by sending raw RPC payload
-            const data = usdcContract.interface.encodeFunctionData("transfer", [address, amount])
+            const data = usdcContract.interface.encodeFunctionData("transfer", [TREASURY_ADDRESS, amount])
 
             // @ts-ignore
             const txHash = await window.ethereum.request({
@@ -74,12 +75,7 @@ export function DashboardPurchase() {
                 }]
             })
 
-            setTxStatus({ message: `Transaction sent! Waiting for confirmation...`, type: 'info' })
-
-            const receipt = await provider.waitForTransaction(txHash)
-            if (!receipt) throw new Error("Transaction receipt is null")
-
-            setTxStatus({ message: "Payment confirmed on-chain. Reconciling with backend...", type: 'info' })
+            setTxStatus({ message: `Transaction accepted by wallet! Reconciling with backend...`, type: 'info' })
 
             // Reconcile transaction with the backend (Approach 2: Cryptographic Proof)
             const response = await fetch("/api/verify-payment", {
