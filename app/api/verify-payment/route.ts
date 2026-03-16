@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
         const reconciliation = await creditManager.reconcileOnChain(userId, address, tierFrames, txHash)
 
         if (reconciliation.success) {
+            console.log(`[VerifyApi] ✅ Success for ${userId}: ${reconciliation.txHash}`);
             return NextResponse.json({
                 success: true,
                 message: "Transaction verified trustlessly and frames credited.",
@@ -41,11 +42,14 @@ export async function POST(req: NextRequest) {
                 framesAdded: reconciliation.framesAdded
             })
         }
+        
+        console.warn(`[VerifyApi] ❌ Reconciliation failed for ${userId} at ${address}. Details:`, reconciliation);
         // ====================================================================
 
         return NextResponse.json({
             success: false,
-            error: "On-chain transaction not found or already processed. Please wait valid block confirmation."
+            error: "On-chain transaction not found or already processed. Please wait valid block confirmation.",
+            debug: reconciliation // Expose reconciliation state for live debugging
         }, { status: 400 })
 
     } catch (error: any) {

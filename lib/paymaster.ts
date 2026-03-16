@@ -2,7 +2,7 @@ import { createPublicClient, http, encodeFunctionData, parseAbi, type Hex } from
 import { base } from "viem/chains"
 
 // CDP Configuration
-const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_URL || "https://api.developer.coinbase.com/rpc/v1/base/..."
+const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_URL || "https://mainnet.base.org"
 const USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const
 const TREASURY_ADDRESS = "0x104A40D202d40458d8c67758ac54E93024A41B01" as const
 
@@ -204,7 +204,7 @@ export class CreditManager {
      * Prioritizes fast-path receipt fetching for the provided txHash.
      * Falls back to X402 background matching against Ethereum logs.
      */
-    async reconcileOnChain(userId: string, userAddress: string, tierFrames: number, providedTxHash?: string): Promise<{ success: boolean; txHash?: string; framesAdded?: number }> {
+    async reconcileOnChain(userId: string, userAddress: string, tierFrames: number, providedTxHash?: string): Promise<{ success: boolean; txHash?: string; framesAdded?: number; details?: any; providedHash?: string }> {
         const provider = new BaseSettlementProvider();
         
         // Map Tier Frames to USDC amount (e.g. 100k frames = $3)
@@ -214,7 +214,7 @@ export class CreditManager {
         };
         const expectedUsdc = frameToUsdcMap[tierFrames] || 0;
         
-        if (expectedUsdc === 0) return { success: false };
+        if (expectedUsdc === 0) return { success: false, details: "Invalid tier frames or USDC amount mapping" };
 
         let resolvedTxHash = null;
 
@@ -230,7 +230,7 @@ export class CreditManager {
         if (resolvedTxHash) {
             // Check if this tx has already been processed to prevent double-spend
             const alreadyProcessed = await redis.get(`tx:processed:${resolvedTxHash}`);
-            if (alreadyProcessed) return { success: false };
+            if (alreadyProcessed) return { success: false, txHash: resolvedTxHash, details: "Transaction already processed" };
 
             // Atomic Credit Update
             const balanceKey = `user:credits:${userId}`;
@@ -241,7 +241,11 @@ export class CreditManager {
             return { success: true, txHash: resolvedTxHash, framesAdded: tierFrames };
         }
 
-        return { success: false };
+        return { 
+            success: false, 
+            details: `Transaction not found in mempool/logs. Expected ${expectedUsdc} USDC from ${userAddress} to ${TREASURY_ADDRESS}`,
+            providedHash: providedTxHash
+        };
     }
 
     async setPendingFlag(userId: string): Promise<void> {
