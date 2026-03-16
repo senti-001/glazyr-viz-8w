@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         const userId = session.user.id as string
 
         const body = await req.json()
-        const { txHash, address } = body
+        const { txHash, address, tierFrames: providedTierFrames } = body
 
         if (!txHash || !address) {
             return NextResponse.json(
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
         // TRUSTLESS RECONCILIATION LOGIC (V1 HARDENED):
         // We use the fast-path receipt fetching for the provided txHash, which bypasses public RPC lag/503 limits.
         const creditManager = new CreditManager()
-        const tierFrames = 100000 // Default to Developer tier for pilot settlement
+        const tierFrames = providedTierFrames || 100000 // Default to Developer tier if not provided
         const reconciliation = await creditManager.reconcileOnChain(userId, address, tierFrames, txHash)
 
         if (reconciliation.success) {
