@@ -61,11 +61,14 @@ export function DashboardPurchase() {
             const amount = ethers.parseUnits("3", 6)
 
             setTxStatus({ message: "Requesting USDC transfer signature...", type: 'info' })
-            const tx = await usdcContract.transfer(address, amount)
+            // In Ethers v6, explicitly call getFunction for overloaded methods or strict ABI parsing
+            const transferFn = usdcContract.getFunction("transfer")
+            const tx = await transferFn.send(address, amount)
 
             setTxStatus({ message: `Transaction sent! Waiting for confirmation...`, type: 'info' })
 
             const receipt = await tx.wait()
+            if (!receipt) throw new Error("Transaction receipt is null")
 
             setTxStatus({ message: "Payment confirmed on-chain. Reconciling with backend...", type: 'info' })
 
