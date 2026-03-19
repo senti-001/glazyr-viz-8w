@@ -13,7 +13,7 @@ export function TokenSavings() {
                         Stop Paying the Token Tax
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Traditional web agents bleed tokens on every reasoning step. Glazyr Viz’s Zero-Copy Optic Nerve eliminates the overhead.
+                        Traditional web agents bleed tokens on every reasoning step. By optimizing the <span className="text-primary">Smart Data Ratio</span>, Glazyr Viz ensures every token you pay for actually drives logical reasoning, not raw pixel decoding.
                     </p>
                 </div>
 

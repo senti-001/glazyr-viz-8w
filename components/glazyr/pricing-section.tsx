@@ -100,10 +100,13 @@ export function PricingSection() {
 
                 <div className="mt-16 text-center">
                     <div className="inline-flex items-center gap-4 slb-panel px-6 py-4 border-primary/20">
-                        <span className="text-primary font-mono font-bold uppercase tracking-tight text-sm">Strategic Tier Settlement</span>
+                        <span className="text-primary font-mono font-bold uppercase tracking-tight text-sm">Global, Instant Billing</span>
                         <span className="text-muted-foreground">|</span>
-                        <span className="slb-label text-xs">USDC Compatible</span>
+                        <span className="slb-label text-xs border-primary/20 bg-primary/5 text-primary">Pay-as-you-go</span>
                     </div>
+                    <p className="max-w-xl mx-auto mt-6 text-sm text-muted-foreground leading-relaxed">
+                        Instead of monthly subscriptions that charge for unused time, Glazyr uses a pure pay-as-you-go system. You only pay for the exact number of frames your AI uses, settled securely via the Base network.
+                    </p>
                 </div>
             </div>
         </section>
