@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/glazyr/navbar"
 import { Hero } from "@/components/glazyr/hero"
+import { DemoVideo } from "@/components/glazyr/demo-video"
 import { TokenSavings } from "@/components/glazyr/token-savings"
 import { PricingSection } from "@/components/glazyr/pricing-section"
 import { Footer } from "@/components/glazyr/footer"
@@ -10,6 +11,7 @@ export default function GlazyrHome() {
       <Navbar />
       <main>
         <Hero />
+        <DemoVideo />
         <TokenSavings />
         <PricingSection />
       </main>

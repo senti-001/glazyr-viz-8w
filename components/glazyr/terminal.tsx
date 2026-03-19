@@ -45,8 +45,8 @@ export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
             </div>
 
             {/* Snippet Block — Recessed Inset */}
-            <div className="relative group">
-                <div className="slb-inset m-3 p-5 font-mono text-sm overflow-x-auto">
+            <div className="slb-inset m-3 relative group">
+                <div className="p-5 font-mono text-sm overflow-x-auto">
                     <pre className="text-left text-foreground/80 leading-relaxed whitespace-pre min-h-[80px]">
                         {snippets[activeTab]}
                     </pre>
@@ -54,7 +54,7 @@ export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
 
                 <button
                     onClick={copyCommand}
-                    className="slb-btn slb-btn-sm absolute right-5 top-5 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="slb-btn slb-btn-sm absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition-opacity z-10"
                     title="Copy to clipboard"
                 >
                     {copied ? <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
