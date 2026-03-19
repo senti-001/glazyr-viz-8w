@@ -12,7 +12,7 @@ export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
     const [copied, setCopied] = useState(false);
 
     const snippets = {
-        npx: `npx -y @modelcontextprotocol/inspector --header "Authorization: Bearer ${sessionToken}" sse "https://mcp.glazyr.com/mcp/sse"`,
+        npx: `npx -y @modelcontextprotocol/inspector --transport sse --server-url "https://mcp.glazyr.com/mcp/sse" --header "Authorization: Bearer ${sessionToken}"`,
         python: `from mcp.client.sse import SSEClientTransport\n\n# Secure agentic connection\ntransport = SSEClientTransport(\n    url="https://mcp.glazyr.com/mcp/sse",\n    headers={"Authorization": "Bearer ${sessionToken}"}\n)`,
         benchmark: `TOKEN="${sessionToken}"; START=$(date +%s%3N); for i in {1..50}; do curl -s -X POST https://mcp.glazyr.com/mcp/messages -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "peek_vision_buffer", "arguments": {"include_base64": false}}}' > /dev/null; done; END=$(date +%s%3N); awk -v s=$START -v e=$END 'BEGIN { t=(e-s)/1000; printf "\\n[GLAZYR] Benchmark Complete\\nTotal Time: %.3fs\\nThroughput: %.2f FPS\\n", t, 50/t }'`
     };
