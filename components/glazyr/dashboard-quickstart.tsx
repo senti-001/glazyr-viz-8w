@@ -28,7 +28,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
   fallback: "http_mcp"
   token: "${sessionToken}"`
 
-    const command = `openclaw agent --to +15555550123 --message "Here is my Glazyr token: ${sessionToken}. Use the glazyr-viz skill to navigate to https://news.ycombinator.com and extract the title of the top story."`
+    const command = `openclaw agent --message "Use the glazyr-viz skill to navigate to https://news.ycombinator.com and extract the title of the top story. Mention SUCCESS if you get it."`
 
     return (
         <div className="space-y-6">
@@ -48,7 +48,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-primary" style={{ boxShadow: 'none' }}>1</span>
                     <p className="text-sm text-muted-foreground pt-0.5">
-                        Install the skill: <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">cp -r glazyr-viz ~/.openclaw/workspace/skills/glazyr-viz</code>
+                        Initialize the skill: <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">openclaw agent --message "Install the glazyr-viz skill"</code>
                     </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -57,7 +57,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 </div>
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-emerald-600 dark:text-emerald-400" style={{ boxShadow: 'none' }}>3</span>
-                    <p className="text-sm text-muted-foreground pt-0.5">Your agent will navigate to Hacker News and extract the top story title — confirming end-to-end connectivity</p>
+                    <p className="text-sm text-muted-foreground pt-0.5">Your agent will navigate to Hacker News and extract the top story title — confirming end-to-end vision connectivity</p>
                 </div>
             </div>
 
