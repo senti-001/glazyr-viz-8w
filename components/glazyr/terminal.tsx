@@ -13,8 +13,8 @@ export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
 
     const snippets = {
         npx: `npx -y @modelcontextprotocol/inspector --transport sse --server-url "https://mcp.glazyr.com/mcp/sse" --header "Authorization: Bearer ${sessionToken}"`,
-        python: `from mcp.client.sse import SSEClientTransport\n\n# Secure agentic connection\ntransport = SSEClientTransport(\n    url="https://mcp.glazyr.com/mcp/sse",\n    headers={"Authorization": "Bearer ${sessionToken}"}\n)`,
-        benchmark: `TOKEN="${sessionToken}"; START=$(date +%s%3N); for i in {1..50}; do curl -s -X POST https://mcp.glazyr.com/mcp/messages -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "peek_vision_buffer", "arguments": {"include_base64": false}}}' > /dev/null; done; END=$(date +%s%3N); awk -v s=$START -v e=$END 'BEGIN { t=(e-s)/1000; printf "\\n[GLAZYR] Benchmark Complete\\nTotal Time: %.3fs\\nThroughput: %.2f FPS\\n", t, 50/t }'`
+        python: `# Python 3.10+\n# Run this in a .py file or a Python REPL\nfrom mcp.client.sse import SSEClientTransport\n\n# Secure agentic connection\ntransport = SSEClientTransport(\n    url="https://mcp.glazyr.com/mcp/sse",\n    headers={"Authorization": "Bearer ${sessionToken}"}\n)`,
+        benchmark: `# Run this in a Bash/Zsh terminal (Linux/macOS/WSL)\nTOKEN="${sessionToken}"; START=$(date +%s%3N); for i in {1..50}; do curl -s -X POST https://mcp.glazyr.com/mcp/messages -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "peek_vision_buffer", "arguments": {"include_base64": false}}}' > /dev/null; done; END=$(date +%s%3N); awk -v s=$START -v e=$END 'BEGIN { t=(e-s)/1000; printf "\\n[GLAZYR] Benchmark Complete\\nTotal Time: %.3fs\\nThroughput: %.2f FPS\\n", t, 50/t }'`
     };
 
     const tabLabels = {
