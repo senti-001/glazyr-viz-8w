@@ -28,35 +28,8 @@ function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) 
 // ——— Logged-in view ———
 function KeyringAuthenticated({ sessionToken }: { sessionToken: string }) {
     const [visible, setVisible] = useState(false)
-    const [activeTab, setActiveTab] = useState<Tab>("MCP Inspector")
-
-    const commands: Record<Tab, string> = {
-        "MCP Inspector": `npx -y @modelcontextprotocol/inspector \\
-  --header "Authorization: Bearer ${sessionToken}" \\
-  sse https://mcp.glazyr.com/mcp/sse`,
-        "curl": `curl -N https://mcp.glazyr.com/mcp/sse \\
-  -H "Authorization: Bearer ${sessionToken}" \\
-  -H "Accept: text/event-stream"`,
-        "Python": `import httpx
-
-headers = {
-    "Authorization": "Bearer ${sessionToken}",
-    "Accept": "text/event-stream",
-}
-
-with httpx.stream("GET", "https://mcp.glazyr.com/mcp/sse", headers=headers) as r:
-    for line in r.iter_lines():
-        print(line)`,
-    }
-
-    const icons: Record<Tab, React.ReactNode> = {
-        "MCP Inspector": <Terminal className="h-3.5 w-3.5" />,
-        "curl": <Code2 className="h-3.5 w-3.5" />,
-        "Python": <Braces className="h-3.5 w-3.5" />,
-    }
-
     return (
-        <div className="space-y-8">
+        <div className="space-y-4">
             {/* Token row */}
             <div>
                 <div className="flex items-center justify-between mb-2">
@@ -80,38 +53,6 @@ with httpx.stream("GET", "https://mcp.glazyr.com/mcp/sse", headers=headers) as r
                         </button>
                     </div>
                     <CopyButton text={sessionToken} label="Copy Key" />
-                </div>
-            </div>
-
-            {/* Command tabs */}
-            <div>
-                <h3 className="slb-header text-foreground mb-2">Connect Your Agent</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                    Your key is pre-filled below. Pick your environment and copy the command.
-                </p>
-
-                {/* Tab bar — Win98 style */}
-                <div className="flex gap-0 mb-0 border-b border-border/50">
-                    {TABS.map(tab => (
-                        <button
-                            key={tab}
-                            onClick={() => setActiveTab(tab)}
-                            className={`slb-tab inline-flex items-center gap-1.5 ${activeTab === tab ? 'slb-tab-active' : ''}`}
-                        >
-                            {icons[tab]}
-                            {tab}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Command block — Recessed inset */}
-                <div className="relative">
-                    <pre className="slb-inset p-4 font-mono text-xs text-foreground/80 overflow-x-auto whitespace-pre leading-relaxed">
-                        {commands[activeTab]}
-                    </pre>
-                    <div className="absolute top-2 right-2">
-                        <CopyButton text={commands[activeTab]} label="Copy" />
-                    </div>
                 </div>
             </div>
         </div>
@@ -140,22 +81,6 @@ function KeyringLocked() {
                     >
                         Register →
                     </Link>
-                </div>
-            </div>
-            <div>
-                <h3 className="slb-header text-foreground mb-2">Connect Your Agent</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                    Once you register, your key will be pre-filled in the commands below — ready to copy and run.
-                </p>
-                <div className="flex gap-0 mb-0 border-b border-border/50">
-                    {TABS.map(tab => (
-                        <div key={tab} className="slb-tab text-muted-foreground/40">
-                            {tab}
-                        </div>
-                    ))}
-                </div>
-                <div className="slb-inset p-4 font-mono text-xs text-muted-foreground/30 leading-relaxed select-none">
-                    <span># Sign in to unlock your pre-filled connection commands</span>
                 </div>
             </div>
         </div>
