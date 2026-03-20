@@ -68,7 +68,7 @@ export function Hero() {
                         Get Your API Key
                     </Link>
                     <p className="slb-label text-primary">
-                        5,000 FREE FRAMES on register
+                        2,500 FREE FRAMES on register
                     </p>
                 </div>
 
