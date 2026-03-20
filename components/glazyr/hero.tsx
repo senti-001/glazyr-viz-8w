@@ -47,10 +47,10 @@ export function Hero() {
                 </div>
 
                 {/* Headline — Y2K Monospace */}
-                <h1 className="slb-header text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground leading-tight text-balance mb-6 uppercase">
+                <h1 className="slb-header text-3xl sm:text-4xl md:text-5xl tracking-tight text-foreground leading-tight text-balance mb-6 uppercase">
                     7.35ms Perception.
                     <br />
-                    <span className="text-primary text-6xl md:text-8xl text-balance">90%+ Token Savings.</span>
+                    <span className="text-primary text-4xl md:text-6xl text-balance">90%+ Token Savings.</span>
                 </h1>
 
                 {/* Subline */}
