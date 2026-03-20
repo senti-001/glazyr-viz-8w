@@ -1,4 +1,4 @@
-# Glazyr Viz V1.0.0: Don't Waste Intelligence on Screenshots 🚀
+# Glazyr Viz V1.0.0: 7.35ms Perception. 99% Fewer Tokens. 🚀
 
 Standard AI agents are often bottlenecked by slow, expensive screenshot serialization. **Glazyr Viz** is a high-performance Chromium fork that provides agents with **Zero-Copy Vision**—direct, raw memory access to the frame buffer for sub-10ms perception.
 

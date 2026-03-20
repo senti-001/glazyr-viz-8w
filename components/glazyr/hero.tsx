@@ -48,11 +48,9 @@ export function Hero() {
 
                 {/* Headline — Y2K Monospace */}
                 <h1 className="slb-header text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground leading-tight text-balance mb-6 uppercase">
-                    Don&apos;t Waste
+                    7.35ms Perception.
                     <br />
-                    Intelligence on
-                    <br />
-                    <span className="text-primary text-6xl md:text-8xl">Screenshots</span>
+                    <span className="text-primary text-6xl md:text-8xl">99% Fewer Tokens.</span>
                 </h1>
 
                 {/* Subline */}
