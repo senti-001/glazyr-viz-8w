@@ -18,7 +18,7 @@ When extracting visual context via Glazyr, the agent MUST follow these strict me
 2. **Token Verification**: Ensure a valid Glazyr Bearer token exists. Check `GLAZYR_TOKEN` environment variable first. If absent, prompt:
    > "I need a Glazyr Viz compute key. Log in at https://glazyr.com/dashboard, copy your Bearer token from the Keyring section."
 
-3. **Economic Quota Check**: Before initiating high-frequency rendering loops exceeding 10,000 frames, verify fund availability:
+3. **Economic Quota Check**: Before initiating high-frequency rendering loops exceeding 5,000 frames, verify fund availability:
    - Free tier: 10,000 frames/day (~13 minutes continuous)
    - On exhaustion: HTTP 402 triggers
    - Settlement: $1.00 USDC buys 50,000 frames on Base network
