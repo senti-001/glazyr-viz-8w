@@ -40,10 +40,10 @@ export const authOptions: NextAuthOptions = {
     },
     events: {
         async createUser({ user }) {
-            // Auto-grant 10,000 free Glazyr Frames on signup (Proof of Concept Tier)
+            // Auto-grant 2,500 free Glazyr Frames on signup (Proof of Concept Tier)
             if (user.id) {
-                await redis.set(`user:credits:${user.id}`, 10_000)
-                console.log(`[NextAuth] New user ${user.email} granted 10,000 Glazyr Frames.`)
+                await redis.set(`user:credits:${user.id}`, 2_500)
+                console.log(`[NextAuth] New user ${user.email} granted 2,500 Glazyr Frames.`)
             }
         },
     },

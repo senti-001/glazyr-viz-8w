@@ -190,8 +190,8 @@ export class CreditManager {
         const balance = await redis.get(`user:credits:${userId}`);
 
         if (balance === null || balance === undefined) {
-            // Beta Phase: Auto-grant 10k frames on first dashboard view
-            const grant = 10_000;
+            // Beta Phase: Auto-grant 2,500 frames on first dashboard view
+            const grant = 2_500;
             await redis.set(`user:credits:${userId}`, grant);
             return grant;
         }

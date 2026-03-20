@@ -14,7 +14,7 @@ export function PricingSection() {
             icon: <Cpu className="h-5 w-5 text-primary" />,
             title: "Starter",
             price: "$0",
-            credits: "5k Frames",
+            credits: "2.5k Frames",
             description: "Perfect for testing and prototyping with zero latency overhead.",
             buttonText: "Active Now",
             isFree: true
