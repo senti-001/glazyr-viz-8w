@@ -1,10 +1,10 @@
-# Glazyr Viz V1.0.0: High-Speed Vision SDK 🚀
+# Glazyr Viz V1.0.0: Don't Waste Intelligence on Screenshots 🚀
 
 Standard AI agents are often bottlenecked by slow, expensive screenshot serialization. **Glazyr Viz** is a high-performance Chromium fork that provides agents with **Zero-Copy Vision**—direct, raw memory access to the frame buffer for sub-10ms perception.
 
 ### 🎯 Real-World Use Cases
 - **High-Density Data Extraction**: Navigating complex tables, Canvas-based charts, and WebGL interfaces where DOM scrapers fail.
-- **Latency-Critical Automation**: Executing multi-step workflows (checkout bots, form filling) at human or super-human speeds.
+- **Latency-Critical Automation**: Executing multi-step workflows (checkout bots, form filling) at superhuman speeds.
 - **Large-Scale Scraping**: Reducing API tokens by 99%, allowing for thousands of perception cycles at a fraction of the cost.
 - **Anti-Bot Resilience**: Interacting with raw coordinates to bypass detection systems that flag standard WebDriver behavior.
 
@@ -34,6 +34,9 @@ Connect your agent to the verified production hub:
 #### **Q: How do you achieve 99% token savings?**
 Most agents use "Pixel-Pushing"—they capture a screenshot, encode it to Base64, and send the entire image to an LLM. This consumes roughly **1,200–1,600 tokens** per frame. **Glazyr Viz** uses the `vision.json` schema to extract semantic UI metadata and raw coordinate vectors directly from the Chromium Viz subsystem’s frame buffer. This reduces the payload to **12–16 tokens** per perception cycle.
 
+#### **Q: Is any "intelligence" lost by not sending a full screenshot?**
+None. In fact, you gain precision. Standard vision models often "guess" coordinates from pixels, leading to click hallucinations. `vision.json` provides the **exact [x, y] coordinates** and semantic metadata (ARIA roles, labels, states) directly from the Chromium render tree. Your agent doesn't have to guess; it knows.
+
 #### **Q: What exactly is in the `vision.json` schema?**
 It is a real-time map of the viewport's interactive state, including:
 * **Interactive Node Coordinates:** Precise [x, y] locations for all clickable/focusable elements.
@@ -41,7 +44,7 @@ It is a real-time map of the viewport's interactive state, including:
 * **Raw Frame Buffer Hashes:** Used for instant change detection.
 
 #### **Q: How does this eliminate "Jitter"?**
-Traditional "screenshot" methods are asynchronous—the browser renders a frame, and a separate process captures it later. Because Glazyr Viz is baked into the **Chromium source**, frame access is synchronous. The agent perceives the UI state at the exact moment the frame is committed to the GPU.
+Traditional "screenshot" methods are asynchronous. Because Glazyr Viz is baked into the **Chromium source**, frame access is synchronous. The agent perceives the UI state at the exact moment the frame is committed to the GPU.
 
 #### **Q: Why use MCP over SSE instead of WebSockets?**
 WebSockets lack the structured "Tool/Resource" discovery required for modern AI agents. By using the **Model Context Protocol (MCP)** over **Server-Sent Events (SSE)**, we provide a standardized handshake that allows any MCP-compliant agent to "plug and play" without custom driver code.
