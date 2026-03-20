@@ -91,10 +91,10 @@ export default async function DashboardPage() {
                             <div className="slb-panel p-2">
                                 <Code className="h-5 w-5 text-primary" />
                             </div>
-                            <h2 className="slb-header text-xl">Live Benchmark &amp; SDKs</h2>
+                            <h2 className="slb-header text-xl">Developer Tools &amp; SDKs</h2>
                         </div>
                         <p className="text-muted-foreground mb-8">
-                            Your session key is pre-populated. Run the benchmark below to verify your agent&apos;s zero-copy performance live on the Big Iron network.
+                            Your session key is pre-populated. Launch the MCP Inspector below to visually verify your agent&apos;s zero-copy performance live on the Big Iron network.
                         </p>
                         <Terminal sessionToken={sessionToken} />
                     </div>

@@ -32,6 +32,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
+                <meta charSet="UTF-8" />
                 {/* Inline script to prevent flash of wrong theme */}
                 <script
                     dangerouslySetInnerHTML={{
