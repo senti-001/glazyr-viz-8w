@@ -50,7 +50,7 @@ export function Hero() {
                 <h1 className="slb-header text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground leading-tight text-balance mb-6 uppercase">
                     7.35ms Perception.
                     <br />
-                    <span className="text-primary text-6xl md:text-8xl">99% Fewer Tokens.</span>
+                    <span className="text-primary text-6xl md:text-8xl text-balance">90%+ Token Savings.</span>
                 </h1>
 
                 {/* Subline */}
