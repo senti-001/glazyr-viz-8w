@@ -1,12 +1,17 @@
-# Glazyr Viz V1.0.0: The End of Screenshot Dial-up 🚀
+# Glazyr Viz V1.0.0: High-Speed Vision SDK 🚀
 
-Standard AI agents are blind. They rely on slow, expensive, and jittery screenshot serialization. **Glazyr Viz** is a high-performance Chromium fork that provides agents with **Zero-Copy Vision**—direct, raw memory access to the frame buffer.
+Standard AI agents are often bottlenecked by slow, expensive screenshot serialization. **Glazyr Viz** is a high-performance Chromium fork that provides agents with **Zero-Copy Vision**—direct, raw memory access to the frame buffer for sub-10ms perception.
 
-### ⚡ Performance-First Architecture
-- **7.35ms Latency:** Sub-10ms perception floor via the `vision.json` schema.
-- **99% Token Savings:** Stop sending megabytes of image data; send structured vision coordinates.
-- **Zero-Jitter Perception:** Synchronous frame access eliminates the "stutter" of async captures.
-- **Agentic Settlement:** Native x402 protocol support for USDC payments on **Base Mainnet**.
+### 🎯 Real-World Use Cases
+- **High-Density Data Extraction**: Navigating complex tables, Canvas-based charts, and WebGL interfaces where DOM scrapers fail.
+- **Latency-Critical Automation**: Executing multi-step workflows (checkout bots, form filling) at human or super-human speeds.
+- **Large-Scale Scraping**: Reducing API tokens by 99%, allowing for thousands of perception cycles at a fraction of the cost.
+- **Anti-Bot Resilience**: Interacting with raw coordinates to bypass detection systems that flag standard WebDriver behavior.
+
+### ⚡ Performance Floor
+- **7.35ms Latency:** Sub-10ms frame-to-data conversion floor.
+- **99% Token Savings:** 12-16 tokens per perception cycle via the `vision.json` schema.
+- **Zero-Jitter:** Synchronous frame access directly from the Chromium Viz subsystem.
 
 ### **The Performance Gap: Standard vs. Glazyr Viz**
 

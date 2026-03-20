@@ -48,9 +48,9 @@ export function Hero() {
 
                 {/* Headline — Y2K Monospace */}
                 <h1 className="slb-header text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground leading-tight text-balance mb-6">
-                    The Zero-Copy
+                    7.3ms Vision for
                     <br />
-                    <span className="text-primary">Optic Nerve for AI</span>
+                    <span className="text-primary">Autonomous Agents</span>
                 </h1>
 
                 {/* Subline */}
