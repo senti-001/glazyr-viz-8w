@@ -35,11 +35,11 @@ entirely bypassing traditional DOM scraping and screenshot-based approaches.
 
 ## Available MCP Tools
 
-- `browser_navigate(url)` — Navigate to a URL
-- `browser_click(x, y)` — Click at pixel coordinates
-- `browser_type(text)` — Type text into focused element
-- `browser_key(key)` — Press a keyboard key
-- `browser_evaluate_js(script)` — Execute JavaScript in the page
+- `navigate(url)` — Navigate to a URL
+- `click(x, y)` — Click at pixel coordinates
+- `type(text)` — Type text into focused element
+- `key(key)` — Press a keyboard key
+- `evaluate_js(script)` — Execute JavaScript in the page
 - `peek_vision_buffer(include_base64?)` — Read the current frame from SHM
 - `shm_vision_validate(url)` — Validate vision pipeline integrity
 
@@ -47,9 +47,9 @@ entirely bypassing traditional DOM scraping and screenshot-based approaches.
 
 Before implementing any vision-dependent task:
 1. Verify the Glazyr token is available (`GLAZYR_TOKEN` env or user-provided).
-2. Confirm the target page is navigable via `browser_navigate`.
+2. Confirm the target page is navigable via `navigate`.
 3. Wait 3 seconds after navigation for render completion.
-4. Use `peek_vision_buffer` for spatial reasoning, `browser_evaluate_js` for data extraction.
+4. Use `peek_vision_buffer` for spatial reasoning, `evaluate_js` for data extraction.
 
 ## Code Patterns
 

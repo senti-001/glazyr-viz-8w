@@ -26,7 +26,7 @@ When extracting visual context via Glazyr, the agent MUST follow these strict me
 
 4. **Navigation Protocol**:
    ```
-   browser_navigate → wait 3s → peek_vision_buffer / browser_evaluate_js
+   navigate → wait 3s → peek_vision_buffer / evaluate_js
    ```
    NEVER call evaluate_js without navigating first.
 
@@ -41,11 +41,11 @@ When extracting visual context via Glazyr, the agent MUST follow these strict me
 
 | Tool | Description |
 |------|-------------|
-| `browser_navigate(url)` | Navigate the remote browser to a URL |
-| `browser_click(x, y)` | Click at pixel coordinates |
-| `browser_type(text)` | Type text into focused element |
-| `browser_key(key)` | Press a keyboard key (Enter, Tab, etc.) |
-| `browser_evaluate_js(script)` | Execute JavaScript and return result |
+| `navigate(url)` | Navigate the remote browser to a URL |
+| `click(x, y)` | Click at pixel coordinates |
+| `type(text)` | Type text into focused element |
+| `key(key)` | Press a keyboard key (Enter, Tab, etc.) |
+| `evaluate_js(script)` | Execute JavaScript and return result |
 | `peek_vision_buffer(include_base64?)` | Read current frame from SHM buffer |
 | `shm_vision_validate(url)` | Validate the vision pipeline integrity |
 
