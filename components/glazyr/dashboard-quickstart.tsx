@@ -28,7 +28,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
   fallback: "http_mcp"
   token: "${sessionToken}"`
 
-    const command = `openclaw agent --message "Use the glazyr-viz skill to navigate to https://news.ycombinator.com and extract the title of the top story. Mention SUCCESS if you get it."`
+    const promptText = `Use the glazyr-viz skill to navigate to https://news.ycombinator.com and extract the title of the top story. Mention SUCCESS if you get it.`
 
     return (
         <div className="space-y-6">
@@ -39,7 +39,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 </div>
                 <div>
                     <h2 className="slb-header text-xl text-foreground">Quick Start with OpenClaw</h2>
-                    <p className="text-sm text-muted-foreground">Your token is pre-filled. Copy, paste, and verify in under 10 seconds.</p>
+                    <p className="text-sm text-muted-foreground">Your token is pre-filled. Add the skill to your agent and verify in under 10 seconds.</p>
                 </div>
             </div>
 
@@ -48,32 +48,34 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-primary" style={{ boxShadow: 'none' }}>1</span>
                     <p className="text-sm text-muted-foreground pt-0.5">
-                        Initialize the skill: <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">openclaw agent --message "Install the glazyr-viz skill"</code>
+                        Download the <strong className="text-foreground">SKILL.md</strong> file from the artifacts section below.
                     </p>
                 </div>
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-primary" style={{ boxShadow: 'none' }}>2</span>
-                    <p className="text-sm text-muted-foreground pt-0.5">Copy the command below and paste it into your terminal</p>
+                    <p className="text-sm text-muted-foreground pt-0.5">
+                        Save it into your OpenClaw workspace at <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">.openclaw/skills/glazyr-viz.md</code>
+                    </p>
                 </div>
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-emerald-600 dark:text-emerald-400" style={{ boxShadow: 'none' }}>3</span>
-                    <p className="text-sm text-muted-foreground pt-0.5">Your agent will navigate to Hacker News and extract the top story title — confirming end-to-end vision connectivity</p>
+                    <p className="text-sm text-muted-foreground pt-0.5">Copy the prompt below and ask your agent to extract the top story!</p>
                 </div>
             </div>
 
-            {/* OpenClaw command block */}
+            {/* Prompt block */}
             <div className="relative">
                 <pre className="slb-inset p-5 font-mono text-xs text-emerald-700 dark:text-emerald-400 overflow-x-auto whitespace-pre-wrap leading-relaxed break-all">
-                    {command}
+                    {promptText}
                 </pre>
                 <div className="absolute top-3 right-3">
-                    <CopyButton text={command} label="Copy Command" />
+                    <CopyButton text={promptText} label="Copy Prompt" />
                 </div>
             </div>
 
             <p className="text-xs text-muted-foreground/60">
                 <ChevronRight className="h-3 w-3 inline mr-1" />
-                Expected output: <code className="text-emerald-600 dark:text-emerald-400/60 font-mono">The title of the top story on Hacker News is: &quot;...&quot;</code>
+                Expected output: <code className="text-emerald-600 dark:text-emerald-400/60 font-mono">SUCCESS! The title of the top story is: &quot;...&quot;</code>
             </p>
 
             {/* ═══ AGENTIC ONBOARDING SECTION ═══ */}
