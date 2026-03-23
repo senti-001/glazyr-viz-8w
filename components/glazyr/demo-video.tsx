@@ -12,7 +12,7 @@ export function DemoVideo() {
                         Glazyr Viz: The Optic Nerve for AI
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                        <span className="text-primary font-semibold">Stop sending pixels. Start sending perception.</span> We bypassed the &quot;WebDriver Tax&quot; by hooking Senti-001 directly into Chromium’s shared memory—delivering <span className="text-foreground font-bold">7.3ms vision at 57+ FPS</span> with 99% less bandwidth than traditional CDP.
+                        <span className="text-primary font-semibold">Stop sending pixels. Start sending perception.</span> We bypassed the &quot;WebDriver Tax&quot; by hooking AI agents directly into Chromium’s shared memory—delivering <span className="text-foreground font-bold">7.3ms vision at 57+ FPS</span> with 99% less bandwidth than traditional CDP.
                     </p>
                 </div>
 

@@ -87,7 +87,7 @@ export function BuildLedger() {
 
             <div className="mt-6 border-t border-border/50 pt-4 text-center">
                 <a
-                    href="https://github.com/senti-001/neural-chromium"
+                    href="https://github.com/glazyr/neural-chromium"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-[10px] text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-1.5"

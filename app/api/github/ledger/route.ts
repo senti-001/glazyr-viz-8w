@@ -12,7 +12,7 @@ export async function GET() {
         }
 
         const response = await fetch(
-            "https://api.github.com/repos/senti-001/neural-chromium/commits?path=README.md&per_page=5",
+            "https://api.github.com/repos/glazyr/neural-chromium/commits?path=README.md&per_page=5",
             {
                 headers,
                 next: { revalidate: 300 } // Cache for 5 minutes

@@ -4,9 +4,9 @@ import Link from "next/link"
 import { Github, Code2, Mail, BookOpen, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const GITHUB_MAIN = "https://github.com/senti-001/neural-chromium"
-const GITHUB_CONTRACTS = "https://github.com/senti-001/neural-chromium-contracts"
-const AGENT_EMAIL = "senti-001@neuralchromium.com"
+const GITHUB_MAIN = "https://github.com/glazyr/neural-chromium"
+const GITHUB_CONTRACTS = "https://github.com/glazyr/neural-chromium-contracts"
+const AGENT_EMAIL = "engineering@neuralchromium.com"
 
 const resources = [
     {

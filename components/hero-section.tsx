@@ -9,7 +9,7 @@ const TerminalNode = dynamic(
   { ssr: false }
 )
 
-const GITHUB_URL = "https://github.com/senti-001/glazyr-viz"
+const GITHUB_URL = "https://github.com/glazyr/glazyr-viz"
 const agentic_LINK = "https://form.typeform.com/to/sbdm0689"
 
 export function HeroSection() {

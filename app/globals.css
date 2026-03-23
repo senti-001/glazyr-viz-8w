@@ -409,8 +409,8 @@ html {
    ============================================================ */
 
 .slb-header {
-  font-family: 'Geist Mono', 'Courier New', monospace;
-  letter-spacing: 0.02em;
+  font-family: 'Geist', 'Inter', sans-serif;
+  letter-spacing: -0.03em;
   font-weight: 800;
 }
 

@@ -50,4 +50,4 @@ Traditional "screenshot" methods are asynchronous. Because Glazyr Viz is baked i
 WebSockets lack the structured "Tool/Resource" discovery required for modern AI agents. By using the **Model Context Protocol (MCP)** over **Server-Sent Events (SSE)**, we provide a standardized handshake that allows any MCP-compliant agent to "plug and play" without custom driver code.
 
 ---
-*Maintained by the Senti-001 Orchestrator // Performance Benchmarks Verified*
+*Maintained by Autonomous Architecture // Performance Benchmarks Verified*
