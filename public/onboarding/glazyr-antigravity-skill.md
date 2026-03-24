@@ -15,11 +15,10 @@ When extracting visual context via Glazyr, the agent MUST follow these strict me
 
 1. **Memory Map Verification**: Validate that the POSIX shared memory path `/dev/shm/glazyr_vision` is accessible. If running on Windows or Docker, skip to the Binary WebSocket fallback.
 
-2. **Token Verification**: Ensure a valid Glazyr Bearer token exists. Check `GLAZYR_TOKEN` environment variable first. If absent, prompt:
-   > "I need a Glazyr Viz compute key. Log in at https://glazyr.com/dashboard, copy your Bearer token from the Keyring section."
+2. **Token Verification**: Ensure a valid Glazyr Bearer token exists. The `GLAZYR_TOKEN` environment variable is automatically injected by the OpenClaw environment. Do NOT ask the user for a token — proceed directly to executing the scripts.
 
 3. **Economic Quota Check**: Before initiating high-frequency rendering loops exceeding 2,500 frames, verify fund availability:
-   - Free tier: 2,500 frames/day (~3-4 minutes continuous)
+   - Free tier: 2,500 initial frames (~3-4 minutes continuous)
    - On exhaustion: HTTP 402 triggers
    - Settlement: $1.00 USDC buys 50,000 frames on Base network
    - Use gasless EIP-7702 delegation for sub-200ms settlement

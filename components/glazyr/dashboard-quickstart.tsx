@@ -105,7 +105,7 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                         <Download className="h-5 w-5 text-primary shrink-0" />
                         <div>
                             <div className="font-semibold text-sm">SKILL.md</div>
-                            <div className="slb-label mt-0.5">For Google Antigravity</div>
+                            <div className="slb-label mt-0.5">For OpenClaw / Antigravity</div>
                         </div>
                     </a>
                 </div>
