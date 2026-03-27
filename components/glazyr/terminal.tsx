@@ -8,7 +8,7 @@ interface TerminalProps {
 }
 
 export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
-    const [activeTab, setActiveTab] = useState<'npx' | 'python' | 'benchmark' | 'curl'>('npx');
+    const [activeTab, setActiveTab] = useState<'npx' | 'python' | 'curl'>('npx');
     const [copied, setCopied] = useState(false);
 
     const snippets = {
@@ -33,7 +33,7 @@ export function Terminal({ sessionToken = "<API_KEY>" }: TerminalProps) {
         <div className="slb-panel overflow-hidden">
             {/* Tab Switcher — Win98 Tab Chrome */}
             <div className="flex border-b border-border/50 bg-background/40">
-                {(['npx', 'python', 'benchmark', 'curl'] as const).map((tab) => (
+                {(['npx', 'python', 'curl'] as const).map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
