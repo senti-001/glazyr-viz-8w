@@ -26,31 +26,19 @@ export async function POST(req: NextRequest) {
             )
         }
 
-        // ====================================================================
-        // TRUSTLESS RECONCILIATION LOGIC (V1 HARDENED):
-        // We use the fast-path receipt fetching for the provided txHash, which bypasses public RPC lag/503 limits.
-        const creditManager = new CreditManager()
-        const tierFrames = providedTierFrames || 100000 // Default to Developer tier if not provided
-        const reconciliation = await creditManager.reconcileOnChain(userId, address, tierFrames, txHash)
-
-        if (reconciliation.success) {
-            console.log(`[VerifyApi] ✅ Success for ${userId}: ${reconciliation.txHash}`);
-            return NextResponse.json({
-                success: true,
-                message: "Transaction verified trustlessly and frames credited.",
-                txHash: reconciliation.txHash,
-                framesAdded: reconciliation.framesAdded
-            })
-        }
-        
-        console.warn(`[VerifyApi] ❌ Reconciliation failed for ${userId} at ${address}. Details:`, reconciliation);
-        // ====================================================================
-
+        // BETA FREE BYPASS (REPLACING TRUSTLESS RECONCILIATION)
+        console.log(`[VerifyApi] 🧪 BETA_FREE Mode: Pre-verifying ${userId} for frames.`);
         return NextResponse.json({
-            success: false,
-            error: "On-chain transaction not found or already processed. Please wait valid block confirmation.",
-            debug: reconciliation // Expose reconciliation state for live debugging
-        }, { status: 400 })
+            success: true,
+            message: "GLAZYR BETA: Free frames credited automatically.",
+            txHash: txHash,
+            framesAdded: providedTierFrames || 1000000 
+        })
+
+        /* Original On-Chain Reconciliation (Disabled for Beta)
+        const creditManager = new CreditManager()
+        ...
+        */
 
     } catch (error: any) {
         console.error("Verification Error:", error)

@@ -8,6 +8,7 @@ export function TerminalNode() {
     const [history, setHistory] = useState<string[]>([
         "Neural Chromium [Zero-Copy Vision Node v0.9.1]",
         "High-Frequency Agentic Infrastructure initialized.",
+        "System State: BETA FREE MODE (Fees Waived)",
         "Generating secure ephemeral session wallet (AgentKit)..."
     ])
     const [input, setInput] = useState("")
@@ -34,8 +35,9 @@ export function TerminalNode() {
             setHistory(prev => [
                 ...prev,
                 "Session Wallet Generated successfully.",
-                `DEPOSIT ADDRESS (Base Network): ${wallet.address}`,
-                "Deposit minimum 0.001 USDC or 0.0000003 ETH to unlock high-dynamic vision pipeline.",
+                `SESSION ID: ${wallet.address}`,
+                "NETWORK: Base Mainnet [FREE BETA ACCESS]",
+                "High-dynamic vision pipeline UNLOCKED (Beta).",
                 "Type '/help' for a list of commands."
             ])
         } catch (e) {
@@ -69,12 +71,13 @@ export function TerminalNode() {
         if (trimmedCmd.startsWith('/capture')) {
             if (!address) return;
             const url = cmd.split(' ')[1] || 'https://example.com'
-            setHistory(prev => [...prev, `[ECONOMY] Verifying on-chain payment for pipeline execution...`])
-            setIsCheckingBalance(true)
-            const balances = await checkBalances(address)
+            setHistory(prev => [...prev, `[ECONOMY] Note: Beta Free Mode Active. Bypassing on-chain validation...`])
+            // SKIP balance check for Beta
+            // const balances = await checkBalances(address)
+            const balances = { usdcBalance: 1.0, ethBalance: 1.0 } 
             setIsCheckingBalance(false)
 
-            if (balances.usdcBalance >= 0.001 || balances.ethBalance >= 0.0000003) {
+            if (true) { // Always true in Beta
                 setHistory(prev => [
                     ...prev,
                     `[ECONOMY] Payment Confirmed. Balance: ${balances.usdcBalance.toFixed(6)} USDC / ${balances.ethBalance.toFixed(8)} ETH.`,
@@ -142,9 +145,10 @@ export function TerminalNode() {
             case "/x402":
                 setHistory(prev => [
                     ...prev,
-                    "[ECONOMY] Universal Commerce Protocol Interceptor Loaded",
-                    "[ECONOMY] Cost: 0.001 USDC or 0.0000003 ETH per access",
-                    `[ECONOMY] Deposit to session address: ${address}`,
+                    "[ECONOMY] Universal Commerce Protocol Interceptor [BETA BYPASS]",
+                    "[ECONOMY] Status: FREE BETA ACTIVE",
+                    "[ECONOMY] All vision/action fees currently waived.",
+                    `[ECONOMY] Session: ${address}`,
                 ])
                 break
             case "/clear":

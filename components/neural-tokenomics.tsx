@@ -107,12 +107,15 @@ export function NeuralTokenomics() {
                         $NEURAL Tokenomics
                     </h2>
                     <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg max-w-2xl">
-                        Agentic Gas for the Browser Fork & Proof of Perception. Every 0.3% fee from network usage flows through the Industrial Yield model.
+                        Agentic Gas for the Browser Fork & Proof of Perception. Our <span className="text-emerald-500 font-bold underline decoration-emerald-500/30">0.3% Industrial Yield</span> is currently fully waived for beta partners.
                     </p>
-                    <div className="mt-4 flex items-center gap-2">
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
                         <span className={`flex items-center gap-1.5 font-mono text-xs ${data.is_live ? 'text-emerald-500' : 'text-amber-500'}`}>
                             <span className={`h-1.5 w-1.5 rounded-full ${data.is_live ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse`} />
                             {data.is_live ? 'LIVE ON SOLANA' : 'AWAITING TREASURY PDA'}
+                        </span>
+                        <span className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-primary ring-1 ring-primary/20">
+                            BETA FREE MODE ACTIVE
                         </span>
                     </div>
                 </div>
@@ -219,7 +222,7 @@ export function NeuralTokenomics() {
                             Industrial Yield: 0.3% Fee Split (70/20/10)
                         </h3>
                         <p className="mt-2 text-sm text-muted-foreground">
-                            The Lease Hook: Every interaction with Neural-Chromium's vision/action subsystem incurs a 0.3% fee, automatically routed on-chain.
+                            <span className="text-primary font-bold">[BETA NOTICE]</span> All usage fees (0.3%) are currently waived for early adopters. The Industrial Yield model remains for strategic planning while we scale the hardware moat.
                         </p>
                     </div>
 
@@ -227,7 +230,11 @@ export function NeuralTokenomics() {
                         {/* Hardware Treasury - 70% */}
                         <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                                <span className="font-mono text-xs text-muted-foreground">Hardware Treasury</span>
+                                <span className="font-mono text-xs text-muted-foreground uppercase">Split A: Hardware</span>
+                                <span className="font-mono text-[10px] bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded border border-emerald-500/20">WAIVED</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="font-mono text-xs text-muted-foreground">Allocation Target</span>
                                 <span className="font-mono text-lg font-bold text-primary">{data.yield_split.hardware}%</span>
                             </div>
                             <Progress value={data.yield_split.hardware} className="h-2" />

@@ -32,35 +32,18 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'INVALID_TIER' }, { status: 400 });
         }
 
+        // DISABLE FOR BETA FREE STATE
+        return NextResponse.json({ 
+            error: 'PAYMENT_DISABLED', 
+            message: 'Stripe payments are currently disabled during the Glazyr Beta Free period. Enjoy unlimited zero-copy access!',
+            url: '/dashboard' // Redirect back to dashboard safely
+        }, { status: 403 });
+
+        /* Standard Stripe Checkout (Disabled)
         const stripe = getStripe()
         if (!stripe) return NextResponse.json({ error: 'Gateway Offline' }, { status: 503 })
-
-        const checkoutSession = await stripe.checkout.sessions.create({
-            mode: 'payment',
-            payment_method_types: ['card'],
-            client_reference_id: session.user.id,
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'usd',
-                        product_data: {
-                            name: `Glazyr Viz: ${tier.name}`,
-                            description: `${tier.credits.toLocaleString()} Zero-Copy Frames`,
-                        },
-                        unit_amount: tier.amount,
-                    },
-                    quantity: 1,
-                },
-            ],
-            metadata: {
-                userId: session.user.id,
-                credits: tier.credits.toString(),
-            },
-            success_url: `${process.env.NEXTAUTH_URL || 'https://glazyr.com'}/dashboard?checkout=success`,
-            cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://glazyr.com'}/dashboard?checkout=canceled`,
-        });
-
-        return NextResponse.json({ url: checkoutSession.url });
+        ...
+        */
 
     } catch (error: any) {
         console.error(`[CHECKOUT ERROR] Failed to initialize gateway: ${error.message}`);

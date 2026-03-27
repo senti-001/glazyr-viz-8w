@@ -36,32 +36,37 @@ export default async function DashboardPage() {
                 <div className="mx-auto max-w-4xl">
                     {/* Dashboard Header */}
                     <div className="mb-12">
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                                System State: Beta Free
+                            </span>
+                        </div>
                         <h1 className="slb-header text-3xl md:text-5xl tracking-tight mb-4">
-                            <span className="text-primary">Dashboard</span>
+                             Glazyr <span className="text-primary">Network</span>
                         </h1>
                         <p className="text-lg text-muted-foreground">
-                            Manage your Glazyr Credits and secure compute keys for the Glazyr network.
+                            Developer Dashboard & Zero-Copy Vision Infrastructure. All payment gates are currently bypassed.
                         </p>
                     </div>
 
                     {/* Live Redis Ledger Box */}
                     <div className="mb-12">
-                        <div className="slb-panel p-8 flex flex-col gap-4">
+                        <div className="slb-panel p-8 flex flex-col gap-4 bg-gradient-to-r from-card to-primary/5">
                             <div className="flex items-center justify-between">
                                 <h2 className="slb-header text-xl flex items-center gap-2">
                                     <Database className="h-5 w-5 text-primary" />
-                                    Glazyr Balance
+                                    Complimentary Vision Frames
                                 </h2>
-                                <span className="slb-label bg-primary/10 px-3 py-1.5">
-                                    Live Redis Ledger
+                                <span className="slb-label bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-3 py-1.5 font-bold">
+                                    FEES WAIVED
                                 </span>
                             </div>
                             <div className="flex items-baseline gap-3 mt-2">
-                                <span className="text-6xl font-bold tracking-tight font-mono">{balance}</span>
-                                <span className="slb-label text-base tracking-widest">Frames</span>
+                                <span className="text-6xl font-bold tracking-tight font-mono">1,000,000</span>
+                                <span className="slb-label text-base tracking-widest">+ {balance} Base</span>
                             </div>
                             <p className="text-sm text-muted-foreground border-t border-border/50 pt-5 mt-4">
-                                Each frame entitles your agent to exactly 1 high-speed perception frame via our secure infrastructure.
+                                During the Beta Free period, every session is granted 1,000,000 frames for high-frequency benchmarks. Your Base balance remains available for legacy verification.
                             </p>
                         </div>
                     </div>
