@@ -23,29 +23,32 @@ export function PricingSection() {
             id: "developer",
             icon: <Link className="h-5 w-5 text-primary" />,
             title: "Developer",
-            price: "$3",
+            price: "$0",
             credits: "100k Frames",
             description: "The Alpha Standard. Scale your agent testing with high-frequency telemetry.",
             buttonText: "Get Started",
-            popular: true
+            popular: true,
+            isFree: true
         },
         {
             id: "pro",
             icon: <Sparkles className="h-5 w-5 text-primary" />,
             title: "Pro",
-            price: "$9",
+            price: "$0",
             credits: "300k Frames",
             description: "For high-frequency vision benchmarks and intensive agent loops.",
-            buttonText: "Upgrade Now"
+            buttonText: "Upgrade Now",
+            isFree: true
         },
         {
             id: "scale",
             icon: <Zap className="h-5 w-5 text-primary" />,
             title: "Scale",
-            price: "$15",
+            price: "$0",
             credits: "1M Frames",
             description: "Enterprise-grade standard for autonomous clusters and production vision.",
-            buttonText: "Buy Credits"
+            buttonText: "Join Scale",
+            isFree: true
         }
     ]
 
@@ -104,8 +107,8 @@ export function PricingSection() {
                         <span className="text-muted-foreground">|</span>
                         <span className="slb-label text-xs border-primary/20 bg-primary/5 text-primary">Pay-as-you-go</span>
                     </div>
-                    <p className="max-w-xl mx-auto mt-6 text-sm text-muted-foreground leading-relaxed">
-                        Instead of monthly subscriptions that charge for unused time, Glazyr uses a pure pay-as-you-go system. You only pay for the exact number of frames your AI uses, settled securely via the Base network.
+                    <p className="max-w-xl mx-auto mt-6 text-sm text-muted-foreground leading-relaxed italic">
+                        <span className="text-primary font-bold">[BETA FREE UNLOCKED]</span> During this phase, all compute fees are waived. You only pay for the exact number of frames your AI uses in production, but currently, 100% of the vision tax has been eliminated for our early pioneers.
                     </p>
                 </div>
             </div>
