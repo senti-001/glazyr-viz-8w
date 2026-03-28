@@ -186,7 +186,7 @@ export function DashboardPurchase() {
                             <p className="text-[10px] text-muted-foreground uppercase font-bold">{tier.name}</p>
                             <p className="text-lg font-bold font-mono text-primary">{tier.frames}</p>
                             <p className={`text-[10px] font-bold italic ${tier.priceNum === 0 ? 'text-emerald-500' : 'text-muted-foreground'}`}>
-                                {tier.priceNum === 0 ? 'INCLUDED' : `${tier.price} / mo`}
+                                {tier.priceNum === 0 ? 'INCLUDED' : `${tier.price}`}
                             </p>
                         </div>
                     ))}
