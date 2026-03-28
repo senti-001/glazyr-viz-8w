@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         // DISABLE FOR BETA FREE STATE
         return NextResponse.json({ 
             error: 'PAYMENT_DISABLED', 
-            message: 'Stripe payments are currently disabled during the Glazyr Beta Free period. Enjoy unlimited zero-copy access!',
+            message: 'Stripe payments are coming soon. You currently have 10,000 free vision frames. Use USDC on Base to top up.',
             url: '/dashboard' // Redirect back to dashboard safely
         }, { status: 403 });
 

@@ -115,7 +115,7 @@ export function NeuralTokenomics() {
                             {data.is_live ? 'LIVE ON SOLANA' : 'AWAITING TREASURY PDA'}
                         </span>
                         <span className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-primary ring-1 ring-primary/20">
-                            BETA FREE MODE ACTIVE
+                            FREE TIER — 10K FRAMES
                         </span>
                     </div>
                 </div>

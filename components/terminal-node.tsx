@@ -8,7 +8,7 @@ export function TerminalNode() {
     const [history, setHistory] = useState<string[]>([
         "Neural Chromium [Zero-Copy Vision Node v0.9.1]",
         "High-Frequency Agentic Infrastructure initialized.",
-        "System State: BETA FREE MODE (Fees Waived)",
+        "System State: FREE TIER (10,000 Frames Included)",
         "Generating secure ephemeral session wallet (AgentKit)..."
     ])
     const [input, setInput] = useState("")
@@ -71,7 +71,7 @@ export function TerminalNode() {
         if (trimmedCmd.startsWith('/capture')) {
             if (!address) return;
             const url = cmd.split(' ')[1] || 'https://example.com'
-            setHistory(prev => [...prev, `[ECONOMY] Note: Beta Free Mode Active. Bypassing on-chain validation...`])
+            setHistory(prev => [...prev, `[ECONOMY] Free Tier Active. 10,000 frames granted. Use /status to check balance.`])
             // SKIP balance check for Beta
             // const balances = await checkBalances(address)
             const balances = { usdcBalance: 1.0, ethBalance: 1.0 } 
@@ -91,7 +91,7 @@ export function TerminalNode() {
                     ...prev,
                     `[ECONOMY] HTTP 402 PAYMENT REQUIRED.`,
                     `[ECONOMY] Balance: ${balances.usdcBalance.toFixed(6)} USDC / ${balances.ethBalance.toFixed(8)} ETH.`,
-                    `[ECONOMY] Required: 0.001 USDC OR 0.0000003 ETH.`,
+                    `[ECONOMY] Free Tier: 10,000 frames included. Use /status to check balance.`,
                     `[ECONOMY] Access to sub-16ms high-dynamic pipeline denied.`,
                     `[ECONOMY] Please deposit USDC or ETH to: ${address}`
                 ])
@@ -107,7 +107,7 @@ export function TerminalNode() {
                     "Available commands:",
                     "  /status    - Chromium health, DMA metrics & on-chain balances",
                     "  /x402      - Display economic layer integration details",
-                    "  /capture   - [URL] Execute zero-copy vision (Requires 0.001 USDC or ETH eq.)",
+                    "  /capture   - [URL] Execute zero-copy vision (Free Tier: 10K frames included)",
                     "  /benchmark - Run performance comparison vs Standard CDP",
                     "  /clear     - Clear terminal output"
                 ])

@@ -42,8 +42,9 @@ export class BaseSettlementProvider implements ISettlementProvider {
     });
 
     async isReady(address: string): Promise<boolean> {
-        const balance = await this.getBalance(address);
-        return balance > 0.001; // Minimum for sponsored capture
+        // Free Tier: Always ready. Credit gating is handled by the MCP layer (consumeCredit).
+        // No on-chain balance requirement for authenticated users.
+        return true;
     }
 
     async getBalance(address: string): Promise<number> {
@@ -190,8 +191,8 @@ export class CreditManager {
         const balance = await redis.get(`user:credits:${userId}`);
 
         if (balance === null || balance === undefined) {
-            // Beta Phase: Auto-grant 2,500 frames on first dashboard view
-            const grant = 2_500;
+            // Free Tier: Auto-grant 10,000 frames on first dashboard view
+            const grant = 10_000;
             await redis.set(`user:credits:${userId}`, grant);
             return grant;
         }

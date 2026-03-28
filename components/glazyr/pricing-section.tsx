@@ -13,44 +13,45 @@ export function PricingSection() {
             id: "starter",
             icon: <Cpu className="h-5 w-5 text-primary" />,
             title: "Starter",
-            price: "$0",
-            credits: "2.5k Frames",
+            price: "Free",
+            credits: "10k Frames",
             description: "Perfect for testing and prototyping with zero latency overhead.",
-            buttonText: "Active Now",
+            buttonText: "Get Started",
             isFree: true
         },
         {
             id: "developer",
             icon: <Link className="h-5 w-5 text-primary" />,
             title: "Developer",
-            price: "$0",
+            price: "$3",
             credits: "100k Frames",
             description: "The Alpha Standard. Scale your agent testing with high-frequency telemetry.",
             buttonText: "Get Started",
             popular: true,
-            isFree: true
+            isFree: false
         },
         {
             id: "pro",
             icon: <Sparkles className="h-5 w-5 text-primary" />,
             title: "Pro",
-            price: "$0",
+            price: "$9",
             credits: "300k Frames",
             description: "For high-frequency vision benchmarks and intensive agent loops.",
             buttonText: "Upgrade Now",
-            isFree: true
+            isFree: false
         },
         {
             id: "scale",
             icon: <Zap className="h-5 w-5 text-primary" />,
             title: "Scale",
-            price: "$0",
+            price: "$15",
             credits: "1M Frames",
             description: "Enterprise-grade standard for autonomous clusters and production vision.",
             buttonText: "Join Scale",
-            isFree: true
+            isFree: false
         }
     ]
+
 
     return (
         <section id="pricing" className="py-24 relative overflow-hidden text-white bg-background">
@@ -108,7 +109,7 @@ export function PricingSection() {
                         <span className="slb-label text-xs border-primary/20 bg-primary/5 text-primary">Pay-as-you-go</span>
                     </div>
                     <p className="max-w-xl mx-auto mt-6 text-sm text-muted-foreground leading-relaxed italic">
-                        <span className="text-primary font-bold">[BETA FREE UNLOCKED]</span> During this phase, all compute fees are waived. You only pay for the exact number of frames your AI uses in production, but currently, 100% of the vision tax has been eliminated for our early pioneers.
+                        <span className="text-primary font-bold">[FREE TIER]</span> Sign in to receive 10,000 complimentary vision frames. Once exhausted, upgrade to a paid tier to continue at production scale.
                     </p>
                 </div>
             </div>

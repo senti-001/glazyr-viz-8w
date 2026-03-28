@@ -38,7 +38,7 @@ export default async function DashboardPage() {
                     <div className="mb-12">
                         <div className="flex items-center gap-2 mb-2">
                             <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
-                                System State: Beta Free
+                                System State: Free Tier
                             </span>
                         </div>
                         <h1 className="slb-header text-3xl md:text-5xl tracking-tight mb-4">
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
                                 <span className="slb-label text-base tracking-widest">+ {balance} Base</span>
                             </div>
                             <p className="text-sm text-muted-foreground border-t border-border/50 pt-5 mt-4">
-                                During the Beta Free period, every session is granted 1,000,000 frames for high-frequency benchmarks. Your Base balance remains available for legacy verification.
+                                Every authenticated session receives 10,000 complimentary vision frames. Once exhausted, upgrade to a paid tier for continued access.
                             </p>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ import { ethers } from "ethers"
 import { useRouter } from "next/navigation"
 
 const TIERS = [
-    { name: "Starter", frames: "5,000", price: "Free", priceNum: 0, highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
+    { name: "Starter", frames: "10,000", price: "Free", priceNum: 0, highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
     { name: "Developer", frames: "100,000", price: "$3", priceNum: 3, highlight: true, badge: "Most Popular", desc: "The Alpha Standard for active agents." },
     { name: "Pro", frames: "300,000", price: "$9", priceNum: 9, highlight: false, badge: "Heavy Usage", desc: "For high-frequency vision benchmarks." },
     { name: "Scale", frames: "1,000,000", price: "$15", priceNum: 15, highlight: false, badge: "Enterprise", desc: "Production-grade autonomous agents." },
@@ -165,19 +165,19 @@ export function DashboardPurchase() {
             <div className="relative z-10 max-w-2xl">
                 <div className="flex items-center gap-2 mb-4">
                     <span className="slb-label bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-3 py-1 animate-pulse">
-                        BETA FREE UNLOCKED
+                        FREE TIER ACTIVE
                     </span>
                     <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1">
-                        UNLIMITED ACCESS
+                        10,000 FRAMES INCLUDED
                     </span>
                 </div>
                 
                 <h2 className="slb-header text-3xl md:text-4xl text-foreground mb-6">
-                    Zero-Copy Vision is now 100% Free.
+                    Start building with 10,000 free vision frames.
                 </h2>
                 
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    We've identified the 0.001 USDC paywall as a friction point for our early pioneers. Effectively immediately, all Glazyr infrastructure fees are waived. Enjoy sub-16ms perception frames without the on-chain overhead.
+                    Every authenticated developer receives 10,000 complimentary perception frames — enough for real integration testing. Once exhausted, upgrade to continue at production scale.
                 </p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
