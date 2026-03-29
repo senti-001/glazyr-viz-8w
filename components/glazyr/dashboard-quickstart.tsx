@@ -38,8 +38,8 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                     <Rocket className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
-                    <h2 className="slb-header text-xl text-foreground">Quick Start with OpenClaw</h2>
-                    <p className="text-sm text-muted-foreground">Your token is pre-filled. Add the skill to your agent and verify in under 10 seconds.</p>
+                    <h2 className="slb-header text-xl text-foreground">Enterprise SDK Migration</h2>
+                    <p className="text-sm text-muted-foreground">Your migration token is pre-filled. Update your agentic skills to point toward the B2B vision cluster.</p>
                 </div>
             </div>
 
@@ -48,18 +48,18 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-primary" style={{ boxShadow: 'none' }}>1</span>
                     <p className="text-sm text-muted-foreground pt-0.5">
-                        Download the <strong className="text-foreground">SKILL.md</strong> file from the artifacts section below.
+                        Download the <strong className="text-foreground">SLA_MIGRATION.md</strong> skill from the artifacts section.
                     </p>
                 </div>
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-primary" style={{ boxShadow: 'none' }}>2</span>
                     <p className="text-sm text-muted-foreground pt-0.5">
-                        Save it into your OpenClaw workspace at <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">.openclaw/skills/glazyr-viz.md</code>
+                        Deploy the updated skill to your enterprise node at <code className="text-primary bg-primary/5 px-1.5 py-0.5 text-xs font-mono">.openclaw/skills/glazyr-b2b.md</code>
                     </p>
                 </div>
                 <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 slb-panel flex items-center justify-center text-xs font-bold text-emerald-600 dark:text-emerald-400" style={{ boxShadow: 'none' }}>3</span>
-                    <p className="text-sm text-muted-foreground pt-0.5">Copy the prompt below and ask your agent to extract the top story!</p>
+                    <p className="text-sm text-muted-foreground pt-0.5">Verify DMA connectivity by running a benchmark against the Iowa Big Iron cluster.</p>
                 </div>
             </div>
 
@@ -78,11 +78,11 @@ export function DashboardQuickStart({ sessionToken }: { sessionToken: string }) 
                 Expected output: <code className="text-emerald-600 dark:text-emerald-400/60 font-mono">SUCCESS! The title of the top story is: &quot;...&quot;</code>
             </p>
 
-            {/* ═══ AGENTIC ONBOARDING SECTION ═══ */}
+            {/* ═══ ENTERPRISE INTEGRATION SECTION ═══ */}
             <div className="border-t border-border/50 pt-6 mt-6">
-                <h3 className="slb-header text-foreground mb-4">Agentic Onboarding Artifacts</h3>
+                <h3 className="slb-header text-foreground mb-4">Enterprise Integration Artifacts</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                    Pre-built configuration files for AI coding assistants. These teach your agent how to use the Glazyr Zero-Copy Vision API.
+                    Industrial-grade configuration files for high-frequency agentic clusters. These enable the zero-copy B2B vision layer.
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-4 mb-6">

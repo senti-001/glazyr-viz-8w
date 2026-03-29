@@ -38,15 +38,18 @@ export default async function DashboardPage() {
                     <div className="mb-12">
                         <div className="flex items-center gap-2 mb-2">
                             <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
-                                System State: Free Tier
+                                System State: Enterprise Migration
                             </span>
                         </div>
                         <h1 className="slb-header text-3xl md:text-5xl tracking-tight mb-4">
                              Glazyr <span className="text-primary">Network</span>
                         </h1>
-                        <p className="text-lg text-muted-foreground">
-                            Developer Dashboard & Zero-Copy Vision Infrastructure. All payment gates are currently bypassed.
-                        </p>
+                        <div className="mb-10">
+                            <h2 className="slb-header text-2xl mb-2">Beta Success Portal</h2>
+                            <p className="text-muted-foreground text-sm max-w-2xl">
+                                The 55-user beta has officially concluded. All current telemetry and vision streams are being migrated to exclusive B2B Enterprise infrastructure.
+                            </p>
+                        </div>
                     </div>
 
                     {/* Live Redis Ledger Box */}
@@ -55,10 +58,10 @@ export default async function DashboardPage() {
                             <div className="flex items-center justify-between">
                                 <h2 className="slb-header text-xl flex items-center gap-2">
                                     <Database className="h-5 w-5 text-primary" />
-                                    Complimentary Vision Frames
+                                    Beta Milestone: 1M Vision Units
                                 </h2>
                                 <span className="slb-label bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-3 py-1.5 font-bold">
-                                    FEES WAIVED
+                                    TARGET VALIDATED
                                 </span>
                             </div>
                             <div className="flex items-baseline gap-3 mt-2">
@@ -66,7 +69,7 @@ export default async function DashboardPage() {
                                 <span className="slb-label text-base tracking-widest">+ {balance} Base</span>
                             </div>
                             <p className="text-sm text-muted-foreground border-t border-border/50 pt-5 mt-4">
-                                Every authenticated session receives 10,000 complimentary vision frames. Once exhausted, upgrade to a paid tier for continued access.
+                                The 55-user beta has successfully concluded. Initial frame pools are now transitioning to SLA-guaranteed B2B enterprise infrastructure.
                             </p>
                         </div>
                     </div>

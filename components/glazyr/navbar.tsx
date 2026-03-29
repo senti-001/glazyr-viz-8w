@@ -57,54 +57,12 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
 
-          {status === "loading" ? (
-            <div className="h-9 w-9 rounded-full bg-muted animate-pulse" />
-          ) : session ? (
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setDropdownOpen(o => !o)}
-                title="Account menu"
-                className="focus:outline-none"
-              >
-                {session.user?.image ? (
-                  <Image
-                    src={session.user.image}
-                    alt={session.user.name || "User avatar"}
-                    width={36}
-                    height={36}
-                    className="rounded-full border-2 border-primary/40 hover:border-primary transition-colors cursor-pointer shadow-[0_0_12px_var(--primary-glow)]"
-                  />
-                ) : (
-                  <div
-                    className="h-9 w-9 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center text-primary font-bold text-sm hover:border-primary transition-colors cursor-pointer"
-                  >
-                    {(session.user?.name || session.user?.email || "U")[0].toUpperCase()}
-                  </div>
-                )}
-              </button>
-              {dropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 slb-panel border border-border py-2 shadow-xl z-50">
-                  <div className="px-3 pb-2 border-b border-border/50 mb-1">
-                    <p className="text-xs font-semibold text-foreground truncate">{session.user?.name}</p>
-                    <p className="slb-label truncate">{session.user?.email}</p>
-                  </div>
-                  <button
-                    onClick={() => { setDropdownOpen(false); signOut({ callbackUrl: '/' }) }}
-                    className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                  >
-                    Sign out
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <button
-              onClick={() => signIn()}
-              className="slb-btn slb-btn-primary px-5 py-2.5 text-sm font-semibold"
-            >
-              Sign In
-            </button>
-          )}
+          <button
+            onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
+            className="slb-btn slb-btn-primary px-5 py-2.5 text-sm font-semibold whitespace-nowrap"
+          >
+            Enterprise Inquiry
+          </button>
         </div>
 
         {/* Mobile Toggle */}
@@ -126,11 +84,12 @@ export function Navbar() {
           <Link href="/privacy" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Privacy</Link>
           <div className="flex items-center gap-3 pt-2 border-t border-border/30">
             <ThemeToggle />
-            {session ? (
-              <button onClick={() => { setMobileOpen(false); signOut({ callbackUrl: '/' }); }} className="slb-btn w-full py-2.5 text-sm font-semibold">Sign Out</button>
-            ) : (
-              <button onClick={() => { setMobileOpen(false); signIn(); }} className="slb-btn slb-btn-primary w-full py-2.5 text-sm font-semibold">Sign In</button>
-            )}
+            <button
+              onClick={() => { setMobileOpen(false); window.open("https://form.typeform.com/to/sbdm0689", "_blank"); }}
+              className="slb-btn slb-btn-primary w-full py-2.5 text-sm font-semibold"
+            >
+              Enterprise Inquiry
+            </button>
           </div>
         </div>
       )}

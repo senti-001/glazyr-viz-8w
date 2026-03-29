@@ -6,7 +6,7 @@ export function BigIronTicker() {
     const [metrics, setMetrics] = useState([
         { label: "Vision Latency", value: "11ms", trend: "stable" },
         { label: "Token Yield", value: "177 TPS", trend: "up" },
-        { label: "Compute Cost", value: "Free Tier", trend: "neutral" },
+        { label: "Compute Status", value: "Enterprise Scaling", trend: "active" },
         { label: "SHM Buffer", value: "Zero-Copy", trend: "active" },
         { label: "Base Treasury", value: "0x104A...B01", trend: "synced" },
         { label: "VLM Solving", value: "reCAPTCHA v3", trend: "active" },

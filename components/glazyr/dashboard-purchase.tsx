@@ -6,10 +6,7 @@ import { ethers } from "ethers"
 import { useRouter } from "next/navigation"
 
 const TIERS = [
-    { name: "Starter", frames: "10,000", price: "Free", priceNum: 0, highlight: false, badge: "Included", desc: "Perfect for testing and prototyping." },
-    { name: "Developer", frames: "100,000", price: "$3", priceNum: 3, highlight: true, badge: "Most Popular", desc: "The Alpha Standard for active agents." },
-    { name: "Pro", frames: "300,000", price: "$9", priceNum: 9, highlight: false, badge: "Heavy Usage", desc: "For high-frequency vision benchmarks." },
-    { name: "Scale", frames: "1,000,000", price: "$15", priceNum: 15, highlight: false, badge: "Enterprise", desc: "Production-grade autonomous agents." },
+    { name: "Enterprise", frames: "Unlimited", price: "Contact", priceNum: 0, highlight: true, badge: "SLA", desc: "Industrial-grade vision scaling." }
 ]
 
 export function DashboardPurchase() {
@@ -164,32 +161,30 @@ export function DashboardPurchase() {
             
             <div className="relative z-10 max-w-2xl">
                 <div className="flex items-center gap-2 mb-4">
-                    <span className="slb-label bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-3 py-1 animate-pulse">
-                        FREE TIER ACTIVE
-                    </span>
                     <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1">
-                        10,000 FRAMES INCLUDED
+                        ENTERPRISE GRADUATION ACTIVE
                     </span>
                 </div>
                 
-                <h2 className="slb-header text-3xl md:text-4xl text-foreground mb-6">
-                    Start building with 10,000 free vision frames.
+                <h2 className="slb-header text-3xl mb-4">
+                    Scaling to B2B Infrastructure
                 </h2>
                 
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    Every authenticated developer receives 10,000 complimentary perception frames — enough for real integration testing. Once exhausted, upgrade to continue at production scale.
+                <p className="text-sm text-muted-foreground mb-8">
+                    The 55-user beta has successfully concluded. We are now scaling exclusively as a B2B infrastructure layer, delivering 90%+ token savings for industrial LLM vision workflows.
                 </p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                    {TIERS.map(tier => (
-                        <div key={tier.name} className="slb-inset p-3 opacity-80 hover:opacity-100 transition-opacity">
-                            <p className="text-[10px] text-muted-foreground uppercase font-bold">{tier.name}</p>
-                            <p className="text-lg font-bold font-mono text-primary">{tier.frames}</p>
-                            <p className={`text-[10px] font-bold italic ${tier.priceNum === 0 ? 'text-emerald-500' : 'text-muted-foreground'}`}>
-                                {tier.priceNum === 0 ? 'INCLUDED' : `${tier.price}`}
-                            </p>
-                        </div>
-                    ))}
+                <div className="slb-inset p-8 bg-primary/5 border border-primary/20 mb-8 text-center">
+                    <h3 className="slb-header text-xl mb-4">Industrial Scaling & B2B Tiers</h3>
+                    <p className="text-sm text-muted-foreground mb-6">
+                        The consumer beta has closed. Glazyr Viz now provides exclusive high-frequency vision infrastructure for enterprise clusters. Contact our engineering team to architect your B2B token savings.
+                    </p>
+                    <button 
+                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
+                        className="slb-btn slb-btn-primary px-10 py-4 text-sm font-bold uppercase tracking-widest"
+                    >
+                        Contact Enterprise Support
+                    </button>
                 </div>
 
                 <div className="flex flex-wrap gap-4">
@@ -198,10 +193,10 @@ export function DashboardPurchase() {
                             const el = document.querySelector('.terminal-container');
                             if (el) el.scrollIntoView({ behavior: 'smooth' });
                         }}
-                        className="slb-btn slb-btn-primary px-8 py-3 text-sm font-bold flex items-center gap-2"
+                        className="slb-btn px-8 py-3 text-sm font-bold flex items-center gap-2 border border-border/50 bg-muted/20"
                     >
                         <Zap className="h-4 w-4" />
-                        Launch High-Frequency Vision
+                        Launch Vision Debugger
                     </button>
                     <a 
                         href="/technology"

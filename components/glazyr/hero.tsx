@@ -50,25 +50,25 @@ export function Hero() {
                 <h1 className="slb-header text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight text-balance mb-6">
                     7.35ms Perception.
                     <br />
-                    <span className="text-primary text-3xl md:text-5xl text-balance">90%+ Token Savings.</span>
+                    <span className="text-primary text-3xl md:text-5xl text-balance">BETA SUCCESSFUL.</span>
                 </h1>
 
                 {/* Subline */}
                 <p className="mx-auto max-w-3xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    Cut out the slow, expensive screenshot loop. Glazyr Viz gives your AI agents <strong className="text-foreground">direct access to the browser&apos;s shared memory (SHM) buffer</strong>. See the DOM render instantly at 57 FPS with zero network overhead.
+                    The Glazyr Beta was a <strong className="text-foreground">definitive success</strong> with 55 early adopters. We are now scaling exclusively as a B2B infrastructure layer, delivering 90%+ token savings for industrial LLM vision workflows.
                 </p>
 
                 {/* CTA — Skeuomorphic Primary Button */}
                 <div className="flex flex-col items-center justify-center gap-6 mb-10 w-full max-w-2xl mx-auto">
-                    <Link
-                        href="/auth/signin"
+                    <button
+                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
                         className="slb-btn slb-btn-primary px-10 py-5 text-lg font-bold group relative"
                     >
                         <Zap className="h-6 w-6 fill-current" />
-                        Get Your API Key
-                    </Link>
+                        Inquire for Enterprise Scaling
+                    </button>
                     <p className="slb-label text-primary">
-                        2,500 FREE FRAMES on register
+                        Exclusive B2B Availability
                     </p>
                 </div>
 

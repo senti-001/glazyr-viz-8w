@@ -58,10 +58,10 @@ export function Footer() {
                   <li key={link.label}>
                     {link.label === "Dashboard" ? (
                       <button
-                        onClick={() => session ? window.location.href = '/dashboard' : signIn()}
+                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
                         className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
                       >
-                        {link.label}
+                        Enterprise Support
                       </button>
                     ) : (
                       <Link

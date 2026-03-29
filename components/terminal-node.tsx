@@ -6,10 +6,10 @@ import { ethers } from "ethers"
 
 export function TerminalNode() {
     const [history, setHistory] = useState<string[]>([
-        "Neural Chromium [Zero-Copy Vision Node v0.9.1]",
-        "High-Frequency Agentic Infrastructure initialized.",
-        "System State: FREE TIER (10,000 Frames Included)",
-        "Generating secure ephemeral session wallet (AgentKit)..."
+        "Neural Chromium [B2B Graduation v1.0.0]",
+        "Successful Beta Concluded (55/55 Core Nodes Validated).",
+        "System State: ENTERPRISE MIGRATION ACTIVE",
+        "Initializing secure audit portal (AgentKit)..."
     ])
     const [input, setInput] = useState("")
     const [address, setAddress] = useState<string | null>(null)
@@ -34,10 +34,10 @@ export function TerminalNode() {
             setAddress(wallet.address)
             setHistory(prev => [
                 ...prev,
-                "Session Wallet Generated successfully.",
+                "Session Verified successfully.",
                 `SESSION ID: ${wallet.address}`,
-                "NETWORK: Base Mainnet [FREE BETA ACCESS]",
-                "High-dynamic vision pipeline UNLOCKED (Beta).",
+                "NETWORK: Base Mainnet [ENTERPRISE GRADUATION]",
+                "B2B vision pipeline ACTIVE (Migrated).",
                 "Type '/help' for a list of commands."
             ])
         } catch (e) {
@@ -71,7 +71,7 @@ export function TerminalNode() {
         if (trimmedCmd.startsWith('/capture')) {
             if (!address) return;
             const url = cmd.split(' ')[1] || 'https://example.com'
-            setHistory(prev => [...prev, `[ECONOMY] Free Tier Active. 10,000 frames granted. Use /status to check balance.`])
+            setHistory(prev => [...prev, `[ECONOMY] Enterprise Graduation Active. B2B Vision Scaling enabled.`])
             // SKIP balance check for Beta
             // const balances = await checkBalances(address)
             const balances = { usdcBalance: 1.0, ethBalance: 1.0 } 
@@ -91,7 +91,7 @@ export function TerminalNode() {
                     ...prev,
                     `[ECONOMY] HTTP 402 PAYMENT REQUIRED.`,
                     `[ECONOMY] Balance: ${balances.usdcBalance.toFixed(6)} USDC / ${balances.ethBalance.toFixed(8)} ETH.`,
-                    `[ECONOMY] Free Tier: 10,000 frames included. Use /status to check balance.`,
+                    `[ECONOMY] Enterprise Graduation Active. B2B Vision Scaling enabled.`,
                     `[ECONOMY] Access to sub-16ms high-dynamic pipeline denied.`,
                     `[ECONOMY] Please deposit USDC or ETH to: ${address}`
                 ])
@@ -107,7 +107,7 @@ export function TerminalNode() {
                     "Available commands:",
                     "  /status    - Chromium health, DMA metrics & on-chain balances",
                     "  /x402      - Display economic layer integration details",
-                    "  /capture   - [URL] Execute zero-copy vision (Free Tier: 10K frames included)",
+                    "  /capture   - [URL] Execute zero-copy vision (Enterprise Only)",
                     "  /benchmark - Run performance comparison vs Standard CDP",
                     "  /clear     - Clear terminal output"
                 ])
@@ -145,9 +145,9 @@ export function TerminalNode() {
             case "/x402":
                 setHistory(prev => [
                     ...prev,
-                    "[ECONOMY] Universal Commerce Protocol Interceptor [BETA BYPASS]",
-                    "[ECONOMY] Status: FREE BETA ACTIVE",
-                    "[ECONOMY] All vision/action fees currently waived.",
+                    "[ECONOMY] Universal Commerce Protocol Interceptor [ENTERPRISE GRADUATION]",
+                    "[ECONOMY] Status: B2B PIVOT ACTIVE",
+                    "[ECONOMY] Consumer pricing has been successfully archived.",
                     `[ECONOMY] Session: ${address}`,
                 ])
                 break

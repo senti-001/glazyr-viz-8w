@@ -114,9 +114,6 @@ export function NeuralTokenomics() {
                             <span className={`h-1.5 w-1.5 rounded-full ${data.is_live ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse`} />
                             {data.is_live ? 'LIVE ON SOLANA' : 'AWAITING TREASURY PDA'}
                         </span>
-                        <span className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-primary ring-1 ring-primary/20">
-                            FREE TIER — 10K FRAMES
-                        </span>
                     </div>
                 </div>
 
