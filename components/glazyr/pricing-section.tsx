@@ -10,12 +10,32 @@ export function PricingSection() {
 
     const tiers = [
         {
+            id: "starter",
+            icon: <Cpu className="h-5 w-5 text-primary" />,
+            title: "Starter",
+            price: "$299/mo",
+            credits: "Cost parity + zero egress",
+            description: "Ideal for 15-50 concurrent agents. Transition your cluster to SHM vision with no bandwidth penalty.",
+            buttonText: "Deploy Target",
+            isFree: false
+        },
+        {
+            id: "professional",
+            icon: <Sparkles className="h-5 w-5 text-primary" />,
+            title: "Professional",
+            price: "$499/mo",
+            credits: "Highest density per node",
+            description: "6.25x agent density. Ideal for 50-250 concurrent agents scaling industrial scraping operations.",
+            buttonText: "Deploy Target",
+            isFree: false
+        },
+        {
             id: "enterprise",
             icon: <Zap className="h-5 w-5 text-primary" />,
             title: "B2B Enterprise",
             price: "CONTACT",
             credits: "Unlimited Vision",
-            description: "Industrial-grade vision scaling for autonomous clusters and high-frequency agents.",
+            description: "Industrial-grade vision scaling. Dedicated SHM cluster, SLA, and enterprise SDK for 250+ agents.",
             buttonText: "Inquire Now",
             isFree: false
         }
@@ -41,12 +61,19 @@ export function PricingSection() {
                     </p>
                 </div>
 
-                <div className="max-w-lg mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {tiers.map((t, i) => (
-                        <div key={i} className={`slb-panel p-10 relative flex flex-col justify-between transition-all border-primary/50 bg-primary/5`}>
-                            <div className="absolute top-0 right-0 bg-primary/20 border-l border-b border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest px-4 py-2">
-                                Enterprise Ready
-                            </div>
+                        <div key={i} className={`slb-panel p-10 relative flex flex-col justify-between transition-all ${t.id === 'professional' ? 'border-primary bg-primary/10 scale-105' : 'border-primary/50 bg-primary/5'}`}>
+                            {t.id === 'professional' && (
+                                <div className="absolute top-0 right-0 bg-primary border-l border-b border-primary text-black text-[10px] font-bold uppercase tracking-widest px-4 py-2">
+                                    Most Popular
+                                </div>
+                            )}
+                            {t.id === 'enterprise' && (
+                                <div className="absolute top-0 right-0 bg-primary/20 border-l border-b border-primary/30 text-primary text-[10px] font-bold uppercase tracking-widest px-4 py-2">
+                                    Enterprise Ready
+                                </div>
+                            )}
                             <div className="text-center">
                                 <div className="mb-8 inline-flex p-4 slb-panel border-primary/20 bg-primary/10">
                                     {t.icon}
