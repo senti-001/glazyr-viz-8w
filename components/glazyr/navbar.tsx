@@ -7,6 +7,15 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import Link from "next/link"
 import { ThemeToggle } from "@/components/glazyr/theme-toggle"
 
+const navLinks = [
+  { label: "Pulse", href: "#pulse" },
+  { label: "Contributions", href: "#bounties" },
+  { label: "Intelligence", href: "#intelligence" },
+  { label: "Benchmarks", href: "#benchmarks" },
+  { label: "Agentic Link", href: "#agentic-link" },
+  { label: "Enterprise Demo", href: "/enterprise" },
+]
+
 export function Navbar() {
   const { data: session, status } = useSession()
   const [mobileOpen, setMobileOpen] = useState(false)
