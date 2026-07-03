@@ -44,6 +44,7 @@
     "date-fns": "4.1.0",
     "embla-carousel-react": "8.5.1",
     "ethers": "^6.16.0",
+    "framer-motion": "^12.42.2",
     "input-otp": "1.4.1",
     "ioredis": "^5.10.0",
     "lucide-react": "^0.544.0",
