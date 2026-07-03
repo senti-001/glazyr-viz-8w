@@ -1,4 +1,3 @@
-import { Redis as UpstashRedis } from "@upstash/redis";
 import IoRedis from "ioredis";
 import fs from "fs";
 import path from "path";
@@ -61,29 +60,14 @@ class FileSystemRedisMock {
 }
 
 const redisClientSingleton = () => {
-    const isBuild = process.env.CI === "true" || process.env.AMPLIFY_BUILD_ID;
-    const hasUpstash = process.env.REDIS_URL && process.env.REDIS_TOKEN;
-
-    // 1. Managed Cloud Redis (Upstash) - The "Public" Migration
-    if (process.env.NODE_ENV === "production" || isBuild || hasUpstash) {
-        if (!hasUpstash && !isBuild) {
-            console.warn("⚠️ Upstash credentials missing. Falling back to Mock.");
-            return new FileSystemRedisMock();
-        }
-        return new UpstashRedis({
-            url: process.env.REDIS_URL || "",
-            token: process.env.REDIS_TOKEN || ""
-        });
-    }
-
-    // 2. Local Environment Check
+    // 1. Local Environment Check
     const useLocalTcp = process.env.LOCAL_REDIS_URL || process.env.USE_LOCAL_REDIS === "true";
     if (useLocalTcp) {
         console.log("🔌 Using local ioredis client (TCP)");
         return new IoRedis(process.env.LOCAL_REDIS_URL || "redis://localhost:6379");
     }
 
-    // 3. Final Fallback: Zero-Dependency FileSystem Mock
+    // 2. Final Fallback: Zero-Dependency FileSystem Mock
     console.log("📂 Using Zero-Dependency FileSystem Ledger (.glazyr_ledger.json)");
     return new FileSystemRedisMock();
 };

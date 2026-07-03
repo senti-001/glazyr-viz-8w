@@ -1,7 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import { UpstashRedisAdapter } from "@auth/upstash-redis-adapter"
 import redis from "@/lib/redis"
 
 // V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR
@@ -17,7 +16,6 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: "/auth/signin",
     },
-    adapter: UpstashRedisAdapter(redis) as any,
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID || "",
@@ -31,21 +29,24 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async session({ session, user }: any) {
-            if (session.user) {
-                session.user.id = user.id;
+        async signIn({ user }) {
+            if (user && user.id) {
+                const existing = await redis.get(`user:credits:${user.id}`);
+                if (existing === null) {
+                    await redis.set(`user:credits:${user.id}`, 2_500);
+                    console.log(`[NextAuth] New user ${user?.email} granted 2,500 Glazyr Frames.`);
+                }
+            }
+            return true;
+        },
+        async session({ session, token }: any) {
+            if (session.user && token?.sub) {
+                session.user.id = token.sub;
             }
             return session;
         },
     },
     events: {
-        async createUser({ user }) {
-            // Auto-grant 2,500 free Glazyr Frames on signup (Proof of Concept Tier)
-            if (user.id) {
-                await redis.set(`user:credits:${user.id}`, 2_500)
-                console.log(`[NextAuth] New user ${user.email} granted 2,500 Glazyr Frames.`)
-            }
-        },
     },
     secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_dev",
 };
