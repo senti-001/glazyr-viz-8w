@@ -1,6 +1,6 @@
 const { Redis } = require("@upstash/redis")
 
-// Upstash credentials from .env.local
+// Upstash credentials
 const redis = new Redis({
   url: 'https://big-oyster-39155.upstash.io',
   token: 'AZjzAAIncDE2YzlkYWRjNzI5YjQ0NDFkOWY0ZTRkNDc0NGE0YWUxMHAxMzkxNTU',
@@ -8,26 +8,24 @@ const redis = new Redis({
 
 async function checkUserActivity() {
     try {
-        console.log("[*] Querying Upstash Redis for Glazyr activity...")
+        console.log("[*] Querying Upstash Redis for Glazyr activity (PROD KEYS)...")
         
-        // NextAuth keys: user:*, session:*, account:*
+        // Correct keys from paymaster.ts and next-auth
         const users = await redis.keys("user:*")
-        const sessions = await redis.keys("session:*")
-        
-        // Glazyr specific keys: frames:*, ledger:*
-        const frames = await redis.keys("frames:*")
-        const ledger = await redis.keys("ledger:*")
+        const sessionKeys = await redis.keys("session:*")
+        const creditKeys = await redis.keys("user:credits:*")
+        const processedTxKeys = await redis.keys("tx:processed:*")
 
-        console.log(`[RESULTS] Total Users Registered: ${users.length}`)
-        console.log(`[RESULTS] Active Sessions: ${sessions.length}`)
-        console.log(`[RESULTS] Frame Pools Tracked: ${frames.length}`)
-        console.log(`[RESULTS] Ledger Entries: ${ledger.length}`)
+        console.log(`[RESULTS] Total Registered Users: ${users.length}`)
+        console.log(`[RESULTS] Total Credit Pools (Activation): ${creditKeys.length}`)
+        console.log(`[RESULTS] Active Sessions (Logins): ${sessionKeys.length}`)
+        console.log(`[RESULTS] Processed On-Chain Tx: ${processedTxKeys.length}`)
 
-        if (users.length > 0) {
-            console.log("\n[RECENT USERS]")
-            for (let i = 0; i < Math.min(users.length, 5); i++) {
-                const userData = await redis.get(users[i])
-                console.log(` - ${users[i]}: ${JSON.stringify(userData)}`)
+        if (creditKeys.length > 0) {
+            console.log("\n[TOP 5 CREDIT POOLS]")
+            for (let i = 0; i < Math.min(creditKeys.length, 5); i++) {
+                const balance = await redis.get(creditKeys[i])
+                console.log(` - ${creditKeys[i]}: ${balance} frames`)
             }
         }
 

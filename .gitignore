@@ -8,5 +8,18 @@ instrumentation-client.ts
 # Common ignores
 node_modules/
 .next/
+.env
 .env*.local
 .DS_Store
+/lib/generated/prisma
+
+# Scratch and Temp files
+*.py
+*.sh
+*.cc
+*.h
+*.db
+*.pdf
+beta_users_export.json
+extract_beta_data.js
+glazyr-sales-agent.html

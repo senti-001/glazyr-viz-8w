@@ -32,18 +32,43 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'INVALID_TIER' }, { status: 400 });
         }
 
-        // DISABLE FOR BETA FREE STATE
-        return NextResponse.json({ 
-            error: 'PAYMENT_DISABLED', 
-            message: 'Stripe payments are coming soon. You currently have 10,000 free vision frames. Use USDC on Base to top up.',
-            url: '/dashboard' // Redirect back to dashboard safely
-        }, { status: 403 });
+        const stripe = getStripe();
+        
+        // MOCK MODE FALLBACK for local development without keys
+        if (!stripe) {
+            console.log(`[MOCK MODE] Simulating successful checkout for ${tier.name} ($${tier.amount/100})`);
+            return NextResponse.json({
+                url: `/api/debug/mock-checkout?userId=${session.user.id}&credits=${tier.credits}&tierName=${encodeURIComponent(tier.name)}`
+            });
+        }
 
-        /* Standard Stripe Checkout (Disabled)
-        const stripe = getStripe()
-        if (!stripe) return NextResponse.json({ error: 'Gateway Offline' }, { status: 503 })
-        ...
-        */
+        // REAL STRIPE CHECKOUT
+        const checkoutSession = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            client_reference_id: session.user.id,
+            metadata: {
+                userId: session.user.id,
+                credits: tier.credits.toString()
+            },
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: `Glazyr Vision - ${tier.name}`,
+                            description: `${tier.credits.toLocaleString()} Perception Frames`,
+                        },
+                        unit_amount: tier.amount,
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard?success=true`,
+            cancel_url: `${process.env.NEXTAUTH_URL || 'http://localhost:3002'}/dashboard?canceled=true`,
+        });
+
+        return NextResponse.json({ url: checkoutSession.url });
 
     } catch (error: any) {
         console.error(`[CHECKOUT ERROR] Failed to initialize gateway: ${error.message}`);

@@ -3,7 +3,6 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { CreditManager } from '@/lib/paymaster';
-import redis from '@/lib/redis';
 
 const getStripe = () => {
     const key = process.env.STRIPE_SECRET_KEY

@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import redis from "@/lib/redis"
+import prisma from "@/lib/db"
 
 // V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR
 if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
@@ -31,9 +31,16 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user }) {
             if (user && user.id) {
-                const existing = await redis.get(`user:credits:${user.id}`);
-                if (existing === null) {
-                    await redis.set(`user:credits:${user.id}`, 2_500);
+                const existing = await prisma.userCredit.findUnique({
+                    where: { userId: user.id }
+                });
+                if (!existing) {
+                    await prisma.userCredit.create({
+                        data: {
+                            userId: user.id,
+                            balance: 2500
+                        }
+                    });
                     console.log(`[NextAuth] New user ${user?.email} granted 2,500 Glazyr Frames.`);
                 }
             }

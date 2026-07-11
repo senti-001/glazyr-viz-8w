@@ -3,7 +3,6 @@ import { createPublicClient, http, type Hex } from "viem"
 import { base } from "viem/chains"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import redis from "@/lib/redis"
 import { CreditManager } from "@/lib/paymaster"
 
 const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_URL || "https://mainnet.base.org"

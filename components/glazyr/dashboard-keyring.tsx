@@ -25,33 +25,63 @@ function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) 
     )
 }
 
-// ——— Shared B2B Success View ———
-function BetaSuccessView() {
+export function DashboardKeyring({ sessionToken }: { sessionToken?: string }) {
+    const [keys, setKeys] = useState<{ id: string; key: string; createdAt: string }[]>([])
+    const [loading, setLoading] = useState(true)
+
+    const fetchKeys = async () => {
+        try {
+            const res = await fetch("/api/keys")
+            const data = await res.json()
+            if (data.keys) setKeys(data.keys)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useState(() => {
+        fetchKeys()
+    })
+
+    const handleGenerate = async () => {
+        await fetch("/api/keys", { method: "POST" })
+        fetchKeys()
+    }
+
+    const handleDelete = async (id: string) => {
+        await fetch(`/api/keys?id=${id}`, { method: "DELETE" })
+        fetchKeys()
+    }
+
     return (
         <div className="space-y-6">
-            <div>
-                <div className="flex items-center justify-between mb-4">
-                    <h3 className="slb-header text-foreground text-xl">Beta Snapshot: SUCCESS</h3>
-                    <span className="slb-label text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 font-bold">Closed / Scaling</span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                    The Glazyr Viz consumer beta has concluded after reaching our target engagement metrics with 55 early adopters. Individual API keys have been deactivated as we pivot to <strong className="text-foreground">exclusive B2B Enterprise infrastructure</strong>.
-                </p>
-                <div className="slb-inset p-6 bg-primary/5 border-dashed border-primary/30 text-center">
-                    <p className="text-xs font-mono text-primary uppercase mb-4 tracking-widest">Enterprise Access Required</p>
-                    <button
-                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
-                        className="slb-btn slb-btn-primary px-8 py-3 text-sm font-bold uppercase tracking-widest"
-                    >
-                        Request Enterprise Migration
-                    </button>
-                </div>
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="slb-header text-foreground text-xl">API Keys</h3>
+                <button
+                    onClick={handleGenerate}
+                    className="slb-btn slb-btn-primary px-4 py-2 text-sm font-bold tracking-widest"
+                >
+                    Generate New Key
+                </button>
             </div>
+            
+            {loading ? (
+                <p className="text-muted-foreground text-sm">Loading keys...</p>
+            ) : keys.length === 0 ? (
+                <p className="text-muted-foreground text-sm">No API keys found. Generate one to get started.</p>
+            ) : (
+                <div className="space-y-3">
+                    {keys.map((k) => (
+                        <div key={k.id} className="slb-inset p-4 flex items-center justify-between">
+                            <div className="font-mono text-sm text-primary">{k.key}</div>
+                            <div className="flex items-center gap-2">
+                                <CopyButton text={k.key} />
+                                <button onClick={() => handleDelete(k.id)} className="slb-btn slb-btn-sm text-red-500 border-red-500/20 hover:bg-red-500/10">Revoke</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
-}
-
-// ——— Main export ———
-export function DashboardKeyring({ sessionToken }: { sessionToken?: string }) {
-    return <BetaSuccessView />
 }

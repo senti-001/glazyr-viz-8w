@@ -144,8 +144,7 @@ export class BaseSettlementProvider implements ISettlementProvider {
         return null;
     }
 }
-import redis from "@/lib/redis"
-
+import prisma from "@/lib/db"
 /**
  * Unified Credit Manager for hybrid Fiat (Stripe) and Crypto payments.
  * Optimized for Auth.js (NextAuth) verified user records.
@@ -156,26 +155,30 @@ export class CreditManager {
      * Uses a Lua script for atomic verification and deduction.
      */
     async deduct(userId: string, amount: number): Promise<{ success: boolean; method: 'fiat' | 'crypto'; txHash?: string; error?: string }> {
-        const balanceKey = `user:credits:${userId}`;
-
-        // Lua script for atomic check-and-decrement
-        const luaScript = `
-            local current = redis.call('GET', KEYS[1])
-            if not current or tonumber(current) < tonumber(ARGV[1]) then
-                return -1
-            end
-            return redis.call('DECRBY', KEYS[1], ARGV[1])
-        `;
-
         try {
-            // @ts-ignore - ioredis supports defineCommand or eval
-            const result = await redis.eval(luaScript, 1, balanceKey, amount);
+            // Prisma atomic check-and-decrement via interactive transaction
+            const result = await prisma.$transaction(async (tx) => {
+                const userCredit = await tx.userCredit.findUnique({
+                    where: { userId }
+                });
+
+                if (!userCredit || userCredit.balance < amount) {
+                    return -1;
+                }
+
+                await tx.userCredit.update({
+                    where: { userId },
+                    data: { balance: { decrement: amount } }
+                });
+
+                return 1;
+            });
 
             if (result !== -1) {
                 return { success: true, method: 'fiat' };
             }
         } catch (err) {
-            console.error(`[CreditManager] Redis/Lua Error:`, err);
+            console.error(`[CreditManager] Prisma Error:`, err);
         }
 
         // Fallback to On-Chain Settlement (Crypto)
@@ -188,16 +191,23 @@ export class CreditManager {
     }
 
     async getFiatBalance(userId: string): Promise<number> {
-        const balance = await redis.get(`user:credits:${userId}`);
+        let userCredit = await prisma.userCredit.findUnique({
+            where: { userId }
+        });
 
-        if (balance === null || balance === undefined) {
+        if (!userCredit) {
             // Free Tier: Auto-grant 10,000 frames on first dashboard view
             const grant = 10_000;
-            await redis.set(`user:credits:${userId}`, grant);
+            userCredit = await prisma.userCredit.create({
+                data: {
+                    userId,
+                    balance: grant
+                }
+            });
             return grant;
         }
 
-        return typeof balance === 'string' ? parseInt(balance) : (balance as number);
+        return userCredit.balance;
     }
 
     /**
@@ -205,10 +215,14 @@ export class CreditManager {
      * Uses Redis INCRBY to ensure thread-safety and prevent race conditions.
      */
     async addCredits(userId: string, amount: number): Promise<number> {
-        const balanceKey = `user:credits:${userId}`;
-        const newBalance = await redis.incrby(balanceKey, amount);
-        console.log(`[Ledger] Credited ${amount} frames to User ${userId}. New Balance: ${newBalance}`);
-        return newBalance;
+        const userCredit = await prisma.userCredit.upsert({
+            where: { userId },
+            update: { balance: { increment: amount } },
+            create: { userId, balance: amount }
+        });
+        
+        console.log(`[Ledger] Credited ${amount} frames to User ${userId}. New Balance: ${userCredit.balance}`);
+        return userCredit.balance;
     }
 
     /**
@@ -242,11 +256,16 @@ export class CreditManager {
         
         if (resolvedTxHash) {
             // Check if this tx has already been processed to prevent double-spend
-            const alreadyProcessed = await redis.get(`tx:processed:${resolvedTxHash}`);
+            const alreadyProcessed = await prisma.processedTransaction.findUnique({
+                where: { txHash: resolvedTxHash }
+            });
+            
             if (alreadyProcessed) return { success: false, txHash: resolvedTxHash, details: "Transaction already processed" };
 
             // Mark as processed immediately to prevent racing
-            await redis.set(`tx:processed:${resolvedTxHash}`, "true", { ex: 604800 }); // Mark as processed for 1 week
+            await prisma.processedTransaction.create({
+                data: { txHash: resolvedTxHash }
+            });
 
             // Atomic Credit Update
             await this.addCredits(userId, tierFrames);
@@ -262,6 +281,6 @@ export class CreditManager {
     }
 
     async setPendingFlag(userId: string): Promise<void> {
-        await redis.set(`pending:credits:${userId}`, "true", { ex: 300 });
+        // Not using redis for pending flag anymore
     }
 }
