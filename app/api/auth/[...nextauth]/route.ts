@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/lib/db"
 
 // V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR/Vercel
@@ -12,6 +13,10 @@ if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
 }
 
 export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
+    session: {
+        strategy: "jwt",
+    },
     theme: { colorScheme: "light" },
     pages: {
         signIn: "/auth/signin",
