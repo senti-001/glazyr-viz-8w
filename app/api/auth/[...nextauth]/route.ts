@@ -34,23 +34,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async signIn({ user }) {
-            if (user && user.id) {
-                const existing = await prisma.userCredit.findUnique({
-                    where: { userId: user.id }
-                });
-                if (!existing) {
-                    await prisma.userCredit.create({
-                        data: {
-                            userId: user.id,
-                            balance: 2500
-                        }
-                    });
-                    console.log(`[NextAuth] New user ${user?.email} granted 2,500 Glazyr Frames.`);
-                }
-            }
-            return true;
-        },
+
         async session({ session, token }: any) {
             if (session.user && token?.sub) {
                 session.user.id = token.sub;
@@ -59,6 +43,15 @@ export const authOptions: NextAuthOptions = {
         },
     },
     events: {
+        async createUser({ user }) {
+            await prisma.userCredit.create({
+                data: {
+                    userId: user.id,
+                    balance: 2500
+                }
+            });
+            console.log(`[NextAuth] New user ${user?.email} granted 2,500 Glazyr Frames.`);
+        }
     },
     secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_dev",
 };
