@@ -156,25 +156,14 @@ export class CreditManager {
      */
     async deduct(userId: string, amount: number): Promise<{ success: boolean; method: 'fiat' | 'crypto'; txHash?: string; error?: string }> {
         try {
-            // Prisma atomic check-and-decrement via interactive transaction
-            const result = await prisma.$transaction(async (tx) => {
-                const userCredit = await tx.userCredit.findUnique({
-                    where: { userId }
-                });
+            // Prisma atomic raw SQL decrement completely eliminates race conditions under extreme concurrency
+            const result = await prisma.$executeRaw`
+                UPDATE "UserCredit" 
+                SET "balance" = "balance" - ${amount} 
+                WHERE "userId" = ${userId} AND "balance" >= ${amount};
+            `;
 
-                if (!userCredit || userCredit.balance < amount) {
-                    return -1;
-                }
-
-                await tx.userCredit.update({
-                    where: { userId },
-                    data: { balance: { decrement: amount } }
-                });
-
-                return 1;
-            });
-
-            if (result !== -1) {
+            if (result > 0) {
                 return { success: true, method: 'fiat' };
             }
         } catch (err) {
