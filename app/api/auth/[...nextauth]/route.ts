@@ -3,10 +3,10 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import prisma from "@/lib/db"
 
-// V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR
+// V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR/Vercel
 if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
     if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.includes("localhost")) {
-        process.env.NEXTAUTH_URL = "https://glazyr.com";
+        process.env.NEXTAUTH_URL = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://glazyr.com";
     }
     process.env.AUTH_TRUST_HOST = "true"; // Required for NextAuth on serverless
 }
