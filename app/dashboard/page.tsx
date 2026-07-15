@@ -10,7 +10,6 @@ import { DashboardQuickStart } from "@/components/glazyr/dashboard-quickstart"
 import { DashboardPurchase } from "@/components/glazyr/dashboard-purchase"
 import { Database, Code } from "lucide-react"
 import { Terminal } from "@/components/glazyr/terminal"
-import LiveView from "@/components/LiveView"
 import prisma from "@/lib/db"
 
 export default async function DashboardPage() {
@@ -106,11 +105,6 @@ export default async function DashboardPage() {
                             Your session key is pre-populated. Launch the MCP Inspector below to visually verify your agent&apos;s zero-copy performance live on the Big Iron network.
                         </p>
                         <Terminal sessionToken={sessionToken} />
-                    </div>
-                    
-                    {/* Live View Section */}
-                    <div className="mt-12">
-                        <LiveView />
                     </div>
                 </div>
             </main>
