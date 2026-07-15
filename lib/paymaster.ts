@@ -185,8 +185,8 @@ export class CreditManager {
         });
 
         if (!userCredit) {
-            // Free Tier: Auto-grant 10,000 frames on first dashboard view
-            const grant = 10_000;
+            // Free Tier: Auto-grant 100,000 frames on first dashboard view
+            const grant = 100_000;
             userCredit = await prisma.userCredit.create({
                 data: {
                     userId,

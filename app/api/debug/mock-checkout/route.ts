@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { CreditManager } from "@/lib/paymaster";
 
 export async function GET(req: NextRequest) {
+    if (process.env.NODE_ENV !== "development") {
+        return new NextResponse("Not Found", { status: 404 });
+    }
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
     const credits = parseInt(searchParams.get("credits") || "0", 10);

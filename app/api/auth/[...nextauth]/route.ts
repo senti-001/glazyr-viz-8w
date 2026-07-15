@@ -47,10 +47,10 @@ export const authOptions: NextAuthOptions = {
             await prisma.userCredit.create({
                 data: {
                     userId: user.id,
-                    balance: 2500
+                    balance: 100000
                 }
             });
-            console.log(`[NextAuth] New user ${user?.email} granted 2,500 Glazyr Frames.`);
+            console.log(`[NextAuth] New user ${user?.email} granted 100,000 Glazyr Frames.`);
         }
     },
     secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_dev",
