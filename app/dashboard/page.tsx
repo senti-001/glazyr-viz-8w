@@ -58,18 +58,20 @@ export default async function DashboardPage() {
                             <div className="flex items-center justify-between">
                                 <h2 className="slb-header text-xl flex items-center gap-2">
                                     <Database className="h-5 w-5 text-primary" />
-                                    Beta Milestone: 1M Vision Units
+                                    Live Vision Credit Ledger
                                 </h2>
                                 <span className="slb-label bg-emerald-500/10 text-emerald-500 border-emerald-500/20 px-3 py-1.5 font-bold">
-                                    TARGET VALIDATED
+                                    ACTIVE CONNECTION
                                 </span>
                             </div>
                             <div className="flex items-baseline gap-3 mt-2">
-                                <span className="text-6xl font-bold tracking-tight font-mono">1,000,000</span>
-                                <span className="slb-label text-base tracking-widest">+ {balance} Base</span>
+                                <span className="text-6xl font-bold tracking-tight font-mono">
+                                    {Number(balance).toLocaleString()}
+                                </span>
+                                <span className="slb-label text-base tracking-widest text-primary">Units</span>
                             </div>
                             <p className="text-sm text-muted-foreground border-t border-border/50 pt-5 mt-4">
-                                The 55-user beta has successfully concluded. Initial frame pools are now transitioning to SLA-guaranteed B2B enterprise infrastructure.
+                                Available vision frames remaining for MCP agentic workloads. Usage is automatically tracked and updated in real-time.
                             </p>
                         </div>
                     </div>
