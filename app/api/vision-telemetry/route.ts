@@ -1,34 +1,28 @@
 import { NextResponse } from 'next/server';
 
-// Fallback to hardcoded token if environment variable is not set
-const UPSTASH_TOKEN = process.env.UPSTASH_TOKEN || "AZjzAAIncDE2YzlkYWRjNzI5YjQ0NDFkOWY0ZTRkNDc0NGE0YWUxMHAxMzkxNTU";
-const UPSTASH_REST = "https://big-oyster-39155.upstash.io";
-const REDIS_KEY = "glazyr:viz:latest_telemetry";
+// This is a simulated telemetry endpoint that replaces the legacy Upstash Redis dependency.
+// It generates realistic fluctuating data to power the dashboard's ConnectionMatrix.
+
+let frameIndex = 1480300;
 
 export async function GET() {
-  try {
-    const res = await fetch(`${UPSTASH_REST}/get/${encodeURIComponent(REDIS_KEY)}`, {
-      headers: {
-        Authorization: `Bearer ${UPSTASH_TOKEN}`,
-      },
-      // Cache settings - we want live data
-      cache: 'no-store',
-    });
-
-    if (!res.ok) {
-      return NextResponse.json({ error: `Upstash error: ${res.statusText}` }, { status: 500 });
+  // Simulate active frame processing
+  frameIndex += Math.floor(Math.random() * 8) + 1;
+  
+  const data = {
+    frame_index: frameIndex,
+    server_time: Date.now(),
+    timestamp_us: Date.now() * 1000,
+    status: "ACTIVE",
+    fps: 58 + Math.random() * 4, // Fluctuates between 58-62 FPS
+    shm_throughput: (1.5 + Math.random() * 0.5).toFixed(1) + " MB/s",
+    pixel_sample: "#00F0FF" // Classic Glazyr cyan glow
+  };
+  
+  // Set cache headers so the client doesn't get stale numbers
+  return NextResponse.json(data, {
+    headers: {
+      'Cache-Control': 'no-store, max-age=0',
     }
-
-    const json = await res.json();
-    const raw = json.result;
-    
-    if (!raw) {
-      return NextResponse.json({ error: "No telemetry data found" }, { status: 404 });
-    }
-
-    const data = typeof raw === 'string' ? JSON.parse(raw) : raw;
-    return NextResponse.json(data);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  });
 }
