@@ -11,6 +11,7 @@ import { DashboardPurchase } from "@/components/glazyr/dashboard-purchase"
 import { Database, Code } from "lucide-react"
 import { Terminal } from "@/components/glazyr/terminal"
 import LiveView from "@/components/LiveView"
+import prisma from "@/lib/db"
 
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions)
@@ -18,6 +19,16 @@ export default async function DashboardPage() {
     // Secure Zero-Trust Route Lockdown
     if (!session || !session.user) {
         redirect("/auth/signin")
+    }
+
+    // Verify user exists in the database to prevent stale JWT crashes
+    const dbUser = await prisma.user.findUnique({
+        where: { id: session.user.id as string }
+    });
+
+    if (!dbUser) {
+        // The session is stale (user was deleted from DB but JWT is still in browser)
+        redirect("/api/auth/signout")
     }
 
     // Extract raw session token directly from secure cookies for the Keyring
@@ -37,20 +48,9 @@ export default async function DashboardPage() {
                 <div className="mx-auto max-w-4xl">
                     {/* Dashboard Header */}
                     <div className="mb-12">
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="slb-label bg-primary/10 text-primary border-primary/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
-                                System State: Enterprise Migration
-                            </span>
-                        </div>
                         <h1 className="slb-header text-3xl md:text-5xl tracking-tight mb-4">
-                             Glazyr <span className="text-primary">Network</span>
+                             Glazyr Viz <span className="text-primary">Dashboard</span>
                         </h1>
-                        <div className="mb-10">
-                            <h2 className="slb-header text-2xl mb-2">Beta Success Portal</h2>
-                            <p className="text-muted-foreground text-sm max-w-2xl">
-                                The 55-user beta has officially concluded. All current telemetry and vision streams are being migrated to exclusive B2B Enterprise infrastructure.
-                            </p>
-                        </div>
                     </div>
 
                     {/* Live Redis Ledger Box */}
