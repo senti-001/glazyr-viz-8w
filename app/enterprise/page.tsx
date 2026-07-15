@@ -1,4 +1,3 @@
-import ConnectionMatrix from "@/components/connection-matrix";
 import DeveloperIntegration from "@/components/developer-integration";
 import { ArrowRight } from "lucide-react";
 
@@ -38,11 +37,9 @@ export default function Home() {
             B2B NODE REOPENING - LIVE DEMO
           </div>
           <p className="text-slate-400 text-sm max-w-2xl leading-relaxed">
-            Witness the agentic optic nerve in real-time. The dashboard below is currently connected to a live GCP Perception Node via Upstash REST. You are seeing the actual memory buffer latency and frame processing speed of our headless Chromium engine.
+            Witness the agentic optic nerve in real-time. The dashboard below is currently connected to a live GCP Perception Node. You are seeing the actual memory buffer latency and frame processing speed of our headless Chromium engine.
           </p>
         </div>
-        
-        <ConnectionMatrix />
         
         <div className="border-t border-[#2E3440] mt-8 bg-[#040508]/50">
           <DeveloperIntegration />
