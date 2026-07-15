@@ -187,13 +187,23 @@ export class CreditManager {
         if (!userCredit) {
             // Free Tier: Auto-grant 100,000 frames on first dashboard view
             const grant = 100_000;
-            userCredit = await prisma.userCredit.create({
-                data: {
-                    userId,
-                    balance: grant
+            try {
+                userCredit = await prisma.userCredit.create({
+                    data: {
+                        userId,
+                        balance: grant
+                    }
+                });
+                return grant;
+            } catch (err: any) {
+                // If P2003 Foreign Key constraint fails, it means the user record doesn't exist.
+                // This happens if they have a stale JWT session cookie but the DB was wiped.
+                if (err.code === 'P2003') {
+                    console.warn(`[Ledger] Stale session detected for user ${userId}. Returning 0 balance.`);
+                    return 0; // Return 0 gracefully to let the UI render
                 }
-            });
-            return grant;
+                throw err;
+            }
         }
 
         return userCredit.balance;
