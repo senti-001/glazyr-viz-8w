@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
 }
 
 export const authOptions: NextAuthOptions = {
-    // adapter: PrismaAdapter(prisma), // Temporarily disabled to isolate error
+    adapter: PrismaAdapter(prisma),
     debug: true,
     session: {
         strategy: "jwt",

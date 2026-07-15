@@ -3,13 +3,15 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
 
 const prismaClientSingleton = () => {
-  // Use DIRECT_URL (port 5432) to avoid PgBouncer prepared statement limits with pg module.
-  // CRITICAL: AWS Lambda requires explicit SSL configuration when connecting to Supabase.
-  const connectionString = `${process.env.DIRECT_URL || process.env.DATABASE_URL}`
+  // CRITICAL FIX: AWS Lambda is IPv4 only. Supabase direct connections (port 5432) are IPv6 only.
+  // We MUST use the connection pooler (DATABASE_URL on port 6543) because it provides an IPv4 address!
+  const connectionString = `${process.env.DATABASE_URL}`
+  
   const pool = new Pool({ 
     connectionString,
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined
   })
+  
   const adapter = new PrismaPg(pool)
   
   return new PrismaClient({
