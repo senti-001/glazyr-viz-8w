@@ -43,8 +43,10 @@ $finalEnv.Remove("LOCAL_REDIS_URL")
 $finalEnv["NEXTAUTH_URL"] = "https://glazyr.com"
 $finalEnv["NEXT_PUBLIC_SITE_URL"] = "https://glazyr.com"
 
-# Convert to JSON and save to a secure temporary file
-$finalEnv | ConvertTo-Json | Out-File -FilePath $TMP_FILE -Encoding utf8
+# Convert to JSON and save to a secure temporary file (UTF-8 No BOM for AWS CLI)
+$jsonOutput = $finalEnv | ConvertTo-Json
+$Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+[System.IO.File]::WriteAllText($TMP_FILE, $jsonOutput, $Utf8NoBomEncoding)
 
 Write-Host "Synchronizing Environment Variables for Amplify App: $APP_ID..."
 
