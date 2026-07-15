@@ -66,12 +66,49 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
 
-          <button
-            onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
-            className="slb-btn slb-btn-primary px-5 py-2.5 text-sm font-semibold whitespace-nowrap"
-          >
-            Enterprise Inquiry
-          </button>
+          {session ? (
+            <div className="relative" ref={dropdownRef}>
+              <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 focus:outline-none rounded-full ring-2 ring-transparent hover:ring-primary/50 transition-all">
+                {session.user?.image ? (
+                  <img src={session.user.image} alt="Avatar" className="w-9 h-9 rounded-full object-cover border border-border" />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 text-primary font-bold">
+                    {session.user?.name?.charAt(0) || "U"}
+                  </div>
+                )}
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 slb-panel border border-border/50 shadow-xl rounded-xl py-2 flex flex-col z-50">
+                  <div className="px-4 py-3 border-b border-border/50 mb-1">
+                    <p className="text-sm font-bold text-foreground truncate">{session.user?.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">{session.user?.email}</p>
+                  </div>
+                  <Link href="/dashboard" onClick={() => setDropdownOpen(false)} className="px-4 py-2 text-sm hover:bg-white/5 transition-colors text-left text-muted-foreground hover:text-foreground">
+                    Dashboard
+                  </Link>
+                  <button onClick={() => { setDropdownOpen(false); signOut(); }} className="px-4 py-2 text-sm text-red-400 hover:bg-white/5 transition-colors text-left">
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
+                className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider mr-2"
+              >
+                Enterprise
+              </button>
+              <button
+                onClick={() => signIn()}
+                className="slb-btn slb-btn-primary px-5 py-2.5 text-sm font-semibold whitespace-nowrap"
+              >
+                Sign In
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -89,16 +126,39 @@ export function Navbar() {
         <div className="md:hidden slb-panel border-t border-border/50 px-6 py-4 flex flex-col gap-4">
           <Link href="/" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Home</Link>
           <Link href="/technology" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Technology</Link>
-          <button onClick={() => { setMobileOpen(false); session ? window.location.href = '/dashboard' : signIn(); }} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 text-left uppercase tracking-wider">Dashboard</button>
+          {session && (
+            <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Dashboard</Link>
+          )}
           <Link href="/privacy" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Privacy</Link>
-          <div className="flex items-center gap-3 pt-2 border-t border-border/30">
+          
+          {session && (
+             <button onClick={() => { setMobileOpen(false); signOut(); }} className="text-sm font-semibold text-red-400 hover:text-red-300 transition-colors py-2 text-left uppercase tracking-wider">Sign Out</button>
+          )}
+
+          <div className="flex items-center justify-between pt-4 border-t border-border/30">
+            {session ? (
+                <div className="flex items-center gap-3">
+                    {session.user?.image ? (
+                        <img src={session.user.image} alt="Avatar" className="w-10 h-10 rounded-full border border-border" />
+                    ) : (
+                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 text-primary font-bold">
+                            {session.user?.name?.charAt(0) || "U"}
+                        </div>
+                    )}
+                    <div className="flex flex-col">
+                        <span className="text-sm font-bold text-foreground">{session.user?.name}</span>
+                        <span className="text-xs text-muted-foreground">{session.user?.email}</span>
+                    </div>
+                </div>
+            ) : (
+                <button
+                  onClick={() => { setMobileOpen(false); signIn(); }}
+                  className="slb-btn slb-btn-primary w-full py-2.5 text-sm font-semibold"
+                >
+                  Sign In
+                </button>
+            )}
             <ThemeToggle />
-            <button
-              onClick={() => { setMobileOpen(false); window.open("https://form.typeform.com/to/sbdm0689", "_blank"); }}
-              className="slb-btn slb-btn-primary w-full py-2.5 text-sm font-semibold"
-            >
-              Enterprise Inquiry
-            </button>
           </div>
         </div>
       )}
