@@ -2,12 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import dynamic from "next/dynamic"
-
-const TerminalNode = dynamic(
-  () => import("@/components/terminal-node").then((mod) => mod.TerminalNode),
-  { ssr: false }
-)
 
 const GITHUB_URL = "https://github.com/glazyr/glazyr-viz"
 const agentic_LINK = "https://form.typeform.com/to/sbdm0689"
@@ -46,7 +40,7 @@ export function HeroSection() {
 
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
             Glazyr Viz is industrial-grade infrastructure for agentic perception and action.
-            Built on Chromium, NATS JetStream, and Solana—this isn't a tool, it's the foundational architecture
+            Built on Chromium, NATS JetStream, and Solana—this isn&apos;t a tool, it&apos;s the foundational architecture
             for the Agentic Cloud. Zero-Copy Vision. Phoenix Protocol. Hardware-backed $GLAZYR economics.
           </p>
 
@@ -66,8 +60,24 @@ export function HeroSection() {
           </div>
         </div>
 
+        {/* Clean static terminal preview */}
         <div className="mx-auto mt-10 max-w-2xl sm:mt-16 text-left">
-          <TerminalNode />
+          <div className="rounded-xl border border-border/50 bg-card overflow-hidden shadow-lg">
+            <div className="flex items-center gap-1.5 bg-muted/30 px-4 py-2.5 border-b border-border/50">
+              <span className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
+              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
+              <span className="h-2.5 w-2.5 rounded-full bg-primary/60" />
+              <span className="ml-2 font-mono text-xs text-muted-foreground">glazyr-agent</span>
+            </div>
+            <div className="p-5 font-mono text-xs text-primary/80 space-y-1.5">
+              <p><span className="text-muted-foreground">$</span> npx @glazyr/mcp-server init --key glz_live_...</p>
+              <p className="text-emerald-400">✓ Glazyr MCP Server connected.</p>
+              <p className="text-emerald-400">✓ Zero-copy vision pipeline active.</p>
+              <p><span className="text-muted-foreground">$</span> glazyr agent run --url https://news.ycombinator.com</p>
+              <p className="text-muted-foreground">[VISION] DOM extracted in 14ms. 100% Zero-Copy.</p>
+              <p className="text-muted-foreground">[AGENT] Structured output ready. ✓</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
