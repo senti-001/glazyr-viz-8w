@@ -86,7 +86,7 @@ export default async function DashboardPage() {
                     {/* OpenClaw Quick Start Section */}
                     <div className="mb-12">
                         <div className="slb-panel p-8 border-l-4 border-l-emerald-500">
-                            <DashboardQuickStart sessionToken={sessionToken} />
+                            <DashboardQuickStart />
                         </div>
                     </div>
 
