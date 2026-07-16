@@ -7,7 +7,6 @@ import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
 import { DashboardKeyring } from "@/components/glazyr/dashboard-keyring"
 import { DashboardQuickStart } from "@/components/glazyr/dashboard-quickstart"
-import { DashboardPurchase } from "@/components/glazyr/dashboard-purchase"
 import { Database, Code } from "lucide-react"
 import { Terminal } from "@/components/glazyr/terminal"
 import prisma from "@/lib/db"
@@ -90,10 +89,6 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
-                    {/* Purchase Frames / Settlement Section */}
-                    <div id="purchase" className="mb-12">
-                        <DashboardPurchase />
-                    </div>
 
                     {/* Live Terminal / Benchmark Section */}
                     <div className="space-y-6">
