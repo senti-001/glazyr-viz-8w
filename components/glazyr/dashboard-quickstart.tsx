@@ -89,11 +89,11 @@ console.log(result);`
 
             <div className="grid gap-6">
                 {/* Step 1 */}
-                <div className="relative pl-10">
+                <div className="relative pl-10 min-w-0">
                     <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-sm">
                         1
                     </div>
-                    <div>
+                    <div className="min-w-0">
                         <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
                             <Terminal className="h-4 w-4 text-muted-foreground" />
                             Install the MCP Server
@@ -101,8 +101,10 @@ console.log(result);`
                         <p className="text-sm text-muted-foreground mt-1 mb-3">
                             Initialize the Glazyr Model Context Protocol server in your local project. Your API Key is securely injected.
                         </p>
-                        <div className="relative rounded-lg bg-muted/50 border border-border p-4 font-mono text-sm">
-                            <code className="text-foreground">{npmInstallCommand}</code>
+                        <div className="relative rounded-lg bg-muted/50 border border-border">
+                            <div className="overflow-x-auto p-4 pr-28">
+                                <code className="text-foreground font-mono text-sm whitespace-pre">{npmInstallCommand}</code>
+                            </div>
                             <div className="absolute right-2 top-2">
                                 <CopyButton text={npmInstallCommand} />
                             </div>
@@ -111,11 +113,11 @@ console.log(result);`
                 </div>
 
                 {/* Step 2 */}
-                <div className="relative pl-10">
+                <div className="relative pl-10 min-w-0">
                     <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-sm">
                         2
                     </div>
-                    <div>
+                    <div className="min-w-0">
                         <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
                             <Code2 className="h-4 w-4 text-muted-foreground" />
                             Run your first Agentic Task
@@ -123,10 +125,12 @@ console.log(result);`
                         <p className="text-sm text-muted-foreground mt-1 mb-3">
                             Use the Glazyr SDK to launch a zero-copy vision agent locally and execute a workflow on any website.
                         </p>
-                        <div className="relative rounded-lg bg-zinc-950 p-4 font-mono text-sm text-zinc-50 overflow-hidden">
-                            <pre className="overflow-x-auto">
-                                <code>{testScript}</code>
-                            </pre>
+                        <div className="relative rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-50">
+                            <div className="overflow-x-auto p-4 pr-32">
+                                <pre className="font-mono text-sm">
+                                    <code>{testScript}</code>
+                                </pre>
+                            </div>
                             <div className="absolute right-2 top-2">
                                 <CopyButton text={testScript} label="Copy Code" />
                             </div>
@@ -135,7 +139,7 @@ console.log(result);`
                 </div>
 
                 {/* Step 3 */}
-                <div className="relative pl-10">
+                <div className="relative pl-10 min-w-0">
                     <div className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-bold shadow-sm">
                         3
                     </div>
