@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/lib/db"
+import { sendWelcomeEmail } from "@/lib/email"
 
 // V1.0.0 Production Fix: Force canonical URL and trust headers for Amplify/SSR/Vercel
 if (process.env.NODE_ENV === "production" || process.env.AMPLIFY_BUILD_ID) {
@@ -45,13 +46,22 @@ export const authOptions: NextAuthOptions = {
     },
     events: {
         async createUser({ user }) {
+            // Grant 100,000 free frames on signup
             await prisma.userCredit.create({
                 data: {
                     userId: user.id,
                     balance: 100000
                 }
             });
-            console.log(`[NextAuth] New user ${user?.email} granted 100,000 Glazyr Frames.`);
+            console.log(`[NextAuth] New user ${user?.email} granted 100,000 Glazyr Frames.`)
+
+            // Send welcome email immediately
+            if (user.email) {
+                await sendWelcomeEmail({
+                    name: user.name ?? null,
+                    email: user.email,
+                })
+            }
         }
     },
     secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_local_dev",
