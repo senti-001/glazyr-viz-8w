@@ -1,6 +1,8 @@
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize with a fallback so it doesn't crash on import if env vars are loaded late
+const resend = new Resend(process.env.RESEND_API_KEY || "re_fallback_key")
+
 
 const FROM_EMAIL = "Glazyr Viz <onboarding@glazyr.com>"
 
