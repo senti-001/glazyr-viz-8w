@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from "react"
 import { Monitor, Terminal as TerminalIcon, Wifi, WifiOff, RefreshCcw } from "lucide-react"
 
 export function VisionInspector() {
-    const [wsUrl, setWsUrl] = useState("wss://node.glazyr.com/vision/feed")
+    const [nodeUrl, setNodeUrl] = useState("https://mcp.glazyr.com/mcp/sse")
     const [status, setStatus] = useState<"disconnected" | "connecting" | "connected">("disconnected")
     const [logs, setLogs] = useState<{ id: string; time: string; msg: string; isError?: boolean }[]>([])
-    const wsRef = useRef<WebSocket | null>(null)
+    const esRef = useRef<EventSource | null>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const logsEndRef = useRef<HTMLDivElement>(null)
 
@@ -48,22 +48,22 @@ export function VisionInspector() {
     }
 
     const connect = () => {
-        if (wsRef.current) {
-            wsRef.current.close()
+        if (esRef.current) {
+            esRef.current.close()
         }
 
         setStatus("connecting")
-        addLog(`Attempting to connect to ${wsUrl}...`)
+        addLog(`Attempting to connect to ${nodeUrl}...`)
 
         try {
-            const ws = new WebSocket(wsUrl)
+            const es = new EventSource(nodeUrl)
             
-            ws.onopen = () => {
+            es.onopen = () => {
                 setStatus("connected")
-                addLog("Connected to Glazyr Vision Node.")
+                addLog("Connected to Glazyr Vision Node (SSE).")
             }
 
-            ws.onmessage = (event) => {
+            es.onmessage = (event) => {
                 try {
                     const data = JSON.parse(event.data)
                     if (data.type === "frame" && data.data) {
@@ -77,17 +77,13 @@ export function VisionInspector() {
                 }
             }
 
-            ws.onclose = () => {
+            es.onerror = (err) => {
                 setStatus("disconnected")
-                addLog("Connection closed.", true)
+                addLog("SSE connection error. Is the remote Glazyr node reachable?", true)
+                es.close()
             }
 
-            ws.onerror = (err) => {
-                setStatus("disconnected")
-                addLog("WebSocket connection error. Is the remote Glazyr node reachable?", true)
-            }
-
-            wsRef.current = ws
+            esRef.current = es
         } catch (error: any) {
             setStatus("disconnected")
             addLog(`Error: ${error.message}`, true)
@@ -95,17 +91,17 @@ export function VisionInspector() {
     }
 
     const disconnect = () => {
-        if (wsRef.current) {
-            wsRef.current.close()
-            wsRef.current = null
+        if (esRef.current) {
+            esRef.current.close()
+            esRef.current = null
         }
     }
 
     useEffect(() => {
         // Cleanup on unmount
         return () => {
-            if (wsRef.current) {
-                wsRef.current.close()
+            if (esRef.current) {
+                esRef.current.close()
             }
         }
     }, [])
@@ -118,11 +114,11 @@ export function VisionInspector() {
                     <div className="flex-1 max-w-sm relative">
                         <input 
                             type="text" 
-                            value={wsUrl}
-                            onChange={(e) => setWsUrl(e.target.value)}
+                            value={nodeUrl}
+                            onChange={(e) => setNodeUrl(e.target.value)}
                             disabled={status === "connected"}
                             className="slb-input w-full pl-3 pr-4 py-2 font-mono text-sm"
-                            placeholder="wss://node.glazyr.com/vision/feed"
+                            placeholder="https://mcp.glazyr.com/mcp/sse"
                         />
                     </div>
                     {status === "disconnected" ? (
