@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/glazyr/navbar"
 import { Hero } from "@/components/glazyr/hero"
-import { DemoVideo } from "@/components/glazyr/demo-video"
+import { BenchmarkShowcase } from "@/components/glazyr/benchmark-showcase"
 import { TokenSavings } from "@/components/glazyr/token-savings"
 import { ROICalculator } from "@/components/glazyr/roi-calculator"
 import { PricingSection } from "@/components/glazyr/pricing-section"
@@ -12,7 +12,7 @@ export default function GlazyrHome() {
       <Navbar />
       <main>
         <Hero />
-        <DemoVideo />
+        <BenchmarkShowcase />
         <TokenSavings />
         <ROICalculator />
         <PricingSection />

@@ -24,6 +24,7 @@ function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) 
 export function DashboardQuickStart() {
     const [apiKey, setApiKey] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
+    const [language, setLanguage] = useState<"node" | "python">("node")
 
     useEffect(() => {
         const fetchKeys = async () => {
@@ -41,7 +42,17 @@ export function DashboardQuickStart() {
     }, [])
 
     if (loading) {
-        return <div className="text-muted-foreground animate-pulse p-4">Loading integration settings...</div>
+        return (
+            <div className="space-y-8 animate-pulse">
+                <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-primary/10 border border-primary/20"></div>
+                    <div className="space-y-2">
+                        <div className="h-6 bg-primary/10 rounded w-48"></div>
+                        <div className="h-4 bg-primary/5 rounded w-72"></div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     if (!apiKey) {
@@ -60,8 +71,10 @@ export function DashboardQuickStart() {
         )
     }
 
-    const npmInstallCommand = `npx @glazyr/mcp-server init --key=${apiKey}`
-    const testScript = `import { Glazyr } from '@glazyr/sdk';
+    const nodeInstallCommand = `npx @glazyr/mcp-server init --key=${apiKey}`
+    const pythonInstallCommand = `pip install glazyr-sdk\nglazyr-mcp init --key=${apiKey}`
+    
+    const nodeScript = `import { Glazyr } from '@glazyr/sdk';
 
 // Initialize with your actual API key
 const client = new Glazyr({ apiKey: '${apiKey}' });
@@ -73,6 +86,22 @@ const result = await client.agent.run({
 });
 
 console.log(result);`
+
+    const pythonScript = `from glazyr import Glazyr
+
+# Initialize with your actual API key
+client = Glazyr(api_key='${apiKey}')
+
+# Launch an agent to extract data
+result = client.agent.run(
+    url='https://news.ycombinator.com',
+    task='Extract the top 3 story titles'
+)
+
+print(result)`
+
+    const activeInstallCommand = language === "node" ? nodeInstallCommand : pythonInstallCommand
+    const activeScript = language === "node" ? nodeScript : pythonScript
 
     return (
         <div className="space-y-8">
@@ -96,17 +125,17 @@ console.log(result);`
                     <div className="min-w-0">
                         <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
                             <Terminal className="h-4 w-4 text-muted-foreground" />
-                            Install the MCP Server
+                            Install the {language === "node" ? "MCP Server" : "SDK"}
                         </h3>
                         <p className="text-sm text-muted-foreground mt-1 mb-3">
                             Initialize the Glazyr Model Context Protocol server in your local project. Your API Key is securely injected.
                         </p>
                         <div className="relative rounded-lg bg-muted/50 border border-border">
                             <div className="overflow-x-auto p-4 pr-28">
-                                <code className="text-foreground font-mono text-sm whitespace-pre">{npmInstallCommand}</code>
+                                <code className="text-foreground font-mono text-sm whitespace-pre">{activeInstallCommand}</code>
                             </div>
                             <div className="absolute right-2 top-2">
-                                <CopyButton text={npmInstallCommand} />
+                                <CopyButton text={activeInstallCommand} />
                             </div>
                         </div>
                     </div>
@@ -118,21 +147,37 @@ console.log(result);`
                         2
                     </div>
                     <div className="min-w-0">
-                        <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
-                            <Code2 className="h-4 w-4 text-muted-foreground" />
-                            Run your first Agentic Task
-                        </h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                            <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
+                                <Code2 className="h-4 w-4 text-muted-foreground" />
+                                Run your first Agentic Task
+                            </h3>
+                            <div className="flex gap-1 bg-muted/50 p-1 rounded-md shrink-0">
+                                <button
+                                    onClick={() => setLanguage("node")}
+                                    className={`px-3 py-1 text-xs font-medium rounded-sm transition-colors ${language === "node" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                                >
+                                    Node.js
+                                </button>
+                                <button
+                                    onClick={() => setLanguage("python")}
+                                    className={`px-3 py-1 text-xs font-medium rounded-sm transition-colors ${language === "python" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                                >
+                                    Python
+                                </button>
+                            </div>
+                        </div>
                         <p className="text-sm text-muted-foreground mt-1 mb-3">
                             Use the Glazyr SDK to launch a zero-copy vision agent locally and execute a workflow on any website.
                         </p>
                         <div className="relative rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-50">
                             <div className="overflow-x-auto p-4 pr-32">
                                 <pre className="font-mono text-sm">
-                                    <code>{testScript}</code>
+                                    <code>{activeScript}</code>
                                 </pre>
                             </div>
                             <div className="absolute right-2 top-2">
-                                <CopyButton text={testScript} label="Copy Code" />
+                                <CopyButton text={activeScript} label="Copy Code" />
                             </div>
                         </div>
                     </div>
