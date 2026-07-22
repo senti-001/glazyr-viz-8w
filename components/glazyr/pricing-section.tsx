@@ -52,12 +52,12 @@ export function PricingSection() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 slb-panel border-primary/20 text-primary mb-6">
                         <Cpu className="h-4 w-4" />
                         <span className="text-xs font-mono font-medium uppercase tracking-widest">
-                            B2B Token Savings
+                            B2B Zero-Latency Infrastructure
                         </span>
                     </div>
                     <h2 className="slb-header text-3xl md:text-5xl tracking-tight mb-6">Scale Your Agentic Economy</h2>
                     <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                        The consumer beta has concluded. Glazyr Viz is now pivoting to exclusive B2B infrastructure, delivering 90%+ token savings for industrial LLM vision workflows.
+                        The consumer beta has concluded. Glazyr Viz is now pivoting to exclusive B2B infrastructure, delivering ultra-low latency structured extraction for industrial LLM vision workflows.
                     </p>
                 </div>
 

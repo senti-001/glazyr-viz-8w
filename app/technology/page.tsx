@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
-import { Cpu, Zap, Activity, ShieldCheck, ArrowLeft, Lock, TrendingDown } from "lucide-react"
+import { Cpu, Zap, Activity, ShieldCheck, ArrowLeft, Target, TrendingDown } from "lucide-react"
 import Link from "next/link"
 
 export default function TechnologyPage() {
@@ -58,55 +58,37 @@ export default function TechnologyPage() {
                             </div>
                         </section>
 
-                        {/* 3. Cost-Effective Intelligence */}
+                        {/* 3. Lightning-Fast Extraction */}
                         <section className="glass-panel p-8 md:p-12 rounded-3xl border border-white/5 relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
                                 <div className="shrink-0">
                                     <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                                        <TrendingDown className="h-8 w-8 text-emerald-400" />
+                                        <Zap className="h-8 w-8 text-emerald-400" />
                                     </div>
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-bold mb-4">Cost-Effective Intelligence</h2>
+                                    <h2 className="text-2xl font-bold mb-4">Lightning-Fast Extraction</h2>
                                     <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Standard AI tools waste money by reading thousands of lines of "junk code" on every webpage. Glazyr filters out the noise, sending only the essential structured context (vision.json) to the AI. This maximizes your Smart Data Ratio, making your agents 33x cheaper to run and 16x faster to respond.
+                                        Standard AI tools waste critical time relying on websocket-based CDP serializations. Glazyr bypasses this bottleneck entirely, extracting structured data directly from the compositor memory. This zero-copy approach eliminates serialization overhead, resulting in 15-50x faster state reads.
                                     </p>
                                 </div>
                             </div>
                         </section>
 
-                        {/* 4. Unstoppable Browsing */}
+                        {/* 4. Structured Actionability */}
                         <section className="glass-panel p-8 md:p-12 rounded-3xl border border-white/5 relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
                                 <div className="shrink-0">
                                     <div className="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
-                                        <Lock className="h-8 w-8 text-purple-400" />
+                                        <Target className="h-8 w-8 text-purple-400" />
                                     </div>
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-bold mb-4">Unstoppable Browsing</h2>
+                                    <h2 className="text-2xl font-bold mb-4">Structured Actionability</h2>
                                     <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Many websites try to block AI bots. Glazyr makes your AI agents invisible to these security systems by making them behave exactly like a real human user. By using direct memory access (DMA) pixel injection and disabling standard WebDriver artifacts, your agents can access restricted sites without being flagged.
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 5. The Canvas & WebGL Advantage */}
-                        <section className="glass-panel p-8 md:p-12 rounded-3xl border border-white/5 relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                            <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-                                <div className="shrink-0">
-                                    <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
-                                        <Activity className="h-8 w-8 text-amber-400" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <h2 className="text-2xl font-bold mb-4">The Canvas & WebGL Advantage</h2>
-                                    <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Traditional DOM scrapers break entirely on complex React apps, maps, or WebGL environments. While other tools see a blank box when they look at a financial chart, Glazyr sees the actual data being rendered on the screen. We merge the Accessibility Tree (for semantic identification) with Zero-Copy Vision (for spatial reasoning) to interpret visually rich interfaces that break generic agents.
+                                        Glazyr injects exact bounding box (x, y) coordinates directly into the semantic tree. This allows your AI agents to confidently click and interact with specific elements based on verified spatial reasoning, completely eliminating the need for heuristic guessing or fragile pixel math.
                                     </p>
                                 </div>
                             </div>

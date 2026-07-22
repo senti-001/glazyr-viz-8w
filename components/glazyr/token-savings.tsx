@@ -10,10 +10,10 @@ export function TokenSavings() {
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="slb-header text-4xl md:text-5xl tracking-tight leading-tight mb-6">
-                        Stop Paying the Token Tax
+                        Stop Paying the Serialization Latency Tax
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Traditional web agents bleed tokens on every reasoning step. By optimizing the <span className="text-primary">Smart Data Ratio</span>, Glazyr Viz ensures every token you pay for actually drives logical reasoning, not raw pixel decoding.
+                        Traditional web agents bleed milliseconds on every reasoning step due to WebSocket overhead. By optimizing the <span className="text-primary">Data Pathway</span>, Glazyr Viz ensures lightning-fast extraction and gives your agents deterministic coordinates to act on.
                     </p>
                 </div>
 
@@ -30,17 +30,22 @@ export function TokenSavings() {
                             <div className="space-y-6">
                                 <div>
                                     <div className="slb-label text-xs mb-1">Payload Per Step</div>
-                                    <div className="text-3xl font-mono text-foreground opacity-90">150kb</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Raw HTML / Base64</div>
+                                    <div className="text-3xl font-mono text-foreground opacity-90">~4.1kb</div>
+                                    <div className="text-xs text-muted-foreground mt-1">Extracted Text</div>
                                 </div>
                                 <div>
                                     <div className="slb-label text-xs mb-1">Cost Per Step</div>
-                                    <div className="text-3xl font-mono text-destructive">~$0.02</div>
+                                    <div className="text-3xl font-mono text-foreground">~$0.0006</div>
                                 </div>
                                 <div>
                                     <div className="slb-label text-xs mb-1">Latency</div>
-                                    <div className="text-3xl font-mono text-orange-500 dark:text-orange-400">120ms+</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Compositor Hangs</div>
+                                    <div className="text-3xl font-mono text-orange-500 dark:text-orange-400">120ms - 400ms+</div>
+                                    <div className="text-xs text-muted-foreground mt-1">CDP Serialization Overhead</div>
+                                </div>
+                                <div>
+                                    <div className="slb-label text-xs mb-1">Actionability</div>
+                                    <div className="text-3xl font-mono text-orange-500 dark:text-orange-400">Guessed Pixels</div>
+                                    <div className="text-xs text-muted-foreground mt-1">Heuristic clicking</div>
                                 </div>
                             </div>
                         </div>
@@ -60,17 +65,22 @@ export function TokenSavings() {
                             <div className="space-y-6">
                                 <div>
                                     <div className="slb-label text-xs mb-1">Payload Per Step</div>
-                                    <div className="text-4xl font-mono text-primary font-bold">4kb</div>
+                                    <div className="text-4xl font-mono text-primary font-bold">~4.6kb</div>
                                     <div className="text-xs text-muted-foreground mt-1">vision.json Map</div>
                                 </div>
                                 <div>
                                     <div className="slb-label text-xs mb-1">Cost Per Step</div>
-                                    <div className="text-4xl font-mono text-green-500 dark:text-green-400 font-bold">~$0.0006</div>
+                                    <div className="text-4xl font-mono text-primary font-bold">~$0.0006</div>
                                 </div>
                                 <div>
                                     <div className="slb-label text-xs mb-1">Latency</div>
-                                    <div className="text-4xl font-mono text-primary font-bold">7.3ms</div>
+                                    <div className="text-4xl font-mono text-green-500 dark:text-green-400 font-bold">7.3ms</div>
                                     <div className="text-xs text-muted-foreground mt-1">Direct GPU Buffer</div>
+                                </div>
+                                <div>
+                                    <div className="slb-label text-xs mb-1">Actionability</div>
+                                    <div className="text-4xl font-mono text-green-500 dark:text-green-400 font-bold">Exact (x,y)</div>
+                                    <div className="text-xs text-muted-foreground mt-1">Deterministic clicking</div>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +88,8 @@ export function TokenSavings() {
                         {/* Callout */}
                         <div className="mt-8 pt-6 border-t border-border/50 relative z-10">
                             <div className="flex flex-wrap items-center gap-3">
-                                <span className="slb-label px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400">33x Cheaper</span>
-                                <span className="slb-label px-3 py-1 bg-primary/10 border border-primary/20 text-primary">16x Faster</span>
+                                <span className="slb-label px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400">15-50x Faster Extraction</span>
+                                <span className="slb-label px-3 py-1 bg-primary/10 border border-primary/20 text-primary">100% Deterministic Actions</span>
                             </div>
                         </div>
                     </div>

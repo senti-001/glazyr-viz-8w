@@ -55,7 +55,7 @@ export function Hero() {
 
                 {/* Subline */}
                 <p className="mx-auto max-w-3xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    The Glazyr Beta was a <strong className="text-foreground">definitive success</strong> with 55 early adopters. We are now scaling exclusively as a B2B infrastructure layer, delivering 90%+ token savings for industrial LLM vision workflows.
+                    We are now scaling exclusively as a B2B infrastructure layer, delivering 15-50x faster state extraction with zero-copy structured coordinates.
                 </p>
 
                 {/* CTA — Skeuomorphic Primary Button */}
@@ -78,7 +78,7 @@ export function Hero() {
                         { value: "7.3ms", label: "Shared Memory Fetch" },
                         { value: "0x", label: "Base64 Encoding" },
                         { value: "Hardened", label: "NATS Bridge" },
-                        { value: "Stealth", label: "Anti-Bot Core" },
+                        { value: "Exact (x,y)", label: "Interactive Nodes" },
                     ].map((stat) => (
                         <div
                             key={stat.label}

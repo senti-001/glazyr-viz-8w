@@ -1,0 +1,34 @@
+mcp.glazyr.com {
+    log {
+        output file /var/log/caddy/access.log
+    }
+
+    handle /.well-known/* {
+        reverse_proxy 127.0.0.1:4546
+    }
+    
+    handle /authorize* {
+        reverse_proxy 127.0.0.1:4546
+    }
+    
+    handle /token* {
+        reverse_proxy 127.0.0.1:4546
+    }
+    
+    handle /register* {
+        reverse_proxy 127.0.0.1:4546
+    }
+
+    handle /mcp/* {
+        forward_auth 127.0.0.1:4546 {
+            uri /validate_token
+            copy_headers Authorization
+        }
+        reverse_proxy 127.0.0.1:4545 {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+}

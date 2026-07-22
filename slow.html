@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slow Page</title>
+</head>
+<body>
+    <h1>Loading...</h1>
+    <div id="content"></div>
+    <script>
+        // Simulate a slow network request
+        fetch('/delay/3000') // This endpoint might not exist, but we can intercept it or just let it timeout/fail
+        .catch(() => {})
+        .finally(() => {
+            for(let i=0; i<1000; i++){
+                const d = document.createElement("div");
+                d.innerText = "Item " + i;
+                document.getElementById("content").appendChild(d);
+            }
+        });
+    </script>
+</body>
+</html>

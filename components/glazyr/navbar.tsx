@@ -87,6 +87,9 @@ export function Navbar() {
                   <Link href="/dashboard" onClick={() => setDropdownOpen(false)} className="px-4 py-2 text-sm hover:bg-white/5 transition-colors text-left text-muted-foreground hover:text-foreground">
                     Dashboard
                   </Link>
+                  <Link href="/dashboard/benchmark" onClick={() => setDropdownOpen(false)} className="px-4 py-2 text-sm hover:bg-white/5 transition-colors text-left text-muted-foreground hover:text-foreground">
+                    Benchmark Dashboard
+                  </Link>
                   <button onClick={() => { setDropdownOpen(false); signOut(); }} className="px-4 py-2 text-sm text-red-400 hover:bg-white/5 transition-colors text-left">
                     Sign Out
                   </button>
@@ -127,7 +130,10 @@ export function Navbar() {
           <Link href="/" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Home</Link>
           <Link href="/technology" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Technology</Link>
           {session && (
-            <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Dashboard</Link>
+            <>
+              <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Dashboard</Link>
+              <Link href="/dashboard/benchmark" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Benchmark</Link>
+            </>
           )}
           <Link href="/privacy" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Privacy</Link>
           
