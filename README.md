@@ -1,53 +1,58 @@
-# Glazyr Viz V1.0.0: 7.35ms Perception. 90%+ Token Savings. 🚀
+# Glazyr Viz: Zero-Latency Agentic Perception
 
-Standard AI agents are often bottlenecked by slow, expensive screenshot serialization. **Glazyr Viz** is a high-performance Chromium fork that provides agents with **Zero-Copy Vision**—direct, raw memory access to the frame buffer for sub-10ms perception.
+**Glazyr Viz** is a high-performance infrastructure layer designed to give AI agents sub-10ms perception of web interfaces. By combining a custom Chromium fork (`neural-chromium`) with a Node.js-based Model Context Protocol (MCP) server, it bypasses the massive serialization overhead of traditional WebDriver/CDP automation.
 
-### 🎯 Real-World Use Cases
-- **High-Density Data Extraction**: Navigating complex tables, Canvas-based charts, and WebGL interfaces where DOM scrapers fail.
-- **Latency-Critical Automation**: Executing multi-step workflows (checkout bots, form filling) at superhuman speeds.
-- **Large-Scale Scraping**: Reducing API tokens by 99%, allowing for thousands of perception cycles at a fraction of the cost.
-- **Anti-Bot Resilience**: Interacting with raw coordinates to bypass detection systems that flag standard WebDriver behavior.
+This repository contains the Node.js MCP server, UI dashboard, and the `neural-chromium` daemon integration.
 
-### ⚡ Performance Floor
-- **7.35ms Latency:** Sub-10ms frame-to-data conversion floor.
-- **99% Token Savings:** 12-16 tokens per perception cycle via the `vision.json` schema.
-- **Zero-Jitter:** Synchronous frame access directly from the Chromium Viz subsystem.
+## 🚀 Verified Performance & Parity
 
-### **The Performance Gap: Standard vs. Glazyr Viz**
+Traditional browser automation tools (like Playwright and Puppeteer) extract data by serializing the entire DOM to JSON and sending it over WebSockets. This process is notoriously slow.
 
-| Metric | Standard (Screenshot-Driven) | **Glazyr Viz (Zero-Copy)** | Improvement |
-| --- | --- | --- | --- |
-| **Perception Latency** | 2,000ms – 3,500ms | **7.35ms** | **~400x Faster** |
-| **Token Payload (Avg)** | 1,200 - 1,600 Tokens | **12 - 16 Tokens** | **99% Savings** |
-| **WebVoyager Success** | 87.0% – 93.9% | **100.0%** | **SOTA Lead** |
-| **Data Integrity** | Async / High Jitter | **Direct Frame Buffer** | **Zero Jitter** |
-| **Protocol** | Legacy WebSockets | **MCP over SSE** | **Production-Grade** |
+Glazyr Viz takes a **zero-copy** approach, reading semantic trees directly from the GPU compositor's Shared Memory (SHM).
 
-### 🛠️ Quick Start (MCP Handshake)
-Connect your agent to the verified production hub:
-`https://mcp.glazyr.com/mcp/sse`
+| Metric | Traditional Automation (CDP) | Glazyr Viz (SHM) | Improvement |
+| :--- | :--- | :--- | :--- |
+| **State Extraction Latency** | 120ms - 400ms+ | **~3ms - 17ms** | **15 - 50x Faster** |
+| **Payload Size (Avg Page)** | ~4.1 KB (Extracted Text) | **~4.6 KB (vision.json Map)** | **Token Parity** |
+| **Action Targeting** | Guessed Pixels / Heuristics | **Exact (x,y) Coordinates** | **100% Deterministic** |
+
+*Note: The Glazyr architecture optimizes for **speed** and **structure**, rather than extreme token compression. Token payloads are strictly comparable to plain-text extraction, but they include full spatial and interactive metadata.*
 
 ---
 
-## 📘 Technical FAQ: Zero-Copy Vision
+## 🏗️ Architecture Overview
 
-#### **Q: How do you achieve 99% token savings?**
-Most agents use "Pixel-Pushing"—they capture a screenshot, encode it to Base64, and send the entire image to an LLM. This consumes roughly **1,200–1,600 tokens** per frame. **Glazyr Viz** uses the `vision.json` schema to extract semantic UI metadata and raw coordinate vectors directly from the Chromium Viz subsystem’s frame buffer. This reduces the payload to **12–16 tokens** per perception cycle.
+The system consists of two primary components communicating via Shared Memory:
 
-#### **Q: Is any "intelligence" lost by not sending a full screenshot?**
-None. In fact, you gain precision. Standard vision models often "guess" coordinates from pixels, leading to click hallucinations. `vision.json` provides the **exact [x, y] coordinates** and semantic metadata (ARIA roles, labels, states) directly from the Chromium render tree. Your agent doesn't have to guess; it knows.
+1. **`neural-chromium` Daemon (C++)**: A custom fork of Chromium (Version `131.0.6778.205`). It continuously writes the active Semantic Accessibility Tree directly into a Shared Memory buffer instead of waiting for WebSocket polling.
+2. **Glazyr Node Server (`index_vm.js` & `mcp_server_sse.mjs`)**: The controller application. It provides an MCP interface for agents to instantly read the SHM buffer and issue commands back to the daemon.
 
-#### **Q: What exactly is in the `vision.json` schema?**
-It is a real-time map of the viewport's interactive state, including:
-* **Interactive Node Coordinates:** Precise [x, y] locations for all clickable/focusable elements.
-* **Visual Z-Index Mapping:** Determination of which elements are actually visible vs. hidden behind overlays.
-* **Raw Frame Buffer Hashes:** Used for instant change detection.
+### The Shared Memory (SHM) Layout
+The Glazyr daemon writes frame state into memory using a specific binary format that the Node.js parser (`peek_vision_buffer` tool) decodes:
+- **128-Byte Binary Header**: Contains state flags and metadata.
+- **Payload Length Field**: Offset `16` (read as a little-endian `uint32`) contains the exact byte-length of the JSON payload.
+- **Payload**: A perfectly formatted JSON semantic tree, immediately following the header.
 
-#### **Q: How does this eliminate "Jitter"?**
-Traditional "screenshot" methods are asynchronous. Because Glazyr Viz is baked into the **Chromium source**, frame access is synchronous. The agent perceives the UI state at the exact moment the frame is committed to the GPU.
+### Deterministic Coordinate Injection
+When an agent calls the `peek_vision_buffer` tool, the Node.js layer parses the raw semantic tree and prunes it to remove non-actionable noise. Crucially, it traverses the tree and appends explicit bounding box `(x: ..., y: ...)` coordinates to every interactive node (`link`, `button`, `textbox`, etc.). 
 
-#### **Q: Why use MCP over SSE instead of WebSockets?**
-WebSockets lack the structured "Tool/Resource" discovery required for modern AI agents. By using the **Model Context Protocol (MCP)** over **Server-Sent Events (SSE)**, we provide a standardized handshake that allows any MCP-compliant agent to "plug and play" without custom driver code.
+This allows agents to issue `browser_click` and `browser_type` commands with absolute geometric certainty, eliminating hallucinated clicks.
 
 ---
-*Maintained by Autonomous Architecture // Performance Benchmarks Verified*
+
+## ⚡ Connecting via MCP
+
+The production server exposes its capabilities via the **Model Context Protocol (MCP)** over **Server-Sent Events (SSE)**.
+
+To connect your agent (e.g., Claude Desktop, Manus), use the following configuration:
+
+- **Transport:** HTTP / SSE
+- **Server URL:** `https://mcp.glazyr.com/mcp/sse?api_key=glazyr-beta-dogfood-2026`
+
+*(The API key is validated via a Caddy `forward_auth` reverse-proxy before routing to the internal SSE port 3001).*
+
+### Available MCP Tools
+- `provision_session`: Spin up a new isolated browser instance.
+- `peek_vision_buffer`: Read the current zero-copy semantic state, complete with injected `(x, y)` coordinates.
+- `browser_navigate`: Instruct the daemon to navigate to a target URL.
+- `browser_click` / `browser_type`: Issue deterministic actions directly against the daemon's input loop.
