@@ -77,7 +77,7 @@ export function Hero() {
                     {[
                         { value: "7.3ms", label: "Shared Memory Fetch" },
                         { value: "0x", label: "Base64 Encoding" },
-                        { value: "Hardened", label: "NATS Bridge" },
+                        { value: "Low-Latency", label: "NATS Bridge" },
                         { value: "Exact (x,y)", label: "Interactive Nodes" },
                     ].map((stat) => (
                         <div

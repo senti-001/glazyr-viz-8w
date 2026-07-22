@@ -25,7 +25,7 @@ export function PricingSection() {
             title: "Professional",
             price: "$499/mo",
             credits: "Highest density per node",
-            description: "6.25x agent density. Ideal for 50-250 concurrent agents scaling industrial scraping operations.",
+            description: "Ideal for 50-250 concurrent agents scaling industrial scraping operations.",
             buttonText: "Deploy Target",
             isFree: false
         },

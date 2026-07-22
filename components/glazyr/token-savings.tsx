@@ -89,7 +89,7 @@ export function TokenSavings() {
                         <div className="mt-8 pt-6 border-t border-border/50 relative z-10">
                             <div className="flex flex-wrap items-center gap-3">
                                 <span className="slb-label px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400">15-50x Faster Extraction</span>
-                                <span className="slb-label px-3 py-1 bg-primary/10 border border-primary/20 text-primary">100% Deterministic Actions</span>
+                                <span className="slb-label px-3 py-1 bg-primary/10 border border-primary/20 text-primary">Deterministic click targeting</span>
                             </div>
                         </div>
                     </div>

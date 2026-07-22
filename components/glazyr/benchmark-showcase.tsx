@@ -13,7 +13,7 @@ export function BenchmarkShowcase() {
                         Architecture Validation
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                        Undeniable visual proof of the <span className="text-primary font-semibold">WebDriver Tax</span>. Watch as Glazyr's zero-copy architecture obliterates traditional CDP extraction latency and bandwidth bloat.
+                        See the difference of the <span className="text-primary font-semibold">WebDriver Tax</span>. Watch as Glazyr's zero-copy architecture obliterates traditional CDP extraction latency and bandwidth bloat.
                     </p>
                 </div>
 
@@ -37,7 +37,7 @@ export function BenchmarkShowcase() {
                         <div>
                             <h3 className="text-2xl font-semibold mb-3 tracking-tight">Semantic Extraction Latency</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                A raw, unedited terminal race. While traditional CDP (Playwright) takes ~400ms to serialize and transmit JSON over WebSockets, Glazyr reads the exact same semantic tree directly from shared memory in <strong>~3.0ms</strong>. Over a 100x speedup in pure data extraction.
+                                A recorded terminal comparison. While traditional CDP (Playwright) takes ~400ms to serialize and transmit JSON over WebSockets, Glazyr reads the exact same semantic tree directly from shared memory in <strong>~3.0ms</strong>. Over a 100x speedup in pure data extraction.
                             </p>
                         </div>
                     </div>
