@@ -143,13 +143,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
 let transport;
 
-app.get("/sse", async (req, res) => {
+app.get(["/sse", "/mcp/sse"], async (req, res) => {
   logStream.write('New SSE connection\n');
-  transport = new SSEServerTransport("/message", res);
+  // Pass the full path so Manus knows to POST through the Caddy proxy
+  transport = new SSEServerTransport("/mcp/message", res);
   await server.connect(transport);
 });
 
-app.post("/message", async (req, res) => {
+app.post(["/message", "/mcp/message"], async (req, res) => {
   logStream.write('Received message on /message\n');
   if (transport) {
     await transport.handlePostMessage(req, res);

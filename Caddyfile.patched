@@ -24,7 +24,7 @@ mcp.glazyr.com {
             uri /validate_token
             copy_headers Authorization
         }
-        reverse_proxy 127.0.0.1:4545 {
+        reverse_proxy 127.0.0.1:3001 {
             header_up Host {host}
             header_up X-Real-IP {remote}
             header_up X-Forwarded-For {remote}
