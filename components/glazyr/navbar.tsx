@@ -53,6 +53,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Home</Link>
           <Link href="/technology" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Technology</Link>
+          <Link href="/benchmarks" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Benchmarks</Link>
           <button
             onClick={() => session ? window.location.href = '/dashboard' : signIn()}
             className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider"
@@ -132,6 +133,7 @@ export function Navbar() {
         <div className="md:hidden slb-panel border-t border-border/50 px-6 py-4 flex flex-col gap-4">
           <Link href="/" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Home</Link>
           <Link href="/technology" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Technology</Link>
+          <Link href="/benchmarks" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Benchmarks</Link>
           {session && (
             <>
               <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Dashboard</Link>

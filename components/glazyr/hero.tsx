@@ -75,7 +75,7 @@ export function Hero() {
                 {/* Metric Strip — SLB Panels */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
                     {[
-                        { value: "7.3ms", label: "Shared Memory Fetch" },
+                        { value: "7.35ms", label: "Shared Memory Fetch" },
                         { value: "0x", label: "Base64 Encoding" },
                         { value: "Low-Latency", label: "NATS Bridge" },
                         { value: "Exact (x,y)", label: "Interactive Nodes" },

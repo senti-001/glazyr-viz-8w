@@ -74,7 +74,7 @@ export function TokenSavings() {
                                 </div>
                                 <div>
                                     <div className="slb-label text-xs mb-1">Latency</div>
-                                    <div className="text-4xl font-mono text-green-500 dark:text-green-400 font-bold">7.3ms</div>
+                                    <div className="text-4xl font-mono text-green-500 dark:text-green-400 font-bold">7.35ms</div>
                                     <div className="text-xs text-muted-foreground mt-1">Direct GPU Buffer</div>
                                 </div>
                                 <div>
