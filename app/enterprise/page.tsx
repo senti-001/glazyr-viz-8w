@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import DeveloperIntegration from "@/components/developer-integration";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = {
-  title: "Glazyr Viz | Enterprise Dashboard",
-  description: "Live zero-copy vision telemetry for B2B infrastructure.",
+export const metadata: Metadata = {
+  title: "Enterprise Live Telemetry - B2B Perception Infrastructure",
+  description: "Live zero-copy vision telemetry for enterprise B2B infrastructure. Direct GPU buffer latency and real-time Chromium perception node telemetry.",
+  alternates: {
+    canonical: "/enterprise",
+  },
+  openGraph: {
+    title: "Enterprise Live Telemetry - B2B Perception Infrastructure | Glazyr Viz",
+    description: "Live zero-copy vision telemetry for enterprise B2B infrastructure. Direct GPU buffer latency and real-time Chromium perception node telemetry.",
+    url: "https://glazyr.com/enterprise",
+  },
 };
 
 export default function Home() {

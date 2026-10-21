@@ -44,12 +44,16 @@ This allows agents to issue `browser_click` and `browser_type` commands with abs
 
 The production server exposes its capabilities via the **Model Context Protocol (MCP)** over **Server-Sent Events (SSE)**.
 
-To connect your agent (e.g., Claude Desktop, Manus), use the following configuration:
+To connect your agent (e.g., Claude Desktop, Manus), you need a secure API token.
 
-- **Transport:** HTTP / SSE
-- **Server URL:** `https://mcp.glazyr.com/mcp/sse?api_key=glazyr-beta-dogfood-2026`
+1. Navigate to `/mcp-setup` in the Glazyr web dashboard (or `http://localhost:3000/mcp-setup` locally).
+2. Click **Sign in with Google** to authorize your account.
+3. The dashboard will generate a long-lived `mcp_live_...` token.
+4. Use this configuration in your MCP client:
+   - **Transport:** HTTP / SSE
+   - **Server URL:** `https://mcp.glazyr.com/mcp/sse?api_key=mcp_live_YOUR_TOKEN_HERE`
 
-*(The API key is validated via a Caddy `forward_auth` reverse-proxy before routing to the internal SSE port 3001).*
+*(The API key is validated via a centralized authentication server that checks token validity and handles credit consumption).*
 
 ### Available MCP Tools
 - `provision_session`: Spin up a new isolated browser instance.

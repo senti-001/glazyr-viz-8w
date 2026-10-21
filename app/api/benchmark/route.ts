@@ -40,18 +40,24 @@ export async function POST(request: Request) {
             data.status = "glazyr-zero-copy-active";
         }
         
+        if (data.extract_ms !== undefined) {
+            data.latency_ms = data.extract_ms;
+        }
+
         let htmlBytes = data.html_bytes || 1024;
         let contextBytes = data.context_bytes || 100;
         
         if (data.semantic_preview && typeof data.semantic_preview.markdown === 'string') {
-            contextBytes = data.semantic_preview.markdown.length;
+            contextBytes = data.semantic_preview.markdown.length || 1; // Prevent 0
             data.context_bytes = contextBytes;
         } else if (data.semantic_tree) {
             contextBytes = JSON.stringify(data.semantic_tree).length;
             data.context_bytes = contextBytes;
+            data.semantic_preview = { markdown: JSON.stringify(data.semantic_tree, null, 2) };
         } else if (data.semantic) {
             contextBytes = JSON.stringify(data.semantic).length;
             data.context_bytes = contextBytes;
+            data.semantic_preview = { markdown: JSON.stringify(data.semantic, null, 2) };
         } else if (data.semantic_preview) {
             contextBytes = JSON.stringify(data.semantic_preview).length;
             data.context_bytes = contextBytes;

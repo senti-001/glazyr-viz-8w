@@ -1,7 +1,21 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
 import { Shield, Lock, Eye, Zap, Scale, FileText, UserCheck, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+    title: "Privacy & Intelligence - Zero-Copy Data Policy",
+    description: "Glazyr Viz Zero-Copy Privacy policy. Ephemeral GPU frame buffers, no persistent optical storage, and client-controlled Model Context Protocol telemetry.",
+    alternates: {
+        canonical: "/privacy",
+    },
+    openGraph: {
+        title: "Privacy & Intelligence - Zero-Copy Data Policy | Glazyr Viz",
+        description: "Glazyr Viz Zero-Copy Privacy policy. Ephemeral GPU frame buffers, no persistent optical storage, and client-controlled Model Context Protocol telemetry.",
+        url: "https://glazyr.com/privacy",
+    },
+}
 
 export default function PrivacyPage() {
     return (

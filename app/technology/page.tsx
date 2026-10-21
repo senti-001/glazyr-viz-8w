@@ -1,7 +1,21 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
 import { Cpu, Zap, Activity, ShieldCheck, ArrowLeft, Target, TrendingDown } from "lucide-react"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+    title: "Technology - High-Throughput Zero-Copy Perception Architecture",
+    description: "Under the hood of Glazyr Viz: Direct GPU frame buffer reading, 7.35ms visual latency, custom hardened Chromium fork, and deterministic coordinate targeting.",
+    alternates: {
+        canonical: "/technology",
+    },
+    openGraph: {
+        title: "Technology - High-Throughput Zero-Copy Perception Architecture | Glazyr Viz",
+        description: "Under the hood of Glazyr Viz: Direct GPU frame buffer reading, 7.35ms visual latency, custom hardened Chromium fork, and deterministic coordinate targeting.",
+        url: "https://glazyr.com/technology",
+    },
+}
 
 export default function TechnologyPage() {
     return (

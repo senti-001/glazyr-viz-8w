@@ -3,6 +3,7 @@ import { Hero } from "@/components/glazyr/hero"
 import { BenchmarkShowcase } from "@/components/glazyr/benchmark-showcase"
 import { TokenSavings } from "@/components/glazyr/token-savings"
 import { PricingSection } from "@/components/glazyr/pricing-section"
+import { ActivitySkylineSection } from "@/components/glazyr/activity-skyline-section"
 import { Footer } from "@/components/glazyr/footer"
 
 export default function GlazyrHome() {
@@ -14,8 +15,10 @@ export default function GlazyrHome() {
         <BenchmarkShowcase />
         <TokenSavings />
         <PricingSection />
+        <ActivitySkylineSection />
       </main>
       <Footer />
     </>
   )
 }
+

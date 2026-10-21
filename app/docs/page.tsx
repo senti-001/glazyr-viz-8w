@@ -1,6 +1,20 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/glazyr/navbar"
 import { Footer } from "@/components/glazyr/footer"
 import { Terminal, Code2, BookOpen, Layers } from "lucide-react"
+
+export const metadata: Metadata = {
+    title: "Documentation - SDKs, MCP Server Setup & Vision Inspector",
+    description: "Integrate zero-copy agentic vision into your AI workloads using Glazyr high-performance SDKs and the Model Context Protocol (MCP).",
+    alternates: {
+        canonical: "/docs",
+    },
+    openGraph: {
+        title: "Documentation - SDKs, MCP Server Setup & Vision Inspector | Glazyr Viz",
+        description: "Integrate zero-copy agentic vision into your AI workloads using Glazyr high-performance SDKs and the Model Context Protocol (MCP).",
+        url: "https://glazyr.com/docs",
+    },
+}
 
 export default function DocsPage() {
     return (
