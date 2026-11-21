@@ -35,13 +35,13 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/images/glazyr-emblem.png"
-                alt="Glazyr Viz"
+                alt="Glazyr"
                 width={32}
                 height={32}
                 className="rounded-full"
               />
               <span className="slb-header text-base text-foreground">
-                Glazyr Viz
+                Glazyr
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -83,7 +83,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="slb-panel p-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Glazyr Viz. All rights reserved. MAGNETAR SENTIENT L.L.C.
+            &copy; {new Date().getFullYear()} Glazyr. All rights reserved. MAGNETAR SENTIENT L.L.C.
           </p>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span className="relative flex h-1.5 w-1.5">

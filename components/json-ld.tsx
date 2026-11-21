@@ -6,15 +6,15 @@ export function JsonLd() {
         '@type': 'WebSite',
         '@id': 'https://glazyr.com/#website',
         url: 'https://glazyr.com',
-        name: 'Glazyr Viz',
+        name: 'Glazyr',
         description:
-          'The high-throughput, zero-copy optic nerve and perception platform for autonomous AI agents.',
+          'zero-copy browser perception infrastructure: page state served from shared memory, curated for token cost, exposed to agents over MCP.',
         inLanguage: 'en-US',
       },
       {
         '@type': 'Organization',
         '@id': 'https://glazyr.com/#organization',
-        name: 'Glazyr Viz',
+        name: 'Glazyr',
         legalName: 'Magnetar Sentient L.L.C.',
         url: 'https://glazyr.com',
         logo: 'https://glazyr.com/images/glazyr-emblem.png',
@@ -23,8 +23,8 @@ export function JsonLd() {
       {
         '@type': 'SoftwareApplication',
         '@id': 'https://glazyr.com/#application',
-        name: 'Glazyr Viz Zero-Copy Optic Nerve Engine',
-        applicationCategory: 'DeveloperApplication, ComputerVisionApplication, ArtificialIntelligence',
+        name: 'Glazyr Zero-Copy Perception Engine',
+        applicationCategory: 'DeveloperApplication, ArtificialIntelligence',
         operatingSystem: 'Linux, Chromium, Docker, Model Context Protocol',
         offers: {
           '@type': 'Offer',
@@ -35,10 +35,10 @@ export function JsonLd() {
           'zero-copy browser perception infrastructure: page state served from shared memory, curated for token cost, exposed to agents over MCP. Local-first, in active development.',
         featureList: [
           'Zero-Copy Shared Memory (32MB SHM Region)',
-          '0.8µs Median Frame Buffer Read (Measured over 2,000 samples)',
+          '0.8µs Median Shared Memory Read (Measured over 2,000 samples)',
           'Chromium 158 Headless Shell Custom Fork',
           'Exact (x,y) Deterministic Layout Engine Coordinates',
-          'Model Context Protocol (MCP) Server for Claude & Cursor',
+          'Model Context Protocol (MCP) Server with 9 Core Tools',
           'Local-First Workstation Build',
           'B2B Perception Infrastructure Layer',
         ],

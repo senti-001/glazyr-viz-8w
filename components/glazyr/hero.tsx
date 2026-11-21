@@ -2,13 +2,6 @@
 
 import Image from "next/image"
 import { Zap } from "lucide-react"
-import dynamic from "next/dynamic"
-import Link from "next/link"
-
-const BigIronTicker = dynamic(
-    () => import("@/components/glazyr/big-iron-ticker").then((mod) => mod.BigIronTicker),
-    { ssr: false }
-)
 
 export function Hero() {
     return (
@@ -22,7 +15,7 @@ export function Hero() {
             </div>
 
             <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
-                {/* Status Badge — rigid Win98 */}
+                {/* Status Badge */}
                 <div className="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-4 py-1.5 mb-8 slb-panel" style={{ boxShadow: 'none' }}>
                     <span className="relative flex h-2 w-2">
                         <span className="absolute inline-flex h-full w-full animate-ping bg-primary opacity-75" style={{ borderRadius: '50%' }} />
@@ -37,7 +30,7 @@ export function Hero() {
                         <div className="absolute inset-0 animate-pulse-ring bg-primary/10 scale-150 rounded-full" />
                         <Image
                             src="/images/glazyr-emblem.png"
-                            alt="Glazyr Viz"
+                            alt="Glazyr"
                             width={120}
                             height={120}
                             className="relative rounded-full glow-cyan"
@@ -46,7 +39,7 @@ export function Hero() {
                     </div>
                 </div>
 
-                {/* Headline — Y2K Monospace */}
+                {/* Headline */}
                 <h1 className="slb-header text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight text-balance mb-6">
                     Zero-Copy Perception.
                     <br />
@@ -58,21 +51,21 @@ export function Hero() {
                     Zero-copy browser perception infrastructure: page state served from shared memory, coordinates from the layout engine itself.
                 </p>
 
-                {/* CTA — Skeuomorphic Primary Button */}
+                {/* CTA */}
                 <div className="flex flex-col items-center justify-center gap-6 mb-10 w-full max-w-2xl mx-auto">
-                    <button
-                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
-                        className="slb-btn slb-btn-primary px-10 py-5 text-lg font-bold group relative"
+                    <a
+                        href="mailto:will@glazyr.com"
+                        className="slb-btn slb-btn-primary px-10 py-5 text-lg font-bold group relative inline-flex items-center gap-3"
                     >
                         <Zap className="h-6 w-6 fill-current" />
-                        Inquire for Enterprise Scaling
-                    </button>
+                        Inquire for Partner Access
+                    </a>
                     <p className="slb-label text-primary">
-                        Exclusive B2B Availability
+                        B2B Infrastructure in Active Development
                     </p>
                 </div>
 
-                {/* Metric Strip — SLB Panels */}
+                {/* Metric Strip */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     {[
                         { value: "Zero-Copy", label: "Shared Memory" },

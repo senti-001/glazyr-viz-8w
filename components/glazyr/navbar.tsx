@@ -39,13 +39,13 @@ export function Navbar() {
         <a href="/" className="flex items-center gap-3 group">
           <Image
             src="/images/glazyr-emblem.png"
-            alt="Glazyr Viz Logo"
+            alt="Glazyr"
             width={40}
             height={40}
             className="rounded-full glow-cyan"
           />
           <span className="slb-header text-lg tracking-tight text-foreground group-hover:text-primary transition-colors">
-            Glazyr Viz
+            Glazyr
           </span>
         </a>
 

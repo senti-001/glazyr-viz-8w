@@ -1,13 +1,16 @@
 "use client"
 
-import { Cpu, Terminal, CheckCircle2, ArrowRight, ShieldCheck, Compass } from "lucide-react"
+import { Cpu, Terminal, CheckCircle2, ShieldCheck, Compass } from "lucide-react"
 
 export function McpSection() {
   const tools = [
-    { name: "glazyr_peek(level)", desc: "Filtered page state (light, standard, aggressive) with layout geometry" },
+    { name: "glazyr_status()", desc: "Check browser state, active process, and memory region status" },
+    { name: "glazyr_navigate(url)", desc: "Navigate; returns summary first (245 tokens on Wikipedia)" },
+    { name: "glazyr_peek(level)", desc: "Filtered page state (~13–14K tokens standard with sibling collapse)" },
     { name: "glazyr_peek_raw()", desc: "Unfiltered state; immediate safety escalation path" },
-    { name: "glazyr_navigate(url)", desc: "Navigates and returns immediate extracted page state" },
-    { name: "glazyr_click(node_id)", desc: "Clicks element by DOM id; auto-scrolls into view using layout geometry" },
+    { name: "glazyr_peek_subtree(id)", desc: "Focused zoom into specific container or element subtree" },
+    { name: "glazyr_find(query)", desc: "Search page structure for matching nodes or text" },
+    { name: "glazyr_click(node_id)", desc: "Click by DOM node id; auto-scrolls using layout geometry" },
     { name: "glazyr_type(node_id, text)", desc: "Direct element focus + text typing" },
     { name: "glazyr_scroll(dir, amount)", desc: "Scrolls viewport in specified direction" },
   ]
@@ -20,11 +23,11 @@ export function McpSection() {
             <Compass className="w-4 h-4 text-primary" />
             <span className="slb-label text-primary text-xs">Standardized Agent Interface</span>
           </div>
-          <h2 className="slb-header text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight mb-4">
-            How Agents Connect: Native MCP Bridge
+          <h2 className="slb-header text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight mb-4 text-foreground">
+            How Agents Connect: Native MCP Bridge (v0.2.2)
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Glazyr ships as an MCP server: peek, navigate, click, type, scroll — six tools, one config block. The browser launches and manages itself; the agent just reads state and acts on node ids. In our own dogfood runs, an agent completed a research click-through and a full form submission (text fields, radio, checkbox, submit) through these tools alone, with a token meter reporting every read.
+            Glazyr ships as an MCP server: status, peek, peek_raw, peek_subtree, find, navigate, click, type, scroll — nine tools, one config block. The browser launches and manages itself; the agent reads curated state, zooms into subtrees, and acts on node ids.
           </p>
         </div>
 
@@ -53,19 +56,21 @@ export function McpSection() {
   }
 }`}
             </pre>
-            <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground">
-              <p className="flex items-center gap-2 text-primary font-bold mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Zero Host Dependencies
+            <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground space-y-2">
+              <p className="flex items-center gap-2 text-primary font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5" /> Summary-First Navigation
               </p>
-              Spawned over stdio by any MCP client (Claude Desktop, Cursor, or autonomous agent loops).
+              <p>
+                Navigate now returns an outline map (URL, counts, heading outline — <strong>245 tokens</strong> on Wikipedia) instead of the whole territory. Sibling collapse drops standard view to ~13–14K tokens.
+              </p>
             </div>
           </div>
 
-          {/* Right: The 6 Tools & Dogfood Verification */}
+          {/* Right: The 9 Tools & Dogfood Verification */}
           <div className="lg:col-span-7 space-y-6">
             <div className="slb-panel p-6 border border-border/80 bg-card/40">
               <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-primary" /> The 6 Core Perception &amp; Action Tools
+                <Cpu className="w-4 h-4 text-primary" /> The 9 Perception &amp; Action Tools
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {tools.map((t) => (
@@ -82,10 +87,10 @@ export function McpSection() {
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
                   <h4 className="font-bold text-foreground mb-1">
-                    Nov 21 Dogfood Verification Passed
+                    Unchanged-State Stubs &amp; Asserted Action Acks
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    Working exclusively through these six tools, an autonomous agent completed a research click-through (extracting license from Wikipedia infobox, navigating via in-text link) followed by a complete form submission (text fields, radio, checkbox, submit) verified against the server&apos;s echo. State reads landed in <strong>28ms median</strong> on a 10,247-node page with active token metering.
+                    Repeat reads of unchanged state return a short stub rather than paying full token price. Click and type acknowledgments carry their asserted result inline, beating dogfood baselines across research flows (Wikipedia research 28–30K &rarr; 7,108 tokens; find-a-fact 18,451 &rarr; 371 tokens).
                   </p>
                 </div>
               </div>
