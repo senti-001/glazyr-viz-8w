@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Glazyr Viz - The Zero-Copy Agentic Platform'
+export const alt = 'Glazyr - Zero-Copy Perception Infrastructure'
 export const size = {
   width: 1200,
   height: 630,
@@ -92,7 +92,7 @@ export default async function Image() {
                 letterSpacing: '-0.03em',
               }}
             >
-              GLAZYR <span style={{ color: '#00F0FF' }}>VIZ</span>
+              GLAZYR
             </span>
           </div>
 
@@ -181,7 +181,7 @@ export default async function Image() {
                 lineHeight: 1,
               }}
             >
-              7.35ms
+              0.8µs
             </span>
             <span
               style={{
@@ -193,7 +193,7 @@ export default async function Image() {
                 letterSpacing: '0.05em',
               }}
             >
-              Direct GPU Latency
+              SHM Peek Latency
             </span>
           </div>
 

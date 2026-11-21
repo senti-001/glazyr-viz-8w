@@ -18,7 +18,7 @@ export function JsonLd() {
         legalName: 'Magnetar Sentient L.L.C.',
         url: 'https://glazyr.com',
         logo: 'https://glazyr.com/images/glazyr-emblem.png',
-        sameAs: ['https://github.com/senti-001/glazyr-viz-8w'],
+        sameAs: ['https://github.com/senti-001'],
       },
       {
         '@type': 'SoftwareApplication',
