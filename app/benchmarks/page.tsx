@@ -5,14 +5,14 @@ import { Zap, Cpu, Activity, Gauge, Terminal, CheckCircle2, AlertCircle, ArrowLe
 import Link from "next/link"
 
 export const metadata: Metadata = {
-    title: "Benchmarks & Methodology - 7.35ms Perception Latency",
-    description: "Rigorous benchmark methodology and claim reconciliation for Glazyr Viz. Zero-copy semantic extraction (>100x speedup) and 7.35ms GPU buffer perception loop (15-50x faster).",
+    title: "Benchmarks & Methodology - Zero-Copy Perception",
+    description: "Rigorous benchmark methodology and claim reconciliation for Glazyr: 0.8µs SHM frame buffer read median (measured Nov 21) vs 38.7ms CDP sidecar (measured Nov 18).",
     alternates: {
         canonical: "/benchmarks",
     },
     openGraph: {
-        title: "Benchmarks & Methodology - 7.35ms Perception Latency | Glazyr Viz",
-        description: "Standardized performance benchmarks, empirical methodology, and public claim reconciliation for the Glazyr Viz zero-copy perception engine.",
+        title: "Benchmarks & Methodology - Zero-Copy Perception | Glazyr",
+        description: "Standardized performance benchmarks, empirical methodology, and public claim reconciliation for the Glazyr zero-copy perception engine.",
         url: "https://glazyr.com/benchmarks",
     },
 }
@@ -51,11 +51,10 @@ export default function BenchmarksPage() {
                         <div>
                             <h2 className="slb-header text-2xl md:text-3xl mb-3 flex items-center gap-3">
                                 <Activity className="w-6 h-6 text-primary" />
-                                What We Measure
+                                What We Measure (Truth Pass — Nov 21, 2026)
                             </h2>
                             <p className="text-muted-foreground leading-relaxed">
-                                We measure performance across two separate operational boundaries: <strong>data extraction speed</strong> and the <strong>full perception loop</strong>.
-                                We label these distinctly across all documentation.
+                                Rule for this pass: every number on this page must be one we measured on the current fork build. Anything not yet measured is labeled as in-progress or cut.
                             </p>
                         </div>
 
@@ -63,20 +62,20 @@ export default function BenchmarksPage() {
                         <div className="slb-panel p-8 border border-border/80">
                             <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
                                 <div className="flex items-center gap-3">
-                                    <span className="px-3 py-1 rounded bg-primary/10 text-primary border border-primary/30 text-xs font-mono font-bold uppercase tracking-wider">
-                                        Benchmark A
+                                    <span className="px-3 py-1 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-xs font-mono font-bold uppercase tracking-wider">
+                                        Benchmark A (Measured Nov 21)
                                     </span>
                                     <h3 className="text-xl font-bold text-foreground">
-                                        Semantic Extraction (The &ldquo;&gt;100x&rdquo; Claim)
+                                        Shared-Memory Frame Buffer Read
                                     </h3>
                                 </div>
-                                <span className="text-xs font-mono text-green-500 font-bold bg-green-500/10 border border-green-500/20 px-2.5 py-1">
-                                    Ratio: &gt;100x Speedup (~133x)
+                                <span className="text-xs font-mono text-emerald-500 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1">
+                                    0.8µs Median (2,000 Samples)
                                 </span>
                             </div>
 
                             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                                Measures the elapsed time to obtain the page&apos;s full semantic tree (the structured DOM/AX tree an AI agent reasons over), starting from a fully loaded DOM state and ending with the populated data structure in agent process memory.
+                                Measures the elapsed time for an external process to read the compositor&apos;s live frame header (magic, dimensions, stride, timestamp) directly from a 32MB shared-memory region in Chromium 158 <code className="text-primary font-mono text-xs">headless_shell</code>.
                             </p>
 
                             <div className="overflow-x-auto">
@@ -84,75 +83,82 @@ export default function BenchmarksPage() {
                                     <thead>
                                         <tr className="border-b border-border/60 text-muted-foreground font-mono text-xs uppercase">
                                             <th className="py-3 px-4">System</th>
-                                            <th className="py-3 px-4">Method</th>
+                                            <th className="py-3 px-4">Mechanism</th>
                                             <th className="py-3 px-4 text-right">Latency Result</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-border/40 font-mono text-xs">
                                         <tr className="text-muted-foreground">
-                                            <td className="py-3.5 px-4 font-semibold text-foreground">Playwright / CDP</td>
-                                            <td className="py-3.5 px-4">Serialize tree to JSON &amp; transmit over CDP WebSocket</td>
-                                            <td className="py-3.5 px-4 text-right text-orange-400">~400 ms</td>
+                                            <td className="py-3.5 px-4 font-semibold text-foreground">Incumbent CDP Sidecar (Nov 18 Baseline)</td>
+                                            <td className="py-3.5 px-4">DevTools protocol over WebSocket; state serialized to JSON</td>
+                                            <td className="py-3.5 px-4 text-right text-orange-400">38.7 ms (Median)</td>
                                         </tr>
                                         <tr className="bg-primary/5 text-foreground font-bold">
-                                            <td className="py-3.5 px-4 text-primary">Glazyr Viz</td>
-                                            <td className="py-3.5 px-4">Zero-copy read directly from shared memory (SHM)</td>
-                                            <td className="py-3.5 px-4 text-right text-green-400">~3.0 ms</td>
+                                            <td className="py-3.5 px-4 text-primary">Glazyr SHM Peek (Nov 21 Fork Build)</td>
+                                            <td className="py-3.5 px-4">Direct shared memory read from separate process (no wire, no serialization)</td>
+                                            <td className="py-3.5 px-4 text-right text-emerald-400">0.8 µs (p50) / 1.2 µs (p95)</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <p className="text-xs text-muted-foreground mt-4 italic">
-                                * Isolated data-extraction measurement: excludes page load, network transit, and LLM inference.
+                                * Measured on Ryzen 7 5800H workstation (WSL2), 2,000 sample reads back-to-back.
                             </p>
                         </div>
 
-                        {/* Benchmark B */}
+                        {/* Benchmark B - Measured Semantic Pipeline */}
                         <div className="slb-panel p-8 border border-border/80">
                             <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
                                 <div className="flex items-center gap-3">
-                                    <span className="px-3 py-1 rounded bg-primary/10 text-primary border border-primary/30 text-xs font-mono font-bold uppercase tracking-wider">
-                                        Benchmark B
+                                    <span className="px-3 py-1 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 text-xs font-mono font-bold uppercase tracking-wider">
+                                        Benchmark B (Measured Nov 21)
                                     </span>
                                     <h3 className="text-xl font-bold text-foreground">
-                                        Perception Loop (The &ldquo;7.35ms&rdquo; and &ldquo;15–50x&rdquo; Claims)
+                                        Full Semantic Pipeline &amp; MCP Stack
                                     </h3>
                                 </div>
-                                <span className="text-xs font-mono text-primary font-bold bg-primary/10 border border-primary/20 px-2.5 py-1">
-                                    Ratio: 15–50x Faster
+                                <span className="text-xs font-mono text-emerald-500 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1">
+                                    28ms Median · 3.7×–5.4× Cheaper Tokens
                                 </span>
                             </div>
 
                             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                                Measures one complete perception cycle: reading page state directly through the GPU compositor buffer, converted to structured state with deterministic (x, y) action coordinates ready for agent dispatch.
+                                Measures the complete pipeline from browser page load to agent execution: AnnotatedPageContent extraction &rarr; semantic shared memory &rarr; curation filter &rarr; MCP bridge stdio &rarr; agent.
                             </p>
 
                             <div className="overflow-x-auto">
-                                <table className="w-full text-left text-sm border-collapse">
+                                <table className="w-full text-left text-sm border-collapse font-mono text-xs">
                                     <thead>
-                                        <tr className="border-b border-border/60 text-muted-foreground font-mono text-xs uppercase">
-                                            <th className="py-3 px-4">System</th>
-                                            <th className="py-3 px-4">Perception Mechanism</th>
-                                            <th className="py-3 px-4 text-right">Step Latency</th>
+                                        <tr className="border-b border-border/60 text-muted-foreground uppercase">
+                                            <th className="py-3 px-4">Metric</th>
+                                            <th className="py-3 px-4">CDP Accessibility Fetch</th>
+                                            <th className="py-3 px-4 text-emerald-400">Glazyr Filtered MCP</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-border/40 font-mono text-xs">
-                                        <tr className="text-muted-foreground">
-                                            <td className="py-3.5 px-4 font-semibold text-foreground">Traditional Agents (Playwright / CDP)</td>
-                                            <td className="py-3.5 px-4">CDP serialization overhead + heuristic pixel coordinates</td>
-                                            <td className="py-3.5 px-4 text-right text-orange-400">120 ms – 400 ms+</td>
+                                    <tbody className="divide-y divide-border/40">
+                                        <tr>
+                                            <td className="py-3 px-4 font-semibold text-foreground">Small Page Latency</td>
+                                            <td className="py-3 px-4 text-orange-400">19ms – 28ms</td>
+                                            <td className="py-3 px-4 text-emerald-400 font-bold">0.9µs SHM (~5ms MCP)</td>
                                         </tr>
-                                        <tr className="bg-primary/5 text-foreground font-bold">
-                                            <td className="py-3.5 px-4 text-primary">Glazyr Viz (Direct GPU Buffer)</td>
-                                            <td className="py-3.5 px-4">Direct GPU buffer access + deterministic exact (x, y) targeting</td>
-                                            <td className="py-3.5 px-4 text-right text-green-400">7.35 ms</td>
+                                        <tr>
+                                            <td className="py-3 px-4 font-semibold text-foreground">Large Page Latency (10k nodes)</td>
+                                            <td className="py-3 px-4 text-orange-400">1,521ms (CDP)</td>
+                                            <td className="py-3 px-4 text-emerald-400 font-bold">43µs SHM (28ms median MCP)</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="py-3 px-4 font-semibold text-foreground">Large Article Token Cost</td>
+                                            <td className="py-3 px-4 text-orange-400">57,108 tokens</td>
+                                            <td className="py-3 px-4 text-emerald-400 font-bold">15,343 (standard) / 10,501 (aggressive)</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="py-3 px-4 font-semibold text-foreground">Fact Presence (9 checks)</td>
+                                            <td className="py-3 px-4 text-muted-foreground">6/9 (missing URLs &amp; field names)</td>
+                                            <td className="py-3 px-4 text-emerald-400 font-bold">9/9 facts preserved</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <p className="text-xs text-muted-foreground mt-4 italic">
-                                * The headline 7.35ms perception figure represents the median GPU buffer perception loop step.
-                            </p>
                         </div>
                     </div>
 
@@ -160,10 +166,10 @@ export default function BenchmarksPage() {
                     <div className="mb-16">
                         <h2 className="slb-header text-2xl md:text-3xl mb-3 flex items-center gap-3">
                             <CheckCircle2 className="w-6 h-6 text-primary" />
-                            Claim Reconciliation
+                            Claim Reconciliation (Nov 21 Truth Pass)
                         </h2>
                         <p className="text-muted-foreground leading-relaxed mb-6">
-                            Every performance claim and metric displayed across glazyr.com correlates to our benchmark tests as reconciled below:
+                            Every performance claim and metric displayed across glazyr.com correlates to verified fork build records as reconciled below:
                         </p>
 
                         <div className="slb-panel overflow-hidden border border-border/80">
@@ -173,46 +179,64 @@ export default function BenchmarksPage() {
                                         <tr className="border-b border-border bg-muted/20 text-muted-foreground font-mono text-xs uppercase">
                                             <th className="py-3.5 px-4">Public Claim</th>
                                             <th className="py-3.5 px-4">Location</th>
-                                            <th className="py-3.5 px-4">Benchmark</th>
+                                            <th className="py-3.5 px-4">Status</th>
                                             <th className="py-3.5 px-4">Empirical Basis</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-border/40 font-mono text-xs">
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">7.35 ms Perception</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Homepage Hero, Technology</td>
-                                            <td className="py-3.5 px-4 text-primary font-semibold">Benchmark B</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Full perception step, direct GPU buffer access</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">0.8 µs Median Peek</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Hero Strip, Benchmarks, Table</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Measured Nov 21</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">2,000 external process reads of compositor SHM header (p95 1.2µs)</td>
                                         </tr>
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">~3.0 ms Extraction</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Homepage</td>
-                                            <td className="py-3.5 px-4 text-primary font-semibold">Benchmark A</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Semantic tree read directly from shared memory</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">38.7 ms CDP Baseline</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Benchmarks, Comparison Table</td>
+                                            <td className="py-3.5 px-4 text-primary font-semibold">Measured Nov 18</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">CDP sidecar extracting page state over DevTools protocol</td>
                                         </tr>
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">Over 100x Speedup</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Homepage</td>
-                                            <td className="py-3.5 px-4 text-primary font-semibold">Benchmark A</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">~400 ms CDP serialization vs ~3.0 ms SHM read</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">Layout Engine Coordinates</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Hero, Comparison Table, Footer</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Architectural</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Browser layout engine coordinates — same geometry renderer paints with</td>
                                         </tr>
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">15–50x Faster</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Homepage, Technology</td>
-                                            <td className="py-3.5 px-4 text-primary font-semibold">Benchmark B</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">120–400 ms CDP range vs 7.35 ms GPU buffer</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">Chromium 158 Fork</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Hero Strip, Build Log</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Verified Build</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Chromium 158.0.8127.65 headless_shell compiled locally on Ryzen 7 workstation</td>
                                         </tr>
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">120 ms – 400 ms+</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Comparison Table</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">A/B Baseline</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Playwright / CDP per-step latency range</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">0.9–43 µs SHM / 28 ms MCP</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Benchmarks, Comparison Table</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Measured Nov 21</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">SHM reads across size classes (0.9µs small, 43µs 756KB payload); 28ms median through full MCP stack</td>
                                         </tr>
                                         <tr>
-                                            <td className="py-3.5 px-4 font-bold text-foreground">~4.1 kb Payload / Step</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Comparison Table</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Baseline</td>
-                                            <td className="py-3.5 px-4 text-muted-foreground">Extracted text payload in traditional CDP stack</td>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">3.7×–5.4× Token Reduction</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Scoreboard, Token Savings</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Measured Nov 21</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Wikipedia Chromium: 57,108 tokens (CDP) vs 15,343 (standard) vs 10,501 (aggressive); 9/9 facts preserved</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">Native URLs &amp; Field Names</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Perception Pipeline, MCP</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Measured Nov 21</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Native in buffer; eliminates extra CDP DOM queries needed to recover link targets and form names</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">6-Tool MCP Bridge</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">MCP Section, Build Log</td>
+                                            <td className="py-3.5 px-4 text-emerald-400 font-semibold">Verified Dogfood</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Agent completed research click-through and full form submission with server echo verification</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="py-3.5 px-4 font-bold text-foreground">Pixel Streaming FPS</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Roadmap</td>
+                                            <td className="py-3.5 px-4 text-amber-400 font-semibold">Roadmap</td>
+                                            <td className="py-3.5 px-4 text-muted-foreground">Header wired into 32MB region; pixel payload streaming pending semantic ship</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -234,35 +258,35 @@ export default function BenchmarksPage() {
                             <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 font-mono text-xs">
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Machine</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: CPU model / cores]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">AMD Ryzen 7 5800H (8 Cores, 16 Threads)</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
-                                    <dt className="text-muted-foreground uppercase">GPU</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: model — GPU buffer path]</dd>
+                                    <dt className="text-muted-foreground uppercase">GPU / Buffer</dt>
+                                    <dd className="text-foreground font-semibold mt-1">32MB Shared Memory Compositor Frame Region</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">RAM / OS</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: RAM size / OS distribution]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">Workstation RAM / Ubuntu on WSL2</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Glazyr Build</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: version / commit]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">Local headless_shell custom fork (Nov 21, 2026 build)</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Chromium Build</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: Chromium version (identical across both systems)]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">Chromium 158.0.8127.65 headless_shell</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Baseline Stack</dt>
-                                    <dd className="text-foreground font-semibold mt-1">Playwright [FILL: version], CDP over WebSocket, headless</dd>
+                                    <dd className="text-foreground font-semibold mt-1">CDP sidecar over WebSocket, headless</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Test Fixture</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: URL(s) or local fixture; DOM node count]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">2,000 external process reads (800×600 frame header)</dd>
                                 </div>
                                 <div className="border-b border-border/40 pb-2">
                                     <dt className="text-muted-foreground uppercase">Date Measured</dt>
-                                    <dd className="text-foreground font-semibold mt-1">[FILL: Measurement date]</dd>
+                                    <dd className="text-foreground font-semibold mt-1">Nov 18, 2026 (CDP) &amp; Nov 21, 2026 (SHM peek)</dd>
                                 </div>
                             </dl>
                         </div>

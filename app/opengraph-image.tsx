@@ -143,7 +143,7 @@ export default async function Image() {
               margin: 0,
             }}
           >
-            Sub-8ms Visual Perception.
+            0.8µs Frame Buffer Peek.
             <br />
             <span style={{ color: '#00F0FF' }}>Zero-Copy Agentic Architecture.</span>
           </h1>
@@ -156,8 +156,7 @@ export default async function Image() {
               margin: 0,
             }}
           >
-            High-throughput browser optic nerve delivering 15-50x faster state
-            extraction and deterministic click coordinates for autonomous AI agents.
+            High-throughput browser optic nerve delivering zero-copy shared memory state and deterministic layout engine coordinates.
           </p>
         </div>
 

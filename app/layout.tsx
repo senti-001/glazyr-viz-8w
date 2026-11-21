@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         default: 'Glazyr Viz - The Zero-Copy Agentic Platform',
         template: '%s | Glazyr Viz',
     },
-    description: 'Glazyr Viz is the high-throughput, zero-copy optic nerve for AI agents. Sub-8ms visual perception, direct GPU buffer access, and deterministic click targeting via Model Context Protocol (MCP).',
+    description: 'zero-copy browser perception infrastructure: page state served from shared memory, curated for token cost, exposed to agents over MCP. Local-first, in active development — see the build log.',
     keywords: [
         'AI agents',
         'computer vision',

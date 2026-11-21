@@ -12,7 +12,7 @@ export function DemoVideo() {
                         Glazyr Viz: The Optic Nerve for AI
                     </h2>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                        <span className="text-primary font-semibold">Stop sending pixels. Start sending perception.</span> We bypassed the &quot;WebDriver Tax&quot; by hooking AI agents directly into Chromium’s shared memory—delivering <span className="text-foreground font-bold">7.35ms vision at 57+ FPS</span> with 99% less bandwidth than traditional CDP.
+                        <span className="text-primary font-semibold">Stop sending pixels. Start sending perception.</span> We bypassed the &quot;WebDriver Tax&quot; by hooking AI agents directly into Chromium’s shared memory—delivering <span className="text-foreground font-bold">zero-copy state extraction</span> directly from the browser compositor.
                     </p>
                 </div>
 
@@ -43,7 +43,7 @@ export function DemoVideo() {
                                 <span className="slb-label text-[10px] text-primary/60 tracking-widest uppercase">DMA: Enabled</span>
                             </div>
                             <div className="hidden sm:block text-right">
-                                <div className="text-[10px] font-mono text-muted-foreground/40 leading-none">LATENCY: 7.35ms | THROUGHPUT: 57.2 FPS</div>
+                                <div className="text-[10px] font-mono text-muted-foreground/40 leading-none">FRAME BUFFER: SHM PEEK 0.8µs | ARCHITECTURE: CHROMIUM 158</div>
                                 <div className="text-[11px] font-mono text-muted-foreground/80 mt-2 leading-none italic">
                                     Note: Visual fluidity is limited by 60Hz screen encoding. Raw Vision DMA telemetry is reflected live in the terminal.
                                 </div>

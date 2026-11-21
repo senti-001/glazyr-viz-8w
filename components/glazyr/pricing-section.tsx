@@ -15,7 +15,7 @@ export function PricingSection() {
             title: "Starter",
             price: "$299/mo",
             credits: "Cost parity + zero egress",
-            description: "Ideal for 15-50 concurrent agents. Transition your cluster to SHM vision with no bandwidth penalty.",
+            description: "Ideal for high-density agent clusters. Transition your agents to zero-copy shared memory perception.",
             buttonText: "Deploy Target",
             isFree: false
         },

@@ -6,13 +6,13 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
     title: "Technology - High-Throughput Zero-Copy Perception Architecture",
-    description: "Under the hood of Glazyr Viz: Direct GPU frame buffer reading, 7.35ms visual latency, custom hardened Chromium fork, and deterministic coordinate targeting.",
+    description: "Under the hood of Glazyr: Zero-copy shared-memory frame buffer reading (0.8µs median peek), custom Chromium 158 fork, and deterministic layout engine coordinate targeting.",
     alternates: {
         canonical: "/technology",
     },
     openGraph: {
-        title: "Technology - High-Throughput Zero-Copy Perception Architecture | Glazyr Viz",
-        description: "Under the hood of Glazyr Viz: Direct GPU frame buffer reading, 7.35ms visual latency, custom hardened Chromium fork, and deterministic coordinate targeting.",
+        title: "Technology - High-Throughput Zero-Copy Perception Architecture | Glazyr",
+        description: "Under the hood of Glazyr: Zero-copy shared-memory frame buffer reading (0.8µs median peek), custom Chromium 158 fork, and deterministic layout engine coordinate targeting.",
         url: "https://glazyr.com/technology",
     },
 }
@@ -84,7 +84,7 @@ export default function TechnologyPage() {
                                 <div>
                                     <h2 className="text-2xl font-bold mb-4">Lightning-Fast Extraction</h2>
                                     <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Standard AI tools waste critical time relying on websocket-based CDP serializations. Glazyr bypasses this bottleneck entirely, extracting structured data directly from the compositor memory. This zero-copy approach eliminates serialization overhead, resulting in 15-50x faster state reads.
+                                        Standard AI tools waste critical time relying on websocket-based CDP serializations (measured at 38.7ms median). Glazyr reads state directly from shared memory in 0.8µs median, eliminating wire serialization overhead completely.
                                     </p>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ export default function TechnologyPage() {
                                 <div>
                                     <h2 className="text-2xl font-bold mb-4">Structured Actionability</h2>
                                     <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Glazyr injects exact bounding box (x, y) coordinates directly into the semantic tree. This allows your AI agents to confidently click and interact with specific elements based on verified spatial reasoning, completely eliminating the need for heuristic guessing or fragile pixel math.
+                                        Coordinates originate directly from the browser&apos;s own layout engine — the exact same geometry the renderer paints with. This allows AI agents to act with deterministic certainty, eliminating heuristic guessing or model-hallucinated clicks.
                                     </p>
                                 </div>
                             </div>

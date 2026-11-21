@@ -37,7 +37,7 @@ export function BenchmarkShowcase() {
                         <div>
                             <h3 className="text-2xl font-semibold mb-3 tracking-tight">Semantic Extraction Latency</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                A recorded terminal comparison. While traditional CDP (Playwright) takes ~400ms to serialize and transmit JSON over WebSockets, Glazyr reads the exact same semantic tree directly from shared memory in <strong>~3.0ms</strong>. Over a 100x speedup in pure data extraction.
+                                We measured the incumbent approach ourselves. A CDP accessibility-tree fetch — the way agent frameworks read pages today — took <strong>19ms on a small form page and 1,521ms on a large article page</strong>, scaling with page size. Glazyr&apos;s browser writes its page-content tree directly into shared memory, where another process reads it in <strong>0.9–43 microseconds</strong> depending on payload size. Through the full MCP stack an agent actually uses, a filtered state read on the large page lands in <strong>28ms median</strong> — about 50× faster than the CDP fetch, with the remaining time spent curating the tree, not moving it.
                             </p>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ export function BenchmarkShowcase() {
                         <div>
                             <h3 className="text-2xl font-semibold mb-3 tracking-tight">Vision Bandwidth (WebGL)</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                Streaming live pixels. Traditional CDP struggles to maintain 4 FPS while racking up massive bandwidth bloat (20MB+). Glazyr's Direct Memory Access (DMA) sustains a fluid 13+ FPS using a fraction of the bandwidth (~0.1MB).
+                                The compositor writes a live frame header (dimensions, stride, format, timestamp) into a 32MB shared-memory region on every frame — verified running on Chromium 158. Pixel payload streaming is on the roadmap; the semantic path ships first, because agents reason over structure, not screenshots.
                             </p>
                         </div>
                     </div>

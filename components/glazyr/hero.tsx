@@ -48,14 +48,14 @@ export function Hero() {
 
                 {/* Headline — Y2K Monospace */}
                 <h1 className="slb-header text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight text-balance mb-6">
-                    7.35ms Perception.
+                    Zero-Copy Perception.
                     <br />
-                    <span className="text-primary text-3xl md:text-5xl text-balance">BETA SUCCESSFUL.</span>
+                    <span className="text-primary text-3xl md:text-5xl text-balance">CHROMIUM 158 FORK.</span>
                 </h1>
 
                 {/* Subline */}
                 <p className="mx-auto max-w-3xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    We are now scaling exclusively as a B2B infrastructure layer, delivering 15-50x faster state extraction with zero-copy structured coordinates.
+                    Zero-copy browser perception infrastructure: page state served from shared memory, coordinates from the layout engine itself.
                 </p>
 
                 {/* CTA — Skeuomorphic Primary Button */}
@@ -73,18 +73,18 @@ export function Hero() {
                 </div>
 
                 {/* Metric Strip — SLB Panels */}
-                <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     {[
-                        { value: "7.35ms", label: "Shared Memory Fetch" },
-                        { value: "0x", label: "Base64 Encoding" },
-                        { value: "Low-Latency", label: "NATS Bridge" },
-                        { value: "Exact (x,y)", label: "Interactive Nodes" },
+                        { value: "Zero-Copy", label: "Shared Memory" },
+                        { value: "0.8µs", label: "Peek p50 (measured)" },
+                        { value: "Cr 158", label: "Chromium Fork" },
+                        { value: "Local-First", label: "Architecture" },
                     ].map((stat) => (
                         <div
                             key={stat.label}
                             className="slb-panel px-4 py-5 text-center transition-all hover:border-primary"
                         >
-                            <div className="text-2xl font-bold text-primary mb-1 font-mono">
+                            <div className="text-xl sm:text-2xl font-bold text-primary mb-1 font-mono">
                                 {stat.value}
                             </div>
                             <div className="slb-label">

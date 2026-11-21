@@ -117,7 +117,7 @@ export default function PrivacyPage() {
                                     </div>
                                     <div className="slb-inset p-4">
                                         <h4 className="slb-header text-foreground text-sm mb-2">Performance Telemetry</h4>
-                                        <p className="text-xs">FPS, latency, throughput, and frame count metrics. Strictly decoupled from interaction content. Used to maintain 7.35ms benchmark targets.</p>
+                                        <p className="text-xs">FPS, latency, throughput, and frame count metrics. Strictly decoupled from interaction content. Used to maintain low-latency benchmark targets.</p>
                                     </div>
                                     <div className="slb-inset p-4">
                                         <h4 className="slb-header text-foreground text-sm mb-2">Payment Data</h4>

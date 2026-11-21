@@ -11,6 +11,7 @@ const footerLinks = [
       { label: "Home", href: "/" },
       { label: "Technology", href: "/technology" },
       { label: "Benchmarks", href: "/benchmarks" },
+      { label: "Build Log", href: "/build-log" },
       { label: "Dashboard", href: "/dashboard" },
     ],
   },
@@ -44,7 +45,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The Agentic Platform. Where high-speed DOM extraction meets autonomous action.
+              zero-copy browser perception infrastructure: page state served from shared memory, curated for token cost, exposed to agents over MCP. Local-first, in active development — see the <Link href="/build-log" className="underline hover:text-primary">build log</Link>.
             </p>
           </div>
 

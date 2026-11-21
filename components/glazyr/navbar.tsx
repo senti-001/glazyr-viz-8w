@@ -54,6 +54,7 @@ export function Navbar() {
           <Link href="/" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Home</Link>
           <Link href="/technology" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Technology</Link>
           <Link href="/benchmarks" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Benchmarks</Link>
+          <Link href="/build-log" className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider">Build Log</Link>
           <button
             onClick={() => session ? window.location.href = '/dashboard' : signIn()}
             className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider"
@@ -134,6 +135,7 @@ export function Navbar() {
           <Link href="/" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Home</Link>
           <Link href="/technology" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Technology</Link>
           <Link href="/benchmarks" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Benchmarks</Link>
+          <Link href="/build-log" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Build Log</Link>
           {session && (
             <>
               <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 uppercase tracking-wider">Dashboard</Link>
