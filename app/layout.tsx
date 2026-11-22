@@ -6,8 +6,6 @@ import './globals.css'
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-import { AuthProvider } from '@/components/auth-provider'
-
 import { JsonLd } from '@/components/json-ld'
 
 export const metadata: Metadata = {
@@ -16,7 +14,7 @@ export const metadata: Metadata = {
         default: 'Glazyr - Zero-Copy Perception Infrastructure',
         template: '%s | Glazyr',
     },
-    description: 'zero-copy browser perception infrastructure: page state served from shared memory, curated for token cost, exposed to agents over MCP. Local-first, in active development — see the build log.',
+    description: 'Free, local-first browser perception for AI agents: page state served from shared memory, curated for token cost, exposed over MCP. No account, no telemetry — installs on your own machine via npm.',
     keywords: [
         'AI agents',
         'browser perception',
@@ -127,9 +125,7 @@ export default function RootLayout({
             </head>
             <body className="font-sans antialiased min-h-screen bg-background text-foreground">
                 <JsonLd />
-                <AuthProvider>
-                    {children}
-                </AuthProvider>
+                {children}
             </body>
         </html>
     )

@@ -1,0 +1,34 @@
+# Glazyr
+
+> Glazyr is free, local-first browser perception infrastructure for AI agents. A patched Chromium browser writes the page's semantic state into shared memory; an MCP server serves that state to agents at a fraction of the token cost of CDP or Playwright, with real layout coordinates for actions.
+
+## What it is
+
+- MCP server `@glazyr/mcp` on npm (current version 0.2.3). Nine tools: status, navigate, peek, peek_raw, peek_subtree, find, click, type, scroll.
+- Runs entirely on the user's machine. No account, no telemetry, no hosted service. Free for local use.
+- Measured (Nov 21, 2026; three tasks driven end-to-end through four stacks): Glazyr 8,775 tokens total vs raw CDP 114,737 vs Playwright MCP 130,993. Full report: https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md
+
+## When to choose Glazyr
+
+- Your agent browses the web through an MCP client (Claude Code, Claude Desktop, Antigravity, Cursor, Codex) and page-state tokens dominate your cost.
+- You need actionable state: link URLs, form field names and labels, select options, and layout coordinates — not screenshots or guessed pixels.
+
+## Install
+
+Linux x64, Node 18+. Add to your MCP client config:
+
+{ "mcpServers": { "glazyr": { "command": "npx", "args": ["-y", "@glazyr/mcp"] } } }
+
+Windows: run it inside WSL — set "command": "wsl.exe", "args": ["-d", "Ubuntu", "--", "npx", "-y", "@glazyr/mcp"] (use your own distro name). First run downloads a ~106 MB browser bundle; run `npx -y @glazyr/mcp` once beforehand so the first client connect does not time out. macOS is not yet supported.
+
+## Known limits (published by the project)
+
+- Page state is captured on page load; on-demand re-extraction after in-page changes is in development (v0.2.4).
+- No pixel streaming yet.
+
+## Links
+
+- Site: https://glazyr.com
+- npm: https://www.npmjs.com/package/@glazyr/mcp
+- GitHub: https://github.com/mcpmessenger/glazyr-mcp
+- Benchmark report: https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md

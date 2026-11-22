@@ -24,7 +24,7 @@ export function McpSection() {
             <span className="slb-label text-primary text-xs">Standardized Agent Interface</span>
           </div>
           <h2 className="slb-header text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight mb-4 text-foreground">
-            How Agents Connect: Native MCP Bridge (v0.2.2)
+            How Agents Connect: Native MCP Bridge (v0.2.3)
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Glazyr ships as an MCP server: status, peek, peek_raw, peek_subtree, find, navigate, click, type, scroll — nine tools, one config block. The browser launches and manages itself; the agent reads curated state, zooms into subtrees, and acts on node ids.
@@ -52,7 +52,27 @@ export function McpSection() {
 }`}
             </pre>
             <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-              Requires Linux x64 and Node 18+. The browser bundle (~106 MB) downloads automatically on first run.
+              Requires Linux x64 and Node 18+. The browser bundle (~106 MB) downloads automatically on first run. Tip: run <span className="font-mono">npx -y @glazyr/mcp</span> once and wait for the ready line before connecting your client, so the first connect does not time out.
+            </p>
+            <div className="flex items-center justify-between mt-6 mb-4 pb-3 border-b border-border/40">
+              <div className="flex items-center gap-2">
+                <Terminal className="w-4 h-4 text-primary" />
+                <span className="text-sm font-bold text-foreground">Windows (via WSL)</span>
+              </div>
+              <span className="slb-label text-[10px] text-muted-foreground font-mono">same config, wsl.exe launcher</span>
+            </div>
+            <pre className="font-mono text-xs text-foreground/90 bg-background/80 p-4 rounded border border-border/40 overflow-x-auto leading-relaxed">
+{`{
+  "mcpServers": {
+    "glazyr": {
+      "command": "wsl.exe",
+      "args": ["-d", "Ubuntu", "--", "npx", "-y", "@glazyr/mcp"]
+    }
+  }
+}`}
+            </pre>
+            <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+              Use your own distro name in place of <span className="font-mono">Ubuntu</span>. Keep a WSL session open (or run <span className="font-mono">wsl -d Ubuntu -- sleep infinity</span> in a spare terminal) so Windows does not idle-shut the distro down mid-session.
             </p>
             <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground space-y-2">
               <p className="flex items-center gap-2 text-primary font-bold">

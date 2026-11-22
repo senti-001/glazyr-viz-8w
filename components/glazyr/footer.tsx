@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useSession, signIn } from "next-auth/react"
 
 const footerLinks = [
   {
@@ -12,7 +11,8 @@ const footerLinks = [
       { label: "Technology", href: "/technology" },
       { label: "Benchmarks", href: "/benchmarks" },
       { label: "Build Log", href: "/build-log" },
-      { label: "Dashboard", href: "/dashboard" },
+      { label: "MCP Setup", href: "/mcp-setup" },
+      { label: "GitHub", href: "https://github.com/mcpmessenger/glazyr-mcp" },
     ],
   },
   {
@@ -24,7 +24,6 @@ const footerLinks = [
 ]
 
 export function Footer() {
-  const { data: session } = useSession()
 
   return (
     <footer className="border-t border-border/50 py-16 px-6 bg-background">
@@ -58,21 +57,12 @@ export function Footer() {
               <ul className="flex flex-col gap-2.5">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    {link.label === "Dashboard" ? (
-                      <button
-                        onClick={() => window.open("https://form.typeform.com/to/sbdm0689", "_blank")}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors text-left"
-                      >
-                        Enterprise Support
-                      </button>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

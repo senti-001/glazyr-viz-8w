@@ -54,14 +54,14 @@ export function Hero() {
                 {/* CTA */}
                 <div className="flex flex-col items-center justify-center gap-6 mb-10 w-full max-w-2xl mx-auto">
                     <a
-                        href="mailto:will@glazyr.com"
+                        href="#mcp"
                         className="slb-btn slb-btn-primary px-10 py-5 text-lg font-bold group relative inline-flex items-center gap-3"
                     >
                         <Zap className="h-6 w-6 fill-current" />
-                        Inquire for Partner Access
+                        Install the MCP Server — Free
                     </a>
                     <p className="slb-label text-primary">
-                        B2B Infrastructure in Active Development
+                        Free for local use · No account · No telemetry
                     </p>
                 </div>
 
