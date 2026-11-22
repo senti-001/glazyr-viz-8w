@@ -45,17 +45,15 @@ export function McpSection() {
 {`{
   "mcpServers": {
     "glazyr": {
-      "command": "wsl.exe",
-      "args": [
-        "-d", "glazyr-internal",
-        "-u", "root", "--",
-        "/root/glazyr-bridge/venv/bin/python",
-        "/root/glazyr-bridge/glazyr_mcp.py"
-      ]
+      "command": "npx",
+      "args": ["-y", "@glazyr/mcp"]
     }
   }
 }`}
             </pre>
+            <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+              Requires Linux x64 and Node 18+. The browser bundle (~106 MB) downloads automatically on first run.
+            </p>
             <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground space-y-2">
               <p className="flex items-center gap-2 text-primary font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Summary-First Navigation

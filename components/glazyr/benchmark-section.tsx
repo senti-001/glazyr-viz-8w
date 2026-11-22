@@ -69,7 +69,15 @@ export function BenchmarkSection() {
           {/* Method line */}
           <div className="mt-4 pt-4 border-t border-border/40 text-xs sm:text-sm text-muted-foreground leading-relaxed">
             <p>
-              Same three tasks driven end-to-end through four stacks, counting every token served to the agent. All four stacks completed all three tasks. *Text extraction&apos;s form round works only because that form is static HTML — it cannot act on JS-driven pages. Full report and drivers: <span className="font-mono font-bold text-primary">[BENCHMARK_URL]</span>
+              Same three tasks driven end-to-end through four stacks, counting every token served to the agent. All four stacks completed all three tasks. *Text extraction&apos;s form round works only because that form is static HTML — it cannot act on JS-driven pages. Full report and drivers:{" "}
+              <a
+                href="https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono font-bold text-primary underline hover:text-primary/80 transition-colors"
+              >
+                https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md
+              </a>
             </p>
           </div>
         </div>
