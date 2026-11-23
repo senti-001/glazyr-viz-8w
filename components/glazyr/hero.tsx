@@ -41,14 +41,16 @@ export function Hero() {
 
                 {/* Headline */}
                 <h1 className="slb-header text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight text-balance mb-6">
-                    Zero-Copy Perception.
+                    Same web.
                     <br />
-                    <span className="text-primary text-3xl md:text-5xl text-balance">CHROMIUM 158 FORK.</span>
+                    <span className="text-primary text-3xl md:text-5xl text-balance">92% fewer tokens.</span>
                 </h1>
 
                 {/* Subline */}
                 <p className="mx-auto max-w-3xl text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 text-pretty">
-                    Zero-copy browser perception infrastructure: page state served from shared memory, coordinates from the layout engine itself.
+                    Glazyr is a free add-on for your AI agent. Instead of swallowing whole web pages,
+                    your agent reads the short version — and still clicks, types, and scrolls like
+                    normal. Web work finishes faster, and your token bill shrinks with it.
                 </p>
 
                 {/* CTA */}
@@ -63,15 +65,18 @@ export function Hero() {
                     <p className="slb-label text-primary">
                         Free for local use · No account · No telemetry
                     </p>
+                    <p className="text-sm text-muted-foreground">
+                        For <strong className="text-foreground">Windows</strong> (through WSL) and <strong className="text-foreground">Linux</strong> · macOS is not supported yet
+                    </p>
                 </div>
 
                 {/* Metric Strip */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     {[
-                        { value: "Zero-Copy", label: "Shared Memory" },
-                        { value: "0.8µs", label: "Peek p50 (measured)" },
-                        { value: "Cr 158", label: "Chromium Fork" },
-                        { value: "Local-First", label: "Architecture" },
+                        { value: "8,775", label: "Tokens — Glazyr, 3 web tasks" },
+                        { value: "114,737", label: "Tokens — raw CDP, same tasks" },
+                        { value: "13×", label: "Fewer tokens vs CDP (measured)" },
+                        { value: "$0", label: "Free · Runs on your machine" },
                     ].map((stat) => (
                         <div
                             key={stat.label}

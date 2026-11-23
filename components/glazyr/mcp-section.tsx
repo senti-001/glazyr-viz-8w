@@ -1,18 +1,18 @@
 "use client"
 
-import { Cpu, Terminal, CheckCircle2, ShieldCheck, Compass } from "lucide-react"
+import { Cpu, Terminal, CheckCircle2, ShieldCheck, Compass, MonitorX } from "lucide-react"
 
 export function McpSection() {
   const tools = [
-    { name: "glazyr_status()", desc: "Check browser state, active process, and memory region status" },
-    { name: "glazyr_navigate(url)", desc: "Navigate; returns summary first (245 tokens on Wikipedia)" },
-    { name: "glazyr_peek(level)", desc: "Filtered page state (~13–14K tokens standard with sibling collapse)" },
-    { name: "glazyr_peek_raw()", desc: "Unfiltered state; immediate safety escalation path" },
-    { name: "glazyr_peek_subtree(id)", desc: "Focused zoom into specific container or element subtree" },
-    { name: "glazyr_find(query)", desc: "Search page structure for matching nodes or text" },
-    { name: "glazyr_click(node_id)", desc: "Click by DOM node id; auto-scrolls using layout geometry" },
-    { name: "glazyr_type(node_id, text)", desc: "Direct element focus + text typing" },
-    { name: "glazyr_scroll(dir, amount)", desc: "Scrolls viewport in specified direction" },
+    { name: "glazyr_status()", desc: "Is the browser up? What is it looking at?" },
+    { name: "glazyr_navigate(url)", desc: "Open a page; get the outline first (245 tokens on Wikipedia)" },
+    { name: "glazyr_peek(level)", desc: "Read the page the short way (~13–14K tokens, not 100K+)" },
+    { name: "glazyr_peek_raw()", desc: "The whole page, unfiltered — for when the short way is not enough" },
+    { name: "glazyr_peek_subtree(id)", desc: "Zoom into one part of the page" },
+    { name: "glazyr_find(query)", desc: "Find things on the page" },
+    { name: "glazyr_click(node_id)", desc: "Click buttons and links" },
+    { name: "glazyr_type(node_id, text)", desc: "Fill in fields and forms" },
+    { name: "glazyr_scroll(dir, amount)", desc: "Scroll up or down" },
   ]
 
   return (
@@ -21,27 +21,72 @@ export function McpSection() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-3.5 py-1 mb-4 slb-panel">
             <Compass className="w-4 h-4 text-primary" />
-            <span className="slb-label text-primary text-xs">Standardized Agent Interface</span>
+            <span className="slb-label text-primary text-xs">Plain-English Setup</span>
           </div>
           <h2 className="slb-header text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight mb-4 text-foreground">
-            How Agents Connect: Native MCP Bridge (v0.2.3)
+            Set up in about two minutes
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Glazyr ships as an MCP server: status, peek, peek_raw, peek_subtree, find, navigate, click, type, scroll — nine tools, one config block. The browser launches and manages itself; the agent reads curated state, zooms into subtrees, and acts on node ids.
+            Glazyr plugs into the agent app you already use — Claude Code, Cursor, Claude Desktop,
+            Codex, Antigravity. On Windows it runs through WSL, the Linux layer built into Windows.
+            No account, nothing to sign up for.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Client Config */}
-          <div className="lg:col-span-5 slb-panel p-6 border border-border/80 bg-card/40 backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/40">
-              <div className="flex items-center gap-2">
+          {/* Left: Steps */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="slb-panel p-6 border border-border/80 bg-card/40 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
                 <Terminal className="w-4 h-4 text-primary" />
-                <span className="text-sm font-bold text-foreground">Client Configuration</span>
+                <span className="text-sm font-bold text-foreground">Windows — 3 steps</span>
               </div>
-              <span className="slb-label text-[10px] text-muted-foreground font-mono">claude_desktop_config.json</span>
+              <ol className="space-y-4 text-sm text-muted-foreground leading-relaxed list-none">
+                <li>
+                  <strong className="text-foreground">1. Turn on WSL.</strong> Open PowerShell and run{" "}
+                  <span className="font-mono text-foreground">wsl --install</span>, then restart your PC.
+                  Already have Ubuntu in WSL? Skip this step.
+                </li>
+                <li>
+                  <strong className="text-foreground">2. Paste this into your app&apos;s MCP settings:</strong>
+                  <pre className="font-mono text-xs text-foreground/90 bg-background/80 p-4 rounded border border-border/40 overflow-x-auto leading-relaxed mt-2">
+{`{
+  "mcpServers": {
+    "glazyr": {
+      "command": "wsl.exe",
+      "args": ["-d", "Ubuntu", "--",
+               "npx", "-y", "@glazyr/mcp"]
+    }
+  }
+}`}
+                  </pre>
+                  <span className="text-xs">If your WSL distro has a different name, use that name instead of <span className="font-mono">Ubuntu</span>.</span>
+                </li>
+                <li>
+                  <strong className="text-foreground">3. Restart the app</strong> and ask your agent to open any web page.
+                </li>
+              </ol>
+              <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground space-y-2">
+                <p className="flex items-center gap-2 text-primary font-bold">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Two things worth knowing
+                </p>
+                <p>
+                  The first run downloads Glazyr&apos;s browser (about 106 MB) — once, automatically.
+                  And keep an Ubuntu terminal window open while you work: Windows puts WSL to sleep
+                  when it sits idle, and a sleeping WSL pauses Glazyr.
+                </p>
+              </div>
             </div>
-            <pre className="font-mono text-xs text-foreground/90 bg-background/80 p-4 rounded border border-border/40 overflow-x-auto leading-relaxed">
+
+            <div className="slb-panel p-6 border border-border/80 bg-card/40 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <Terminal className="w-4 h-4 text-primary" />
+                <span className="text-sm font-bold text-foreground">On Linux instead?</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                Same idea, one block. Needs Linux x64 and Node 18+:
+              </p>
+              <pre className="font-mono text-xs text-foreground/90 bg-background/80 p-4 rounded border border-border/40 overflow-x-auto leading-relaxed">
 {`{
   "mcpServers": {
     "glazyr": {
@@ -50,45 +95,28 @@ export function McpSection() {
     }
   }
 }`}
-            </pre>
-            <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-              Requires Linux x64 and Node 18+. The browser bundle (~106 MB) downloads automatically on first run. Tip: run <span className="font-mono">npx -y @glazyr/mcp</span> once and wait for the ready line before connecting your client, so the first connect does not time out.
-            </p>
-            <div className="flex items-center justify-between mt-6 mb-4 pb-3 border-b border-border/40">
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-primary" />
-                <span className="text-sm font-bold text-foreground">Windows (via WSL)</span>
-              </div>
-              <span className="slb-label text-[10px] text-muted-foreground font-mono">same config, wsl.exe launcher</span>
+              </pre>
             </div>
-            <pre className="font-mono text-xs text-foreground/90 bg-background/80 p-4 rounded border border-border/40 overflow-x-auto leading-relaxed">
-{`{
-  "mcpServers": {
-    "glazyr": {
-      "command": "wsl.exe",
-      "args": ["-d", "Ubuntu", "--", "npx", "-y", "@glazyr/mcp"]
-    }
-  }
-}`}
-            </pre>
-            <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-              Use your own distro name in place of <span className="font-mono">Ubuntu</span>. Keep a WSL session open (or run <span className="font-mono">wsl -d Ubuntu -- sleep infinity</span> in a spare terminal) so Windows does not idle-shut the distro down mid-session.
-            </p>
-            <div className="mt-4 p-3 rounded bg-primary/5 border border-primary/20 text-xs text-muted-foreground space-y-2">
-              <p className="flex items-center gap-2 text-primary font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Summary-First Navigation
-              </p>
-              <p>
-                Navigate now returns an outline map (URL, counts, heading outline — <strong>245 tokens</strong> on Wikipedia) instead of the whole territory. Sibling collapse drops standard view to ~13–14K tokens.
-              </p>
+
+            <div className="slb-panel p-6 border border-amber-500/30 bg-amber-500/5">
+              <div className="flex items-start gap-3">
+                <MonitorX className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="text-xs sm:text-sm">
+                  <h4 className="font-bold text-foreground mb-1">Using a Mac?</h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Glazyr does not run on macOS yet — it needs Windows (with WSL) or Linux.
+                    We would rather say that plainly than sell you a workaround.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right: The 9 Tools & Dogfood Verification */}
+          {/* Right: The 9 Tools & No-Repeat-Reads */}
           <div className="lg:col-span-7 space-y-6">
             <div className="slb-panel p-6 border border-border/80 bg-card/40">
               <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-primary" /> The 9 Perception &amp; Action Tools
+                <Cpu className="w-4 h-4 text-primary" /> What your agent gets: 9 simple tools
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {tools.map((t) => (
@@ -105,10 +133,13 @@ export function McpSection() {
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div className="text-xs sm:text-sm">
                   <h4 className="font-bold text-foreground mb-1">
-                    Unchanged-State Stubs &amp; Asserted Action Acks
+                    It does not charge you twice for the same page
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    Repeat reads of unchanged state return a short stub rather than paying full token price. Click and type acknowledgments carry their asserted result inline, beating dogfood baselines across research flows (Wikipedia research 28–30K &rarr; 7,108 tokens; find-a-fact 18,451 &rarr; 371 tokens).
+                    If a page has not changed, Glazyr answers with a short &ldquo;nothing new&rdquo; note
+                    instead of the full page again. And when your agent clicks or types, the result
+                    comes back in the same breath — no extra read needed. That is how a Wikipedia
+                    research task drops from 28–30K tokens to 7,108.
                   </p>
                 </div>
               </div>
