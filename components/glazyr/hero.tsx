@@ -43,7 +43,7 @@ export function Hero() {
                 <h1 className="slb-header text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight text-balance mb-6">
                     Same web.
                     <br />
-                    <span className="text-primary text-3xl md:text-5xl text-balance">92% fewer tokens.</span>
+                    <span className="text-primary text-3xl md:text-5xl text-balance">98.6% fewer tokens.</span>
                 </h1>
 
                 {/* Subline */}
@@ -73,9 +73,9 @@ export function Hero() {
                 {/* Metric Strip */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     {[
-                        { value: "8,775", label: "Tokens — Glazyr, 3 web tasks" },
-                        { value: "114,737", label: "Tokens — raw CDP, same tasks" },
-                        { value: "13×", label: "Fewer tokens vs CDP (measured)" },
+                        { value: "52,790", label: "Tokens — Glazyr, 4 web tasks" },
+                        { value: "3,885,586", label: "Tokens — raw CDP, same tasks" },
+                        { value: "74×", label: "Fewer tokens vs CDP (measured)" },
                         { value: "$0", label: "Free · Runs on your machine" },
                     ].map((stat) => (
                         <div

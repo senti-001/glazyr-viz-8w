@@ -13,6 +13,7 @@ export function McpSection() {
     { name: "glazyr_click(node_id)", desc: "Click buttons and links" },
     { name: "glazyr_type(node_id, text)", desc: "Fill in fields and forms" },
     { name: "glazyr_scroll(dir, amount)", desc: "Scroll up or down" },
+    { name: "glazyr_trace(mode)", desc: "Replay and verify the session — a hash-chained record of everything the agent did" },
   ]
 
   return (
@@ -112,11 +113,11 @@ export function McpSection() {
             </div>
           </div>
 
-          {/* Right: The 9 Tools & No-Repeat-Reads */}
+          {/* Right: The 10 Tools & No-Repeat-Reads */}
           <div className="lg:col-span-7 space-y-6">
             <div className="slb-panel p-6 border border-border/80 bg-card/40">
               <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-primary" /> What your agent gets: 9 simple tools
+                <Cpu className="w-4 h-4 text-primary" /> What your agent gets: 10 simple tools
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {tools.map((t) => (

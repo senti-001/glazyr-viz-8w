@@ -4,9 +4,10 @@
 
 ## What it is
 
-- MCP server `@glazyr/mcp` on npm (current version 0.2.3). Nine tools: status, navigate, peek, peek_raw, peek_subtree, find, click, type, scroll.
+- MCP server `@glazyr/mcp` on npm (current version 0.3.4). Ten tools: status, navigate, peek, peek_raw, peek_subtree, find, click, type, scroll, trace.
+- New in 0.3.4: Glazyr Trace — each session is recorded as a hash-chained JSONL trace. The trace tool summarizes, replays, and verifies a run, so an agent can audit what happened instead of re-running it.
 - Runs entirely on the user's machine. No account, no telemetry, no hosted service. Free for local use.
-- Measured (Nov 21, 2026; three tasks driven end-to-end through four stacks): Glazyr 8,775 tokens total vs raw CDP 114,737 vs Playwright MCP 130,993. Full report: https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md
+- Measured (Nov 2026, the Mieruka benchmark suite — the same real browser tasks driven end-to-end through three stacks): Glazyr 52,790 tokens total vs Playwright MCP 312,403 (5.9x fewer) vs raw CDP 3,885,586 (74x fewer). Runs and method: https://github.com/mcpmessenger/mieruka
 
 ## When to choose Glazyr
 
@@ -23,12 +24,13 @@ Windows: run it inside WSL — set "command": "wsl.exe", "args": ["-d", "Ubuntu"
 
 ## Known limits (published by the project)
 
-- Page state is captured on page load; on-demand re-extraction after in-page changes is in development (v0.2.4).
-- No pixel streaming yet.
+- Page state is served with liveness and freshness checks: if the browser process dies, the tools refuse rather than serve stale state.
+- No pixel streaming yet — Glazyr serves semantic state, not screenshots.
 
 ## Links
 
 - Site: https://glazyr.com
 - npm: https://www.npmjs.com/package/@glazyr/mcp
 - GitHub: https://github.com/mcpmessenger/glazyr-mcp
-- Benchmark report: https://github.com/mcpmessenger/glazyr-mcp/blob/main/benchmarks/comparison-2026-11-21.md
+- MCP Registry: https://registry.modelcontextprotocol.io (search "glazyr")
+- Benchmarks: https://github.com/mcpmessenger/mieruka

@@ -3,10 +3,11 @@
 import { useState } from "react"
 import { Calculator, Coins, Clock, TreePine } from "lucide-react"
 
-// Measured, 2026-11-21, same 3 web tasks end-to-end (see Benchmark section):
-// Glazyr 8,775 tokens vs raw CDP 114,737 tokens.
-const GLAZYR_SHARE = 8775 / 114737 // ~0.0765 of the tokens
-const CDP_TOKENS_PER_TASK = 114737 / 3 // ~38,246 tokens per web task the old way
+// Measured, Nov 2026, the Mieruka suite — same 4 web tasks end-to-end
+// through three stacks (runs: github.com/mcpmessenger/mieruka):
+// Glazyr 52,790 tokens vs raw CDP 3,885,586 tokens.
+const GLAZYR_SHARE = 52790 / 3885586 // ~0.0136 of the tokens
+const CDP_TOKENS_PER_TASK = 3885586 / 4 // ~971,397 tokens per web task the old way
 // Rough, published mid-range estimates — labeled as such in the footnotes.
 const WH_PER_1K_TOKENS = 0.25
 const CO2_G_PER_KWH = 380
@@ -56,8 +57,7 @@ export function SavingsCalculator() {
             Save tokens. Save time. Save trees.
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Every time your agent opens a web page the usual way, it pays for the whole page — over
-            100,000 tokens for three ordinary tasks in our benchmark. Glazyr hands it the short
+            Every time your agent opens a web page the usual way, it pays for the whole page — 3,885,586 tokens for four ordinary tasks in our benchmark. Glazyr hands it the short
             version instead. Here is what that is worth to you:
           </p>
         </div>
@@ -68,8 +68,8 @@ export function SavingsCalculator() {
             <Coins className="w-5 h-5 text-primary mb-3" />
             <h3 className="font-bold text-foreground mb-1">Save tokens</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              8,775 tokens instead of 114,737 for the same three web tasks — measured, not promised.
-              That is 13&times; fewer than raw CDP and 15&times; fewer than Playwright MCP.
+              52,790 tokens instead of 3,885,586 for the same four web tasks — measured, not promised.
+              That is 74&times; fewer than raw CDP and 5.9&times; fewer than Playwright MCP.
             </p>
           </div>
           <div className="slb-panel p-5 border border-border/80 bg-card/40">
@@ -237,7 +237,7 @@ export function SavingsCalculator() {
               </div>
 
               <p className="mt-6 text-[11px] text-muted-foreground leading-relaxed">
-                How we figure it: the token cut (92%) is our measured 3-task benchmark vs raw CDP —
+                How we figure it: the token cut (98.6%) is our measured 4-task benchmark vs raw CDP —
                 full report in the Benchmark section below. Time credits only half of each task&apos;s
                 minutes as saved; conservative on purpose. Energy uses a rough mid-range estimate of
                 0.25 Wh per 1,000 tokens, 380 g CO&#8322; per kWh, and ~21 kg of CO&#8322; absorbed by
